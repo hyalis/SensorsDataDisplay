@@ -18,7 +18,11 @@
 						<td>'.$resultat->cp.'</td>
 						<td>'.$resultat->ville.'</td>
 						<td>'.$resultat->nbPiece.'</td>
-						<td><a href="#"><span class="glyphicon glyphicon-remove" style="margin-right:15px;" onClick="removeBat('.$resultat->idBatiment.')"></a><a href="#"></span><span class="glyphicon glyphicon-wrench"></span></a></td>
+						<td>
+							<a href="#"><span class="glyphicon glyphicon-remove" onClick="removeBat('.$resultat->idBatiment.')"></a>
+							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editBatModal" onClick="editBat('.$resultat->idBatiment.')"></span></a>
+							<a href="index.php?p=editP&idBatiment='.$resultat->idBatiment.'"><span class="glyphicon glyphicon-home"></a>
+						</td>
 					</tr>';
 	}
 	$resultats->closeCursor(); 

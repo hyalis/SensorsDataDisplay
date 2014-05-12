@@ -17,8 +17,8 @@
 					} else {
 						//Si la rep du PHP n'est pas vide
 						//alert ("Requete OK, MAJ du tab des bats ...");
-			//alert ("Rep du PHP = " + xmlhttp.responseText);
-				document.getElementById('tabBatiment').innerHTML=xmlhttp.responseText;
+						//alert ("Rep du PHP = " + xmlhttp.responseText);
+						document.getElementById('tabBatiment').innerHTML=xmlhttp.responseText;
 					}
 				}
 			}
@@ -58,10 +58,10 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1>Edit Buildings <small>Edit your buildings and rooms</small></h1>
+		<h1>Edit Rooms <small>Edit your rooms and sensors</small></h1>
 		<ol class="breadcrumb">
-			<li><a href="index.php?p=dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>	
-			<li class="active"><i class="fa fa-edit"></i> Edit building</li>
+			<li><a href="index.php?p=dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+			<li class="active"><i class="fa fa-edit"></i> Edit rooms</li>
 		</ol>
 	</div>
 </div><!-- /.row -->
@@ -70,22 +70,19 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h2>Buildings list :</h2>
+		<h2>Rooms list :</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover table-striped tablesorter">
 				<thead>
 					<tr>
 						<th>Name <i class="fa fa-sort"></i></th>
-						<th>Adress <i class="fa fa-sort"></i></th>
-						<th>Zip code <i class="fa fa-sort"></i></th>
-						<th>City <i class="fa fa-sort"></i></th>
-						<th>Rooms<i class="fa fa-sort"></i></th>
+						<th>Sensors<i class="fa fa-sort"></i></th>
 						<th>Edit <i class="fa fa-sort"></i></th>
 					</tr>
 				</thead>
 				<tbody id="tabBatiment">
 					<?php
-						include "listBat.php";
+						include "listPie.php";
 					?>
 				</tbody>
 			</table>
