@@ -78,7 +78,8 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav side-nav">
+				<ul class="nav navbar-nav navbar-center navbar-user">
+				<!--<ul class="nav navbar-nav side-nav">-->
 					<li class="<?php echo $dashboard; ?>"><a href="index.php?p=dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 					<li class="<?php echo $charts; ?>"><a href="index.php?p=charts"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
 					<li class="dropdown <?php echo $form; ?>">
