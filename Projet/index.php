@@ -18,6 +18,8 @@
 				break;
 			case 'editP' : 		$form = "active";
 				break;
+			case 'editS' : 		$form = "active";
+				break;
 			case 'import' :  	$import = "active";
 				break;
 		}

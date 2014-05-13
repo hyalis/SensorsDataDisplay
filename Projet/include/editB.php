@@ -60,7 +60,6 @@
 	<div class="col-lg-12">
 		<h1>Edit Buildings <small>Edit your buildings and rooms</small></h1>
 		<ol class="breadcrumb">
-			<li><a href="index.php?p=dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>	
 			<li class="active"><i class="fa fa-edit"></i> Edit building</li>
 		</ol>
 	</div>
