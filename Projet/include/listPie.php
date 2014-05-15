@@ -8,14 +8,14 @@
 														AND Batiment_idBatiment = $idBatiment
 															UNION
 														SELECT idPiece, nom, 0
-														FROM piece, capteur, localiser
+														FROM piece
 														WHERE idPiece NOT IN (
 															SELECT DISTINCT Piece_idPiece
 															FROM localiser
 														)
 														AND Batiment_idBatiment = $idBatiment");
-														
-																											
+
+	
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	
 	while( $resultat = $resultats->fetch() )
@@ -27,7 +27,7 @@
 						<td>
 							<a href="./include/remPie.php?idPiece='.$resultat->idPiece.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></a>
 							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->idPiece.')"></span></a>
-							<a href="editS?idPiece='.$resultat->idPiece.'"><span class="glyphicon glyphicon-signal"></a>
+							<a href="index.php?p=editS&idPiece='.$resultat->idPiece.'"><span class="glyphicon glyphicon-signal"></a>
 						</td>
 					</tr>';
 	}

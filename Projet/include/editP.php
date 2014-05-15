@@ -26,7 +26,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1>Edit Rooms <small>Edit your rooms and sensors</small></h1>
+		<h1>Edit Rooms <small>Edit your rooms</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="index.php?p=editB"><i class="fa fa-edit"></i> Edit building</a></li>
 			<li class="active"><i class="fa fa-home"></i> Edit rooms</li>

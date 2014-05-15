@@ -9,6 +9,7 @@
 																					FROM piece
 																				);
 														");
+														
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	while( $resultat = $resultats->fetch() )
 	{
