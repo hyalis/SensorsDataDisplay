@@ -8,8 +8,11 @@
 <script src="js/moment.min.js"></script>
 <script src="./amcharts/serial.js" type="text/javascript"></script>
 
-
-
+<style>
+	#wrapper {
+		padding-left: 225px;
+	}
+</style>
 
 <link rel="stylesheet" href="./css/iThing.css" type="text/css" >
 

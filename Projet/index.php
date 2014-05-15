@@ -14,11 +14,11 @@
 				break;
 			case 'editB' : 		$form = "active";
 				break;
-			case 'editT' : 		$form = "active";
+			case 'editC' : 		$form = "active";
 				break;
 			case 'editP' : 		$form = "active";
 				break;
-			case 'editL' : 		$form = "active";
+			case 'editS' : 		$form = "active";
 				break;
 			case 'import' :  	$import = "active";
 				break;
@@ -36,7 +36,7 @@
     <meta name="description" content="">
     <meta name="author" content="Clément Edouard - Léo Mouly">
 
-    <title>Dashboard - TypesDataDisplay</title>
+    <title>Dashboard - SensorsDataDisplay</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -61,6 +61,12 @@
 	<script src="amcharts/exporting/canvg.js" type="text/javascript"></script>        
 	<script src="amcharts/exporting/filesaver.js" type="text/javascript"></script>
 	
+	<style>
+		#wrapper {
+			padding-left: 0px;
+		}
+	</style>
+	
 </head>
 
 <body>
@@ -77,7 +83,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php">TypesDataDisplay</a>
+				<a class="navbar-brand" href="index.php">SensorsDataDisplay</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,7 +96,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> Forms <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 						<li><a href="index.php?p=editB">Edit Buildings/Rooms</a></li>
-						<li><a href="index.php?p=editT">Edit Types</a></li>
+						<li><a href="index.php?p=editC">Edit Sensors</a></li>
 						</ul>
 					</li>
 					<li class="<?php echo $import; ?>"><a href="index.php?p=import"><i class="fa fa-file"></i> Import File</a></li>
