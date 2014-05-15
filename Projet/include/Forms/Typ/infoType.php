@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../../bdd.php";
 	$idTypeCapteur = $_GET['idTypeCapteur'];
 	
 	$resultats=$connection->query("SELECT  nomType FROM typecapteur WHERE idTypeCapteur = $idTypeCapteur");

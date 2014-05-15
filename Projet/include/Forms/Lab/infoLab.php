@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../../bdd.php";
 	$idLibVal = $_GET['idLibVal'];
 	
 	$resultats=$connection->query("SELECT libelle, description, unite FROM libval WHERE idLibVal = $idLibVal");

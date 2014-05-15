@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../../bdd.php";
 	
 	$idLibVal = $_GET['idLibVal'];
 	

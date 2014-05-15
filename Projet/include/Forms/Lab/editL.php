@@ -1,33 +1,5 @@
 
 <script>
-	function removeLabel(idlibelle)
-	{
-		if(confirm("Voulez vous vraiment supprimer le Label numero " + idCapt )){
-			document.getElementById('tabLab').innerHTML='<h2><img src="./img/loading.gif" style="margin-right:25px;"/>Please wait...</h2>';
-			if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp=new XMLHttpRequest();
-			} else {	// code for IE6, IE5
-				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			xmlhttp.onreadystatechange=function(){
-				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					if(xmlhttp.responseText==""){
-						//Si la rep du PHP est vide
-						alert ("La req n'a pas fonctionne");
-						alert(xmlhttp.responseText);
-					} else {
-						//Si la rep du PHP n'est pas vide
-						//alert ("Requete OK, MAJ du tab des bats ...");
-			//alert ("Rep du PHP = " + xmlhttp.responseText);
-				document.getElementById('tabLab').innerHTML=xmlhttp.responseText;
-					}
-				}
-			}
-			
-			xmlhttp.open("GET","./include/remLab.php?idLibVal="+idlibelle,true);
-			xmlhttp.send();
-		}	
-	}
 	
 	function editLabel(idlibelle)
 	{
@@ -100,7 +72,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="titreModal"></h4>
 			</div>
-			<form class="form-horizontal" role="form" method="GET" action="./include/updateLab.php">
+			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Lab/updateLab.php">
 				<div class="modal-body" id="modalBody">
 					<input type="hidden" id="inpIdLibVal" name="idLibVal" value="">
 						<div class="form-group">

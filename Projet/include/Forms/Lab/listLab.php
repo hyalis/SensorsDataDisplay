@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "./bdd.php";
 	
 	$idTypeCapteur = $_GET['idTypeCapteur'];
 	$resultats=$connection->query(" SELECT libelle, description, unite, idLibVal
@@ -15,7 +15,7 @@
 						<td>'.$resultat->description.'</td>
 						<td>'.$resultat->unite.'</td>
 						<td>
-							<a href="#"><span class="glyphicon glyphicon-remove" onClick="removeLabel('.$resultat->idLibVal.')"></a>
+							<a href="./include/Forms/Lab/remLab.php?idLibVal='.$resultat->idLibVal.'"><span class="glyphicon glyphicon-remove"></a>
 							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editLabelModal" onClick="editLabel('.$resultat->idLibVal.')"></span></a>
 						</td>
 					</tr>';
