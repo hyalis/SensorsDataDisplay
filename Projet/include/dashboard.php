@@ -106,15 +106,15 @@
 		  </div>
 		  <div class="col-xs-6 text-right">
 			<p class="announcement-heading"><?php echo $nbCapteurs; ?></p>
-			<p class="announcement-text"> Sensors</p>
+			<p class="announcement-text"> Types</p>
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=editC">
+	  <a href="index.php?p=editT">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">
-			Edit Sensors
+			Edit Types
 			</div>
 			<div class="col-xs-6 text-right">
 			  <i class="fa fa-arrow-circle-right"></i>
@@ -137,15 +137,15 @@
 		  </div>
 		  <div class="col-xs-6 text-right">
 			<p class="announcement-heading"><?php echo $nbTypes; ?></p>
-			<p class="announcement-text">Types of sensors</p>
+			<p class="announcement-text">Types of Types</p>
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=editC">
+	  <a href="index.php?p=editT">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">
-			  Edit Sensors
+			  Edit Types
 			</div>
 			<div class="col-xs-6 text-right">
 			  <i class="fa fa-arrow-circle-right"></i>
