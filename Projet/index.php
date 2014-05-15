@@ -14,9 +14,11 @@
 				break;
 			case 'editB' : 		$form = "active";
 				break;
-			case 'editC' : 		$form = "active";
+			case 'editT' : 		$form = "active";
 				break;
 			case 'editP' : 		$form = "active";
+				break;
+			case 'editL' : 		$form = "active";
 				break;
 			case 'import' :  	$import = "active";
 				break;
@@ -34,7 +36,7 @@
     <meta name="description" content="">
     <meta name="author" content="Clément Edouard - Léo Mouly">
 
-    <title>Dashboard - SensorsDataDisplay</title>
+    <title>Dashboard - TypesDataDisplay</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -75,7 +77,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php">SensorsDataDisplay</a>
+				<a class="navbar-brand" href="index.php">TypesDataDisplay</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -88,7 +90,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> Forms <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 						<li><a href="index.php?p=editB">Edit Buildings/Rooms</a></li>
-						<li><a href="index.php?p=editC">Edit Sensors</a></li>
+						<li><a href="index.php?p=editT">Edit Types</a></li>
 						</ul>
 					</li>
 					<li class="<?php echo $import; ?>"><a href="index.php?p=import"><i class="fa fa-file"></i> Import File</a></li>

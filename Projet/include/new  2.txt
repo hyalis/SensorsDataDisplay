@@ -1,0 +1,7 @@
+ 	fk_Capteur_TypeCapteur1
+	
+	select *
+from information_schema.key_column_usage
+where constraint_schema = 'projet'
+
+update information_schema.key_column_usage set 
