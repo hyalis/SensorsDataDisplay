@@ -20,6 +20,8 @@
 				break;
 			case 'Forms/Cap/editC' : 		$form = "active";
 				break;
+			case 'Forms/Cap/editL' : 		$form = "active";
+				break;
 			case 'Import/import' :  	$import = "active";
 				break;
 		}
