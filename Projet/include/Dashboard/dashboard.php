@@ -56,7 +56,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=editB">
+	  <a href="index.php?p=Forms/Bat/editB">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">
@@ -83,7 +83,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=editB">
+	  <a href="index.php?p=Forms/Bat/editB">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">
@@ -110,7 +110,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=editB">
+	  <a href="index.php?p=Forms/Bat/editB">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">
@@ -141,7 +141,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=editT">
+	  <a href="index.php?p=Forms/Typ/editT">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">
@@ -168,7 +168,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=charts">
+	  <a href="index.php?p=Charts/charts">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">
@@ -195,7 +195,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <a href="index.php?p=charts">
+	  <a href="index.php?p=Charts/charts">
 		<div class="panel-footer announcement-bottom">
 		  <div class="row">
 			<div class="col-xs-6">

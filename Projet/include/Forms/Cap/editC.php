@@ -29,7 +29,7 @@
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/infoCap.php?idCapteur="+idCap,true);
+		xmlhttp.open("GET","./include/Forms/Cap/infoCap.php?idCapteur="+idCap,true);
 		xmlhttp.send();
 	}
 </script>
@@ -38,8 +38,9 @@
 	<div class="col-lg-12">
 		<h1>Edit Sensors <small>Edit your sensors</small></h1>
 		<ol class="breadcrumb">
-			<li><a href="index.php?p=editB"><i class="fa fa-edit"></i> Edit building</a></li>
-			<li class="active"><i class="fa fa-home"></i> Edit rooms</li>
+			<li><a href="index.php?p=Forms/Bat/editB"><i class="fa fa-edit"></i> Edit building</a></li>
+			<li><a href="index.php?p=Forms/Pie/editP&idBatiment"><i class="fa fa-edit"></i> Edit piece</a></li>
+			<li class="active"><i class="fa fa-home"></i> Edit sensors</li>
 		</ol>
 	</div>
 </div><!-- /.row -->
@@ -76,7 +77,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="titreModal"></h4>
 			</div>
-			<form class="form-horizontal" role="form" method="GET" action="./include/updateCap.php">
+			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Cap/updateCap.php">
 				<div class="modal-body">
 						<input type="hidden" id="inpIdCap" name="idCapteur" value="">
 						<input type="hidden" id="inpIdPie" name="idPiece" value="<?php echo $idPiece; ?>">

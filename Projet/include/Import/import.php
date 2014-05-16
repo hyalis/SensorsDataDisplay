@@ -6,7 +6,6 @@
   <div class="col-lg-12">
 	<h1>Import File <small>Import Your Data Into SensorsDataDisplay Database</small></h1>
 	<ol class="breadcrumb">
-	  <li><a href="index.php?p=dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 	  <li class="active"><i class="fa fa-edit"></i> Import File</li>
 	</ol>
   </div>

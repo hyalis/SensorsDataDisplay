@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../bdd.php";
 
 	$dateDeb = $_GET['dateDeb'];
 	$dateFin = $_GET['dateFin'];

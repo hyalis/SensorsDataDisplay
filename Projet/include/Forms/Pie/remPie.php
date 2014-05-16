@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../../bdd.php";
 	
 	$idPiece = $_GET['idPiece'];
 	$idBatiment = $_GET['idBatiment'];
@@ -8,5 +8,5 @@
 	include "listPie.php";
 	$resultats->closeCursor();
 	
-	header('Location: ../index.php?p=editP&idBatiment='.$idBatiment); 
+	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Pie/editP&idBatiment='.$idBatiment); 
 ?>

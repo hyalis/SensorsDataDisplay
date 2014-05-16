@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../../bdd.php";
 	$idPiece = $_GET['idPiece'];
 	
 	$resultats=$connection->query("SELECT nom FROM Piece WHERE idPiece = $idPiece");

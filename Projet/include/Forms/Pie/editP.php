@@ -19,7 +19,7 @@
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/infoPie.php?idPiece="+idPie,true);
+		xmlhttp.open("GET","./include/Forms/Pie/infoPie.php?idPiece="+idPie,true);
 		xmlhttp.send();
 	}
 </script>
@@ -28,7 +28,7 @@
 	<div class="col-lg-12">
 		<h1>Edit Rooms <small>Edit your rooms</small></h1>
 		<ol class="breadcrumb">
-			<li><a href="index.php?p=editB"><i class="fa fa-edit"></i> Edit building</a></li>
+			<li><a href="index.php?p=Forms/Bat/editB"><i class="fa fa-edit"></i> Edit building</a></li>
 			<li class="active"><i class="fa fa-home"></i> Edit rooms</li>
 		</ol>
 	</div>
@@ -65,7 +65,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="titreModal"></h4>
 			</div>
-			<form class="form-horizontal" role="form" method="GET" action="./include/updatePie.php">
+			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Pie/updatePie.php">
 				<div class="modal-body">
 						<input type="hidden" id="inpIdPie" name="idPiece" value="">
 						<input type="hidden" id="inpIdBat" name="idBatiment" value="<?php echo $idBatiment; ?>">

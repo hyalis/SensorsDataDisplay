@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../bdd.php";
 	$idPiece = $_GET['idPiece'];
 	$resultats=$connection->query("	SELECT idCapteur, nomType
 									FROM capteur, localiser, typecapteur

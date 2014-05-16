@@ -8,9 +8,9 @@
 	if(!empty($_GET['p'])){
 		//Selon l'onglet courant
 		switch($_GET['p']){
-			case 'dashboard' :	$dashboard = "active";
+			case 'Dashboard/dashboard' :	$dashboard = "active";
 				break;
-			case 'charts' : 	$charts = "active";
+			case 'Charts/charts' : 	$charts = "active";
 				break;
 			case 'Forms/Bat/editB' : 		$form = "active";
 				break;
@@ -20,7 +20,7 @@
 				break;
 			case 'Forms/Cap/editC' : 		$form = "active";
 				break;
-			case 'import' :  	$import = "active";
+			case 'Import/import' :  	$import = "active";
 				break;
 		}
 	} else {
@@ -34,7 +34,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="Clément Edouard - Léo Mouly">
+    <meta name="author" content="Clément Edouard - Léo Mouly - Damien Parise">
 
     <title>Dashboard - SensorsDataDisplay</title>
 
@@ -90,8 +90,8 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav navbar-center">
 				<!-- <ul class="nav navbar-nav side-nav"> -->
-					<li class="<?php echo $dashboard; ?>"><a href="index.php?p=dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-					<li class="<?php echo $charts; ?>"><a href="index.php?p=charts"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
+					<li class="<?php echo $dashboard; ?>"><a href="index.php?p=Dashboard/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+					<li class="<?php echo $charts; ?>"><a href="index.php?p=Charts/charts"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
 					<li class="dropdown <?php echo $form; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> Forms <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -99,12 +99,12 @@
 						<li><a href="index.php?p=Forms/Typ/editT">Edit Sensors</a></li>
 						</ul>
 					</li>
-					<li class="<?php echo $import; ?>"><a href="index.php?p=import"><i class="fa fa-file"></i> Import File</a></li>
+					<li class="<?php echo $import; ?>"><a href="index.php?p=Import/import"><i class="fa fa-file"></i> Import File</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right navbar-user">
 					<li class="dropdown user-dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Clement Edouard <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Equipe SIG <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
 							<li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
@@ -124,10 +124,10 @@
 					if(file_exists('include/' . $_GET['p'] . '.php')){
 							include('include/' . $_GET['p'] . '.php');
 					} else {
-							include('include/dashboard.php');
+							include('include/Dashboard/dashboard.php');
 					}
 				} else {
-					include('include/dashboard.php');
+					include('include/Dashboard/dashboard.php');
 				}
 			?>
 		</div><!-- /#page-wrapper -->

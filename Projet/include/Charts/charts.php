@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "./bdd.php";
 ?>
 
 <script type="text/javascript" src="./js/jscolor.js"></script>
@@ -329,7 +329,7 @@ function updaValues(){
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/reqChart.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib+"&idCapteur2="+opt2capt+"&idLibVal2="+opt2lib+"&idCapteur3="+opt3capt+"&idLibVal3="+opt3lib+"&groupBy="+groupBy,true);
+		xmlhttp.open("GET","./include/Charts/reqChart.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib+"&idCapteur2="+opt2capt+"&idLibVal2="+opt2lib+"&idCapteur3="+opt3capt+"&idLibVal3="+opt3lib+"&groupBy="+groupBy,true);
 		xmlhttp.send();
 	}
 </script>
@@ -371,7 +371,7 @@ function updaValues(){
 			}
 		}
 
-		xmlhttp.open("GET","./include/getPiece.php?batiment="+str,true);
+		xmlhttp.open("GET","./include/Charts/getPiece.php?batiment="+str,true);
 		xmlhttp.send();
 	}
 </script>
@@ -411,7 +411,7 @@ function updaValues(){
 			}
 		}
 		
-		xmlhttp.open("GET","./include/getCapteur.php?idPiece="+str,true);
+		xmlhttp.open("GET","./include/Charts/getCapteur.php?idPiece="+str,true);
 		xmlhttp.send();
 	}
 </script>
@@ -446,7 +446,7 @@ function updaValues(){
 			}
 		}
 		
-		xmlhttp.open("GET","./include/getLib.php?idCapteur="+str,true);
+		xmlhttp.open("GET","./include/Charts/getLib.php?idCapteur="+str,true);
 		xmlhttp.send();
 	}
 </script>
@@ -505,7 +505,7 @@ function updaValues(){
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/stats.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib,true);
+		xmlhttp.open("GET","./include/Charts/stats.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib,true);
 		xmlhttp.send();
 	}
 </script>
@@ -529,7 +529,6 @@ function updaValues(){
   <div class="col-lg-12">
 	<h1>Charts <small>Display Your Data</small></h1>
 	<ol class="breadcrumb">
-	  <li><a href="index.php?p=dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 	  <li class="active"><i class="fa fa-bar-chart-o"></i> Charts</li>
 	</ol>
   </div>

@@ -1,5 +1,5 @@
 <?php
-	include "bdd.php";
+	include "../bdd.php";
 
 	if(!empty($_GET['dateDeb']) && !empty($_GET['dateFin']) && !empty($_GET['idCapteur1']) && !empty($_GET['idLibVal1']) && !empty($_GET['idCapteur2']) && !empty($_GET['idLibVal2']) && !empty($_GET['idCapteur3']) && !empty($_GET['idLibVal3'])){
 		$dateDeb = $_GET['dateDeb'];

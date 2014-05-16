@@ -25,9 +25,9 @@
 						<td>'.$resultat->nom.'</td>
 						<td>'.$resultat->nbPiece.'</td>
 						<td>
-							<a href="./include/remPie.php?idPiece='.$resultat->idPiece.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></a>
+							<a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->idPiece.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></a>
 							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->idPiece.')"></span></a>
-							<a href="index.php?p=editS&idPiece='.$resultat->idPiece.'"><span class="glyphicon glyphicon-signal"></a>
+							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->idPiece.'"><span class="glyphicon glyphicon-signal"></a>
 						</td>
 					</tr>';
 	}
