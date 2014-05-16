@@ -16,4 +16,6 @@
 	}*/
 	include "listType.php";
 	$resultats->closeCursor();
+	
+	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Typ/EditT'); 
 ?>

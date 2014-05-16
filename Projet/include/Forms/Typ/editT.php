@@ -26,6 +26,24 @@
 		xmlhttp.send();
 	}
 	
+	function checkInfo(){
+		if($("#addNameValue").val() != ""){
+			$('#addTypModal button:submit').removeAttr("disabled", true);
+		} else {
+			$('#addTypModal button:submit').attr("disabled", true);
+		}
+		
+		if($("#inpName").val() != ""){
+			$('#editTypModal button:submit').removeAttr("disabled", true);
+		} else {
+			$('#editTypModal button:submit').attr("disabled", true);
+		}
+	}
+	
+	function cleanForm(){
+		$("#addNameValue").val("");
+		$('#addTypModal button:submit').attr("disabled", true);
+	}
 	
 </script>
 <div class="row">
@@ -61,6 +79,7 @@
 	</div>
 </div>
 
+<!-- LES MODALS -->
 <div class="modal fade" id="editTypeModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -87,6 +106,37 @@
 	</div>
 </div>
 
+<div class="modal fade" id="addTypModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="titreModal">New Type</h4>
+			</div>
+			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Typ/addTyp.php">
+				<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" id="inpName">Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name" onkeyup="checkInfo();" id="addNameValue">
+							</div>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary" disabled id="buttonSave">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-lg-12 text-center">
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTypModal" onClick="cleanForm();" style="width: 100px;font-size: 15pt;">Add</button>
+	</div>
+</div><!-- /.row -->
 
  <div class="row">
 	<div class="col-lg-12">

@@ -23,8 +23,30 @@
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/infoLab.php?idLibVal="+idlibelle,true);
+		xmlhttp.open("GET","./include/Forms/Lab/infoLab.php?idLibVal="+idlibelle,true);
 		xmlhttp.send();
+	}
+	
+	
+	function checkInfo(){
+		if($("#addNameValue").val() != ""){
+			$('#addLabModal button:submit').removeAttr("disabled", true);
+		} else {
+			$('#addLabModal button:submit').attr("disabled", true);
+		}
+		
+		if($("#inpName").val() != ""){
+			$('#editLabModal button:submit').removeAttr("disabled", true);
+		} else {
+			$('#editLabModal button:submit').attr("disabled", true);
+		}
+	}
+	
+	function cleanForm(){
+		$("#addNameValue").val("");
+		$("#addDescValue").val("");
+		$("#addUnitValue").val("");
+		$('#addLabModal button:submit').attr("disabled", true);
 	}
 	
 	
@@ -33,7 +55,7 @@
 	<div class="col-lg-12">
 		<h1>Edit Label <small>Edit your Label</small></h1>
 		<ol class="breadcrumb">
-			<li><a href="index.php?p=editT"><i class="fa fa-dashboard"></i>Edit Type</a></li>
+			<li><a href="index.php?p=Forms/Typ/editT"><i class="fa fa-dashboard"></i>Edit Type</a></li>
 			<li class="active"><i class="fa fa-edit"></i> Edit Label</li>
 		</ol>
 	</div>
@@ -103,6 +125,50 @@
 	</div>
 </div>
 
+<div class="modal fade" id="addLabModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="titreModal">New Label</h4>
+			</div>
+			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Lab/addLab.php">
+				<div class="modal-body">
+					<input type="hidden" id="inpIdTypeCapteur" name="idTypeCapteur" value="<?php echo $idTypeCapteur; ?>">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" id="inpName">Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name" onkeyup="checkInfo();" id="addNameValue">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" id="inpDesc">Description</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="desc" onkeyup="checkInfo();" id="addDescValue">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" id="inpUnit">Unite</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="unit" onkeyup="checkInfo();" id="addUnitValue">
+							</div>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary" disabled id="buttonSave">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-lg-12 text-center">
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addLabModal" onClick="cleanForm();" style="width: 100px;font-size: 15pt;">Add</button>
+	</div>
+</div><!-- /.row -->
  <div class="row">
 	<div class="col-lg-12">
 		<img src="./img/work_in.png" class="img-responsive center-block img-rounded" alt="Work in" style="width: 200px;">
