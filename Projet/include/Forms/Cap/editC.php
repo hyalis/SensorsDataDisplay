@@ -55,6 +55,23 @@
 		$('#addCapModal button:submit').attr("disabled", true);
 	}
 	
+	function radioChange(radio){
+		//alert("changement !");
+		if(radio==1){
+			$('#radio2').removeAttr("checked", true);
+			$('#addNameValue').removeAttr("disabled", true);
+			$('#listTypeAdd').removeAttr("disabled", true);
+			$('#listCap').attr("disabled", true);
+		} else {
+			$('#radio1').removeAttr("checked", true);
+			$('#listCap').removeAttr("disabled", true);
+			$('#addNameValue').attr("disabled", true);
+			$('#listTypeAdd').attr("disabled", true);
+			$('#addNameValue').val("");
+		}
+	
+	}
+	
 </script>
 
 <div class="row">
@@ -157,8 +174,9 @@
 				<h4 class="modal-title" id="titreModal">New sensors in this room</h4>
 			</div>
 			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Cap/addCap.php">
+				<input type="hidden" id="inpIdPie" name="idPiece" value="<?php echo $idPiece; ?>">
 				<div class="modal-body">
-						<input type="hidden" id="inpIdPie" name="idPiece" value="<?php echo $idPiece; ?>">
+						<h4><input type="radio" id="radio1" checked onChange="radioChange(1);"> Add a new sensor</h4><br>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
@@ -169,6 +187,15 @@
 							<label class="col-sm-2 control-label">Type</label>
 							<div class="col-sm-10">
 								<select class="form-control" id="listTypeAdd" name="idTypeCapteur">
+								</select>
+							</div>
+						</div>
+						<hr>
+						<h4><input type="radio" id="radio2" onChange="radioChange(2);"> Or choose an existing sensor unused</h4><br>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Name</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="listCap" name="idCapteur" disabled>
 								</select>
 							</div>
 						</div>
