@@ -48,9 +48,9 @@
 </script>
 <div class="row">
 	<div class="col-lg-12">
-		<h1>Edit Type <small>Edit your Type</small></h1>
+		<h1> Edit Type <small> Edit your Type</small></h1>
 		<ol class="breadcrumb">
-			<li class="active"><i class="fa fa-edit"></i> Edit Type</li>
+			<li class="active"><i class="fa fa-edit"></i> Edit Type </li>
 		</ol>
 	</div>
 </div>
@@ -59,7 +59,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h2>Types list :</h2>
+		<h2> Types list :</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover table-striped tablesorter">
 				<thead>
@@ -78,6 +78,15 @@
 		</div>
 	</div>
 </div>
+
+
+
+<div class="row">
+	<div class="col-lg-12 text-center">
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTypModal" onClick="cleanForm();" style="width: 100px;font-size: 15pt;">Add</button>
+	</div>
+</div><!-- /.row -->
+
 
 <!-- LES MODALS -->
 <div class="modal fade" id="editTypeModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -131,15 +140,3 @@
 	</div>
 </div>
 
-
-<div class="row">
-	<div class="col-lg-12 text-center">
-		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTypModal" onClick="cleanForm();" style="width: 100px;font-size: 15pt;">Add</button>
-	</div>
-</div><!-- /.row -->
-
- <div class="row">
-	<div class="col-lg-12">
-		<img src="./img/work_in.png" class="img-responsive center-block img-rounded" alt="Work in" style="width: 200px;">
-	</div>
-</div><!-- /.row -->

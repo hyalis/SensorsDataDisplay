@@ -53,10 +53,15 @@
 </script>
 <div class="row">
 	<div class="col-lg-12">
-		<h1>Edit Label <small>Edit your Label</small></h1>
+		<h1> Edit Label <small> Edit your Label of #<?php 
+		include "./bdd.php";
+		$resultats=$connection->query("SELECT nomType FROM typecapteur WHERE idTypeCapteur = ".$_GET['idTypeCapteur'].";" );
+		$resultats->setFetchMode(PDO::FETCH_OBJ);
+		$resultat = $resultats->fetch() ; 
+		echo $resultat->nomType ; ?></small></h1>
 		<ol class="breadcrumb">
-			<li><a href="index.php?p=Forms/Typ/editT"><i class="fa fa-dashboard"></i>Edit Type</a></li>
-			<li class="active"><i class="fa fa-edit"></i> Edit Label</li>
+			<li><a href="index.php?p=Forms/Typ/editT"><i class="fa fa-dashboard"></i> Edit Type </a></li>
+			<li class="active"><i class="fa fa-edit"></i> Edit Label </li>
 		</ol>
 	</div>
 </div>
@@ -65,7 +70,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h2>Types label :</h2>
+		<h2> Types label :</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover table-striped tablesorter">
 				<thead>
@@ -86,6 +91,11 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-lg-12 text-center">
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addLabModal" onClick="cleanForm();" style="width: 100px;font-size: 15pt;">Add</button>
+	</div>
+</div><!-- /.row -->
 
 <div class="modal fade" id="editLabelModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
@@ -162,15 +172,3 @@
 		</div>
 	</div>
 </div>
-
-
-<div class="row">
-	<div class="col-lg-12 text-center">
-		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addLabModal" onClick="cleanForm();" style="width: 100px;font-size: 15pt;">Add</button>
-	</div>
-</div><!-- /.row -->
- <div class="row">
-	<div class="col-lg-12">
-		<img src="./img/work_in.png" class="img-responsive center-block img-rounded" alt="Work in" style="width: 200px;">
-	</div>
-</div><!-- /.row -->
