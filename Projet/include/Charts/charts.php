@@ -2,17 +2,35 @@
 	include "./bdd.php";
 ?>
 
+<script src="js/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type='text/javascript' src='js/jquery.treeselect.js'></script>
+<link rel='stylesheet' type='text/css' href='css/jquery.treeselect.css' />
+
+
 <script type="text/javascript" src="./js/jscolor.js"></script>
 <script src="js/jquery-ui-1.10.4.custom.js"></script>
 <script src="js/jQDateRangeSlider-withRuler-min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="./amcharts/serial.js" type="text/javascript"></script>
 
-<style>
-	#wrapper {
-		padding-left: 225px;
-	}
-</style>
+
+
+
+
+	<style>
+		#wrapper {
+			width: 80%;
+			float: left;
+			padding-left: 0px;
+		}
+		#tree-wrapper {
+			width: 20%;
+			float: left;
+			margin-top: 65px;
+			padding-left: 25px;
+		}
+	</style>
 
 <link rel="stylesheet" href="./css/iThing.css" type="text/css" >
 
@@ -521,6 +539,112 @@ function updaValues(){
 		document.getElementById('parameters').style.display=''; 
 		chart.write('graphdiv');
 	}
+	
+	
+	
+	
+	
+		//DEBUT TREE
+			var maxDepth = 3;
+			var loadChildren = function(node, level) {
+				var hasChildren = node.level < maxDepth;
+				
+				
+				
+				node.children.push({
+					id:'bat'+1,
+					title:'Tripode C',
+					has_children:true,
+					level: 1,
+					children:[
+						{
+							id:'pie'+1,
+							title:'Chambre 8024',
+							has_children:true,
+							level: 2,
+							children:[
+								{
+									id:'lieu'+1,
+									title:'Salle de Bain',
+									has_children:false,
+									level: 3,
+									children:[]
+								},
+								{
+									id:'lieu'+2,
+									title:'Cuisine',
+									has_children:false,
+									level: 3,
+									children:[]
+								},
+								{
+									id:'lieu'+3,
+									title:'Salon',
+									has_children:false,
+									level: 3,
+									children:[]
+								}
+							]
+						},
+						{
+							id:'pie'+2,
+							title:'Chambre 8025',
+							has_children:false,
+							level: 2,
+							children:[]
+						},
+						{
+							id:'pie'+3,
+							title:'Chambre 8026',
+							has_children:false,
+							level: 2,
+							children:[]
+						}
+					]
+				});
+				
+				
+				/*
+				for (var i=0; i<8; i++) {
+					var id = node.id + (i+1).toString();
+					node.children.push({
+						id:id,
+						title:'Node ' + id,
+						has_children:hasChildren,
+						level: node.level + 1,
+						children:[]
+					});
+					if (hasChildren && level < 2) {
+						loadChildren(node.children[i], (level+1));
+					}
+				}*/
+				return node;
+			};
+		
+		
+	   jQuery(function() {
+				$('div.chosentree').chosentree({
+					width: 200,
+					deepLoad: true,
+					showtree: true,
+					load: function(node, callback) {
+						setTimeout(function() {
+						callback(loadChildren(node, 0));
+						}, 1000);
+					}
+				});
+			});
+			
+			
+			
+			
+
+    //FIN TREE
+			
+			
+	
+	
+	
 </script>
 
 
