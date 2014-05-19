@@ -78,19 +78,22 @@
 	
 </script>
 
+
+<?php
+	include "./bdd.php";
+	$idPiece = $_GET['idPiece'];
+	$resultats=$connection->query("SELECT Batiment_idBatiment, nom FROM Piece WHERE idPiece = $idPiece;");
+	$resultats->setFetchMode(PDO::FETCH_OBJ);
+	$resultat = $resultats->fetch();
+	$idBatiment = $resultat->Batiment_idBatiment;
+	$nomPiece = $resultat->nom;
+?>
 <div class="row">
 	<div class="col-lg-12">
-		<h1>Edit Sensors <small>Edit your sensors</small></h1>
+		<h1>Edit Sensors <small>Edit sensors of <?php echo $nomPiece; ?></small></h1>
 		<ol class="breadcrumb">
 			<li><a href="index.php?p=Forms/Bat/editB"><i class="fa fa-edit"></i> Edit building</a></li>
-			<li><a href="index.php?p=Forms/Pie/editP&idBatiment=<?php
-																	include "./bdd.php";
-																	$idPiece = $_GET['idPiece'];
-																	$resultats=$connection->query("SELECT Batiment_idBatiment FROM Piece WHERE idPiece = $idPiece;");
-																	$resultats->setFetchMode(PDO::FETCH_OBJ);
-																	$resultat = $resultats->fetch();
-																	echo $resultat->Batiment_idBatiment;
-																?>"><i class="fa fa-home"></i> Edit rooms</a></li>
+			<li><a href="index.php?p=Forms/Pie/editP&idBatiment=<?php echo $idBatiment; ?>"><i class="fa fa-home"></i> Edit rooms</a></li>
 			<li class="active"><i class="fa fa-signal"></i> Edit sensors</li>
 		</ol>
 	</div>

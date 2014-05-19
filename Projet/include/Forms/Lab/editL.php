@@ -53,12 +53,14 @@
 </script>
 <div class="row">
 	<div class="col-lg-12">
-		<h1> Edit Label <small> Edit your Label of #<?php 
-		include "./bdd.php";
-		$resultats=$connection->query("SELECT nomType FROM typecapteur WHERE idTypeCapteur = ".$_GET['idTypeCapteur'].";" );
-		$resultats->setFetchMode(PDO::FETCH_OBJ);
-		$resultat = $resultats->fetch() ; 
-		echo $resultat->nomType ; ?></small></h1>
+		<h1> Edit Label 
+			<small> Edit your Label of #<?php 
+				include "./bdd.php";
+				$resultats=$connection->query("SELECT nomType FROM typecapteur WHERE idTypeCapteur = ".$_GET['idTypeCapteur'].";" );
+				$resultats->setFetchMode(PDO::FETCH_OBJ);
+				$resultat = $resultats->fetch() ; 
+				echo $resultat->nomType ; ?>
+			</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="index.php?p=Forms/Typ/editT"><i class="fa fa-dashboard"></i> Edit Type </a></li>
 			<li class="active"><i class="fa fa-edit"></i> Edit Label </li>

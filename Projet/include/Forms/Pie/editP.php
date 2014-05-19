@@ -48,7 +48,19 @@
 
 <div class="row">
 	<div class="col-lg-12">
+<<<<<<< HEAD
 		<h1>Edit Rooms <small>Edit rooms of </small></h1>
+=======
+		<h1>Edit Rooms 
+			<small> Edit rooms of #<?php 
+				include "./bdd.php";
+				$resultats=$connection->query("SELECT nom FROM batiment WHERE idBatiment = ".$_GET['idBatiment'].";" );
+				$resultats->setFetchMode(PDO::FETCH_OBJ);
+				$resultat = $resultats->fetch() ; 
+				echo $resultat->nom ; ?>
+			</small>
+		</h1>
+>>>>>>> 0155c5baffca44a1b07c38ec7d90539aa332927a
 		<ol class="breadcrumb">
 			<li><a href="index.php?p=Forms/Bat/editB"><i class="fa fa-edit"></i> Edit building</a></li>
 			<li class="active"><i class="fa fa-home"></i> Edit rooms</li>
