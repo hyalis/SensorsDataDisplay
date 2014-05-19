@@ -17,8 +17,8 @@
 						<td>'.$resultat->nomType.'</td>
 						<td>'.$resultat->numberMeasure.'</td>
 						<td>
-							<a href="./include/Forms/Typ/remType.php?idTypeCapteur='.$resultat->idTypeCapteur.'"><span class="glyphicon glyphicon-remove" </a>
-							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editTypeModal" onClick="editType('.$resultat->idTypeCapteur.')"></span></a>
+							<a href="./include/Forms/Typ/remType.php?idTypeCapteur='.$resultat->idTypeCapteur.'"><span class="glyphicon glyphicon-remove" </a> 
+							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editTypeModal" onClick="editType('.$resultat->idTypeCapteur.')"></span></a> 
 							<a href="index.php?p=Forms/Lab/editL&idTypeCapteur='.$resultat->idTypeCapteur.'"></span><span class="glyphicon glyphicon-plus-sign"  ></span></a>
 						</td>
 					</tr>';

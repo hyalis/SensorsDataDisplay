@@ -6,6 +6,8 @@
 														WHERE Piece_idPiece = idPiece
 														AND Capteur_idCapteur = idCapteur
 														AND Batiment_idBatiment = $idBatiment
+														AND dateF IS NULL
+														GROUP BY idPiece
 															UNION
 														SELECT idPiece, nom, 0
 														FROM piece

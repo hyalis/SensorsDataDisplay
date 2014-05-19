@@ -3,6 +3,7 @@
 	$resultats=$connection->query("	SELECT idBatiment, batiment.nom, adresse, cp, ville, count(idPiece) as nbPiece
 														FROM batiment, piece 
 														WHERE Batiment_idBatiment = idBatiment
+														GROUP BY idBatiment
 															UNION
 														SELECT idBatiment, batiment.nom, adresse, cp, ville, 0 FROM batiment
 														WHERE idBatiment NOT IN (	SELECT DISTINCT Batiment_idBatiment 

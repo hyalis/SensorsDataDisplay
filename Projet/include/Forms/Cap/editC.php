@@ -62,12 +62,16 @@
 			$('#addNameValue').removeAttr("disabled", true);
 			$('#listTypeAdd').removeAttr("disabled", true);
 			$('#listCap').attr("disabled", true);
+			checkInfo();
+			$("#inpRadio").val("1");
 		} else {
 			$('#radio1').removeAttr("checked", true);
 			$('#listCap').removeAttr("disabled", true);
 			$('#addNameValue').attr("disabled", true);
 			$('#listTypeAdd').attr("disabled", true);
 			$('#addNameValue').val("");
+			$('#addCapModal button:submit').removeAttr("disabled", true);
+			$("#inpRadio").val("2");
 		}
 	
 	}
@@ -79,12 +83,18 @@
 		<h1>Edit Sensors <small>Edit your sensors</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="index.php?p=Forms/Bat/editB"><i class="fa fa-edit"></i> Edit building</a></li>
-			<li><a href="index.php?p=Forms/Pie/editP&idBatiment"><i class="fa fa-edit"></i> Edit piece</a></li>
-			<li class="active"><i class="fa fa-home"></i> Edit sensors</li>
+			<li><a href="index.php?p=Forms/Pie/editP&idBatiment=<?php
+																	include "./bdd.php";
+																	$idPiece = $_GET['idPiece'];
+																	$resultats=$connection->query("SELECT Batiment_idBatiment FROM Piece WHERE idPiece = $idPiece;");
+																	$resultats->setFetchMode(PDO::FETCH_OBJ);
+																	$resultat = $resultats->fetch();
+																	echo $resultat->Batiment_idBatiment;
+																?>"><i class="fa fa-home"></i> Edit rooms</a></li>
+			<li class="active"><i class="fa fa-signal"></i> Edit sensors</li>
 		</ol>
 	</div>
 </div><!-- /.row -->
-
 
 
 <div class="row">
@@ -175,6 +185,7 @@
 			</div>
 			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Cap/addCap.php">
 				<input type="hidden" id="inpIdPie" name="idPiece" value="<?php echo $idPiece; ?>">
+				<input type="hidden" id="inpRadio" name="radio" value="1">
 				<div class="modal-body">
 						<h4><input type="radio" id="radio1" checked onChange="radioChange(1);"> Add a new sensor</h4><br>
 						<div class="form-group">
@@ -196,6 +207,9 @@
 							<label class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
 								<select class="form-control" id="listCap" name="idCapteur" disabled>
+									<?php
+										include "getCap.php";
+									?>	
 								</select>
 							</div>
 						</div>
