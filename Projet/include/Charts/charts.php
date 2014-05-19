@@ -551,73 +551,8 @@ function updaValues(){
 				
 				
 				
-				node.children.push({
-					id:'bat'+1,
-					title:'Tripode C',
-					has_children:true,
-					level: 1,
-					children:[
-						{
-							id:'pie'+1,
-							title:'Chambre 8024',
-							has_children:true,
-							level: 2,
-							children:[
-								{
-									id:'lieu'+1,
-									title:'Salle de Bain',
-									has_children:false,
-									level: 3,
-									children:[]
-								},
-								{
-									id:'lieu'+2,
-									title:'Cuisine',
-									has_children:false,
-									level: 3,
-									children:[]
-								},
-								{
-									id:'lieu'+3,
-									title:'Salon',
-									has_children:false,
-									level: 3,
-									children:[]
-								}
-							]
-						},
-						{
-							id:'pie'+2,
-							title:'Chambre 8025',
-							has_children:false,
-							level: 2,
-							children:[]
-						},
-						{
-							id:'pie'+3,
-							title:'Chambre 8026',
-							has_children:false,
-							level: 2,
-							children:[]
-						}
-					]
-				});
+				node.children.push(<?php include "./include/Charts/loadTree.php"; ?>);
 				
-				
-				/*
-				for (var i=0; i<8; i++) {
-					var id = node.id + (i+1).toString();
-					node.children.push({
-						id:id,
-						title:'Node ' + id,
-						has_children:hasChildren,
-						level: node.level + 1,
-						children:[]
-					});
-					if (hasChildren && level < 2) {
-						loadChildren(node.children[i], (level+1));
-					}
-				}*/
 				return node;
 			};
 		
