@@ -98,7 +98,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> Forms <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 						<li><a href="index.php?p=Forms/Bat/editB">Edit Buildings/Rooms</a></li>
-						<li><a href="index.php?p=Forms/Typ/editT">Edit Sensors</a></li>
+						<li><a href="index.php?p=Forms/Typ/editT">Edit Types/Label</a></li>
 						</ul>
 					</li>
 					<li class="<?php echo $import; ?>"><a href="index.php?p=Import/import"><i class="fa fa-file"></i> Import File</a></li>
