@@ -540,46 +540,71 @@ function updaValues(){
 		chart.write('graphdiv');
 	}
 	
+	//DEBUT TREE
+	var loadChildrenGeo = function(node, level) {
+		var hasChildren = node.level < 3;
+		node.children.push(<?php include "./include/Charts/loadTreeGeo.php"; ?>);		
+		return node;
+	};
+	
+	var loadChildrenTime = function(node, level) {
+		var hasChildren = node.level < 5;
+		node.children.push(<?php include "./include/Charts/loadTreeTime.php"; ?>);		
+		return node;
+	};
 	
 	
+	jQuery(function() {
+		$('div.chosentree').chosentree({
+			width: 200,
+			deepLoad: true,
+			showtree: true,
+			load: function(node, callback) {
+				setTimeout(function() {
+				callback(loadChildrenGeo(node, 0));
+				}, 1000);
+				setTimeout(function() {
+				$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
+				}, 1200);
+			}
+		});
+	});
 	
-	
-		//DEBUT TREE
-			var maxDepth = 3;
-			var loadChildren = function(node, level) {
-				var hasChildren = node.level < maxDepth;
-				
-				
-				
-				node.children.push(<?php include "./include/Charts/loadTree.php"; ?>);
-				
-				return node;
-			};
-		
-		
-	   jQuery(function() {
-				$('div.chosentree').chosentree({
-					width: 200,
-					deepLoad: true,
-					showtree: true,
-					load: function(node, callback) {
-						setTimeout(function() {
-						callback(loadChildren(node, 0));
-						}, 1000);
-					}
-				});
+	function reLoadTree(typeTree){
+		$('div.chosentree').html("");
+		if(typeTree=="Geo") {
+			$('div.chosentree').chosentree({
+				width: 200,
+				deepLoad: true,
+				showtree: true,
+				load: function(node, callback) {
+					setTimeout(function() {
+					callback(loadChildrenGeo(node, 0));
+					}, 1000);
+					setTimeout(function() {
+					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
+					}, 1200);
+				}
 			});
-			
-			
-			
-			
-
+		} else {
+			$('div.chosentree').chosentree({
+				width: 200,
+				deepLoad: true,
+				showtree: true,
+				load: function(node, callback) {
+					setTimeout(function() {
+					callback(loadChildrenTime(node, 0));
+					}, 1000);
+					setTimeout(function() {
+					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
+					}, 1200);
+				}
+			});
+		}
+	}
+		
+		
     //FIN TREE
-			
-			
-	
-	
-	
 </script>
 
 

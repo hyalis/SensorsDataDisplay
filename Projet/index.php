@@ -79,6 +79,10 @@
 
 <body>
 	<div id="tree-wrapper">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');">Geo</a></li>
+			<li><a href="#time" data-toggle="tab" onClick="reLoadTree('Time');">Time</a></li>
+		</ul>
 		<div class="chosentree" style="width=20%;"></div>
 	</div>
 	<div id="wrapper">
