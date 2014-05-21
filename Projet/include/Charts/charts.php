@@ -2,34 +2,27 @@
 	include "./bdd.php";
 ?>
 
-<script src="js/jquery-1.10.2.js"></script>
+
 <link rel="stylesheet" href="css/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='css/jquery.treeselect.css' />
 <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
 
-
+<script src="js/jquery-1.10.2.js"></script>
 <script type='text/javascript' src='js/jquery.treeselect.js'></script>
 <script type="text/javascript" src="./js/jscolor.js"></script>
 <script src="js/jquery-ui-1.10.4.custom.js"></script>
-<script src="js/jQDateRangeSlider-withRuler-min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="./amcharts/serial.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
 
-
-<link rel="stylesheet" href="./css/iThing.css" type="text/css" >
-
 <!-- Init le bubblechart -->
 <script type="text/javascript">
 	var chart;
-		
 	var chartData = [{
 								"y" : 0,
 								"x" : 0,
 								"value" : 0
-				
-							}
-	];
+					}];
 	
 	exportConfig = {
 		menuTop: 'auto',
@@ -69,8 +62,7 @@
 			textDecoration: 'none'
 		}
 	}
-	
-	
+
 	var graph = new AmCharts.AmGraph();
 	AmCharts.ready(function () {
 		// XY Chart
@@ -96,7 +88,6 @@
 	
 		// GRAPHS
 		// first graph
-		
 		graph.valueField = "value";
 		graph.lineColor = "#00FFFF";
 		graph.xField = "x";
@@ -122,173 +113,138 @@
 		// WRITE                                                
 		//chart.write("chartdiv");
 	});
-</script>
 
 <!-- Init le line chart -->
-<script type="text/javascript">
-           var chart2;
-			var chartData = [];        
-           AmCharts.ready(function () {
-               // SERIAL CHART
-               chart2 = new AmCharts.AmSerialChart();
-               chart2.pathToImages = "./amcharts/images/";
-			   chart2.dataDateFormat = "YYYY-MM-DD HH";
-               chart2.dataProvider = chartData;
-               chart2.categoryField = "date";
-			   chart2.autoMarginOffset = 20;
-               // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
-              // chart2.addListener("dataUpdated", zoomChart);
+	var chart2;
+	var chartData = [];        
+	AmCharts.ready(function () {
+	   // SERIAL CHART
+	   chart2 = new AmCharts.AmSerialChart();
+	   chart2.pathToImages = "./amcharts/images/";
+	   chart2.dataDateFormat = "YYYY-MM-DD HH";
+	   chart2.dataProvider = chartData;
+	   chart2.categoryField = "date";
+	   chart2.autoMarginOffset = 20;
+	   // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+	  // chart2.addListener("dataUpdated", zoomChart);
 
-               // AXES
-               // category
-               var categoryAxis = chart2.categoryAxis;
-               categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-               categoryAxis.minPeriod = "hh"; // our data is daily, so we set minPeriod to DD
-               categoryAxis.minorGridEnabled = true;
-               categoryAxis.axisColor = "#DADADA";
+	   // AXES
+	   // category
+	   var categoryAxis = chart2.categoryAxis;
+	   categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+	   categoryAxis.minPeriod = "hh"; // our data is daily, so we set minPeriod to DD
+	   categoryAxis.minorGridEnabled = true;
+	   categoryAxis.axisColor = "#DADADA";
 
-               // first value axis (on the left)
-               var valueAxis1 = new AmCharts.ValueAxis();
-               valueAxis1.axisColor = "#FF6600";
-               valueAxis1.axisThickness = 2;
-               valueAxis1.gridAlpha = 0;
-               chart2.addValueAxis(valueAxis1);
+	   // first value axis (on the left)
+	   var valueAxis1 = new AmCharts.ValueAxis();
+	   valueAxis1.axisColor = "#FF6600";
+	   valueAxis1.axisThickness = 2;
+	   valueAxis1.gridAlpha = 0;
+	   chart2.addValueAxis(valueAxis1);
 
-               // second value axis (on the right)
-               var valueAxis2 = new AmCharts.ValueAxis();
-               valueAxis2.position = "right"; // this line makes the axis to appear on the right
-               valueAxis2.axisColor = "#FCD202";
-               valueAxis2.gridAlpha = 0;
-               valueAxis2.axisThickness = 2;
-               chart2.addValueAxis(valueAxis2);
+	   // second value axis (on the right)
+	   var valueAxis2 = new AmCharts.ValueAxis();
+	   valueAxis2.position = "right"; // this line makes the axis to appear on the right
+	   valueAxis2.axisColor = "#FCD202";
+	   valueAxis2.gridAlpha = 0;
+	   valueAxis2.axisThickness = 2;
+	   chart2.addValueAxis(valueAxis2);
 
-               // third value axis (on the left, detached)
-               valueAxis3 = new AmCharts.ValueAxis();
-               valueAxis3.offset = 50; // this line makes the axis to appear detached from plot area
-               valueAxis3.gridAlpha = 0;
-               valueAxis3.axisColor = "#B0DE09";
-               valueAxis3.axisThickness = 2;
-               chart2.addValueAxis(valueAxis3);
+	   // third value axis (on the left, detached)
+	   valueAxis3 = new AmCharts.ValueAxis();
+	   valueAxis3.offset = 50; // this line makes the axis to appear detached from plot area
+	   valueAxis3.gridAlpha = 0;
+	   valueAxis3.axisColor = "#B0DE09";
+	   valueAxis3.axisThickness = 2;
+	   chart2.addValueAxis(valueAxis3);
 
-               // GRAPHS
-               // first graph
-               var graph1 = new AmCharts.AmGraph();
-               graph1.valueAxis = valueAxis1; // we have to indicate which value axis should be used
-               graph1.title = "x";
-               graph1.valueField = "x";
-               graph1.bullet = "round";
-               graph1.hideBulletsCount = 30;
-               graph1.bulletBorderThickness = 1;
-               chart2.addGraph(graph1);
+	   // GRAPHS
+	   // first graph
+	   var graph1 = new AmCharts.AmGraph();
+	   graph1.valueAxis = valueAxis1; // we have to indicate which value axis should be used
+	   graph1.title = "0";
+	   graph1.valueField = "0";
+	   graph1.bullet = "round";
+	   graph1.hideBulletsCount = 30;
+	   graph1.bulletBorderThickness = 1;
+	   chart2.addGraph(graph1);
 
-               // second graph
-               var graph2 = new AmCharts.AmGraph();
-               graph2.valueAxis = valueAxis2; // we have to indicate which value axis should be used
-               graph2.title = "y";
-               graph2.valueField = "y";
-               graph2.bullet = "square";
-               graph2.hideBulletsCount = 30;
-               graph2.bulletBorderThickness = 1;
-               chart2.addGraph(graph2);
+	   // second graph
+	   var graph2 = new AmCharts.AmGraph();
+	   graph2.valueAxis = valueAxis2; // we have to indicate which value axis should be used
+	   graph2.title = "1";
+	   graph2.valueField = "1";
+	   graph2.bullet = "square";
+	   graph2.hideBulletsCount = 30;
+	   graph2.bulletBorderThickness = 1;
+	   chart2.addGraph(graph2);
 
-               // third graph
-               var graph3 = new AmCharts.AmGraph();
-               graph3.valueAxis = valueAxis3; // we have to indicate which value axis should be used
-               graph3.valueField = "value";
-               graph3.title = "value";
-               graph3.bullet = "triangleUp";
-               graph3.hideBulletsCount = 30;
-               graph3.bulletBorderThickness = 1;
-               chart2.addGraph(graph3);
+	   // third graph
+	   var graph3 = new AmCharts.AmGraph();
+	   graph3.valueAxis = valueAxis3; // we have to indicate which value axis should be used
+	   graph3.valueField = "2";
+	   graph3.title = "2";
+	   graph3.bullet = "triangleUp";
+	   graph3.hideBulletsCount = 30;
+	   graph3.bulletBorderThickness = 1;
+	   chart2.addGraph(graph3);
 
-               // CURSOR
-               var chartCursor = new AmCharts.ChartCursor();
-               chartCursor.cursorPosition = "mouse";
-               chart2.addChartCursor(chartCursor);
+	   // CURSOR
+	   var chartCursor = new AmCharts.ChartCursor();
+	   chartCursor.cursorPosition = "mouse";
+	   chart2.addChartCursor(chartCursor);
 
-               // SCROLLBAR
-               var chartScrollbar = new AmCharts.ChartScrollbar();
-               chart2.addChartScrollbar(chartScrollbar);
+	   // SCROLLBAR
+	   var chartScrollbar = new AmCharts.ChartScrollbar();
+	   chart2.addChartScrollbar(chartScrollbar);
 
-               // LEGEND
-               var legend = new AmCharts.AmLegend();
-               legend.marginLeft = 110;
-               legend.useGraphSettings = true;
-               chart2.addLegend(legend);
+	   // LEGEND
+	   var legend = new AmCharts.AmLegend();
+	   legend.marginLeft = 110;
+	   legend.useGraphSettings = true;
+	   chart2.addLegend(legend);
 
-               // WRITE
-               //chart2.write("graphdiv");
-			   
-           });
+	   // WRITE
+	   //chart2.write("graphdiv");
+	   
+	});
 
-           // generate some random data, quite different range
-          /* function generateChartData() {
-				chartData.push(<?php include "reqLineChart.php"; ?>);
-           }*/
+	// generate some random data, quite different range
+	/* function generateChartData() {
+		chartData.push(<?php include "reqLineChart.php"; ?>);
+	}*/
 
-           // this method is called when chart is first inited as we listen for "dataUpdated" event
-           function zoomChart() {
-               // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-               chart2.zoomToIndexes(10, 20);
-           }
-</script>
-
-<!-- Affiche/Cache les parametres -->
-<script>
-	function cacher(varCour){
-		switch(varCour){
-			case 1 :	$("#var2 :input").attr("disabled", true);
-						$("#var3 :input").attr("disabled", true);
-				break;
-			case 2 :	$("#var1 :input").attr("disabled", true);
-						$("#var3 :input").attr("disabled", true);
-				break;
-			case 3 :	$("#var1 :input").attr("disabled", true);
-						$("#var2 :input").attr("disabled", true);
-				break;
-		}
+	// this method is called when chart is first inited as we listen for "dataUpdated" event
+	function zoomChart() {
+	   // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+	   chart2.zoomToIndexes(10, 20);
 	}
 	
-	function afficher(varCour){
-		switch(varCour){
-			case 1 :	$("#var2 :input").attr("disabled", false);
-						$("#var3 :input").attr("disabled", false);
-				break;
-			case 2 :	$("#var1 :input").attr("disabled", false);
-						$("#var3 :input").attr("disabled", false);
-				break;
-			case 3 :	$("#var1 :input").attr("disabled", false);
-						$("#var2 :input").attr("disabled", false);
-				break;
-		}
-	}
-</script>
-
 <!-- Recharge les data du chart en fonction du temps -->
-<script>
-function updaValues(){
-		var dateDeb = $(".ui-rangeSlider-leftLabel .ui-rangeSlider-label-value").html();
-		var dateFin = $(".ui-rangeSlider-rightLabel .ui-rangeSlider-label-value").html();
-		
-		
-		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
-		
-
-		opt1capt = idCapteursIdLibVal[0].split("LibVal")[0];
-		opt1lib = idCapteursIdLibVal[0].split("LibVal")[1];
-		
-		opt2capt = idCapteursIdLibVal[1].split("LibVal")[0];
-		opt2lib = idCapteursIdLibVal[1].split("LibVal")[1];
-		
-		opt3capt = idCapteursIdLibVal[2].split("LibVal")[0];
-		opt3lib = idCapteursIdLibVal[2].split("LibVal")[1];
+	function updaValues(){
+		var dateDeb = $("#datetimepickerDeb").val();
+		var dateFin = $("#datetimepickerFin").val();
 		
 		groupBy = document.getElementById('groupBy').value;
 		
+		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		var capteurs = new Array();
+		var libVals = new Array();
+		var strPHP = "./include/Charts/reqChart.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
+	
+		for(i=0; i < idCapteursIdLibVal.length; i++){
+			capteurs[i] = idCapteursIdLibVal[i].split("LibVal")[0];
+			libVals[i] = idCapteursIdLibVal[i].split("LibVal")[1];
+			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
+			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
+			
+		}
+		strPHP = strPHP + "&groupBy=" + groupBy;
 		
-		document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';
-		
+		document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';	
 		document.getElementById('graphdiv').innerHTML='<h2><img src="./img/loading.gif" style="margin-right:25px;"/>Please wait...</h2>';
+		
 		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
 		} else {	// code for IE6, IE5
@@ -300,7 +256,7 @@ function updaValues(){
 				
 				} else {
 					document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';
-					$("#slider").resize();
+					//$("#slider").resize();
 					
 					var elem = xmlhttp.responseText.split('END');
 					var dataBubble = elem[0];
@@ -336,166 +292,37 @@ function updaValues(){
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/Charts/reqChart.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib+"&idCapteur2="+opt2capt+"&idLibVal2="+opt2lib+"&idCapteur3="+opt3capt+"&idLibVal3="+opt3lib+"&groupBy="+groupBy,true);
+		xmlhttp.open("GET",strPHP,true);
 		xmlhttp.send();
 	}
-</script>
 
-
-<!-- Charge les pieces -->
-<script>
-	function showPiece(str, valeur)
-	{
-		document.getElementById('formPiece'+valeur).style.visibility="hidden";
-		document.getElementById('formCapteur'+valeur).style.visibility="hidden";
-		document.getElementById('formLib'+valeur).style.visibility="hidden";
-		cacher(valeur);
-		if (str==""){
-			document.getElementById('optionpiece'+valeur).innerHTML="";
-			return;
-		} 
-		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		} else {	// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.onreadystatechange=function(){
-			if (xmlhttp.readyState==4 && xmlhttp.status==200){
-				document.getElementById('optionpiece'+valeur).innerHTML=xmlhttp.responseText;
-				if(xmlhttp.responseText.indexOf("option")==-1){
-					afficher(valeur);
-					document.getElementById('formPiece'+valeur).style.visibility="hidden";
-					document.getElementById('formCapteur'+valeur).style.visibility="hidden";
-					document.getElementById('formLib'+valeur).style.visibility="hidden";
-					showSubmit();
-				} else {
-					afficher(valeur);
-					piece = document.getElementById('optionpiece' + valeur).value;
-					showCapteur(piece, valeur);
-					document.getElementById('formPiece'+valeur).style.visibility="visible";
-					showSubmit();
-				}
-			}
-		}
-
-		xmlhttp.open("GET","./include/Charts/getPiece.php?batiment="+str,true);
-		xmlhttp.send();
-	}
-</script>
-
-<!-- Charge les capteurs -->
-<script>
-	function showCapteur(str, valeur)
-	{
-		
-		document.getElementById('formCapteur'+valeur).style.visibility="hidden";
-		document.getElementById('formLib'+valeur).style.visibility="hidden";
-		cacher(valeur);
-		if (str==""){
-			document.getElementById('optioncapteur'+valeur).innerHTML="";
-			return;
-		} 
-		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		} else {	// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.onreadystatechange=function(){
-			if (xmlhttp.readyState==4 && xmlhttp.status==200){
-				document.getElementById('optioncapteur'+valeur).innerHTML=xmlhttp.responseText;
-				if(xmlhttp.responseText.indexOf("option")==-1){
-					afficher(valeur);
-					document.getElementById('formCapteur'+valeur).style.visibility="hidden";
-					document.getElementById('formLib'+valeur).style.visibility="hidden";
-					showSubmit();
-				} else {
-					afficher(valeur);
-					capteur = document.getElementById('optioncapteur' + valeur).value;
-					showLib(capteur, valeur);
-					document.getElementById('formCapteur'+valeur).style.visibility="visible";
-					showSubmit();
-				}
-			}
-		}
-		
-		xmlhttp.open("GET","./include/Charts/getCapteur.php?idPiece="+str,true);
-		xmlhttp.send();
-	}
-</script>
-
-<!-- Charge les libelle des variables -->
-<script>
-	function showLib(str, valeur)
-	{
-		document.getElementById('formLib'+valeur).style.visibility="hidden";
-		cacher(valeur);
-		if (str==""){
-			document.getElementById('optionlib'+valeur).innerHTML="";
-			return;
-		} 
-		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		} else {	// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.onreadystatechange=function(){
-			if (xmlhttp.readyState==4 && xmlhttp.status==200){
-				document.getElementById('optionlib'+valeur).innerHTML=xmlhttp.responseText;
-				if(xmlhttp.responseText.indexOf("option")==-1){
-					afficher(valeur);
-					document.getElementById('formLib'+valeur).style.visibility="hidden";
-					showSubmit();
-				} else {
-					afficher(valeur);
-					document.getElementById('formLib'+valeur).style.visibility="visible";
-					showSubmit();
-				}
-			}
-		}
-		
-		xmlhttp.open("GET","./include/Charts/getLib.php?idCapteur="+str,true);
-		xmlhttp.send();
-	}
-</script>
-
-<!-- Change la couleur du graph -->
-<script>
+	<!-- Change la couleur du graph -->
 	function updaColor(color){
 		graph.lineColor = "#"+color;
 		chart.validateNow();
 	}
-</script>
 
-
-<script>
-	$('#line a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-});
 	function changeBullet(str){
-	graph.bullet = str;
-	chart.validateNow();
+		graph.bullet = str;
+		chart.validateNow();
 	}
-</script>
 
-<script>
 	function showSubmit(){
-		if($(".chosentree-choices li").size() > 3){
+		if($(".chosentree-choices li").size() > 3 && $("#datetimepickerDeb").val() != "" && $("#datetimepickerFin").val() != "" && $("#datetimepickerDeb").val() != $("#datetimepickerFin").val()){
 			document.getElementById('submit').style.display='';
 			updaStats();
 		} else {
 			document.getElementById('submit').style.display='none';
 		}
 	}
-</script>
 
-<script>
 	function updaStats(){
-		var dateDeb = $(".ui-rangeSlider-leftLabel .ui-rangeSlider-label-value").html();
-		var dateFin = $(".ui-rangeSlider-rightLabel .ui-rangeSlider-label-value").html();
+		var dateDeb = $("#datetimepickerDeb").val();
+		var dateFin = $("#datetimepickerFin").val();
 		
-		opt1capt = document.getElementById('optioncapteur1').value;
-		opt1lib = document.getElementById('optionlib1').value;
+		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		opt1capt = idCapteursIdLibVal[0].split("LibVal")[0];
+		opt1lib = idCapteursIdLibVal[0].split("LibVal")[1];
 		
 		
 		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -515,16 +342,13 @@ function updaValues(){
 		xmlhttp.open("GET","./include/Charts/stats.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib,true);
 		xmlhttp.send();
 	}
-</script>
-<script>
+
 	function onLine(){
-		$('#slider').resize(); 
 		document.getElementById('parameters').style.display='none'; 
 		chart2.write('graphdiv');
 	}
 	
 	function onBubble(){
-		$('#slider').resize(); 
 		document.getElementById('parameters').style.display=''; 
 		chart.write('graphdiv');
 	}
@@ -592,8 +416,6 @@ function updaValues(){
 		}
 	}
     //FIN TREE
-	
-
 </script>
 
 <!-- En tête du wrapper -->
@@ -624,167 +446,6 @@ function updaValues(){
 		</div>
 	</div>
 	<div class="col-lg-9">
-		<!-- Paramétrage des trois variables -->
-		<div class="row">
-			<!-- Première donnée-->
-			<div class="col-lg-4">
-				<div class="panel panel-primary" id="var1">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> First data (x)</h3>
-					</div>
-					<div class="panel-body">
-						<div class="form-group">
-							<label>Select Building</label>
-							<select class="form-control" onchange="showPiece(this.value, 1)">
-								<option>Choose :</option>
-							<?php
-								$resultats=$connection->query("SELECT nom FROM batiment");
-								$resultats->setFetchMode(PDO::FETCH_OBJ);
-								while( $resultat = $resultats->fetch() )
-								{
-										echo '<option>'.$resultat->nom.'</option>';
-								}
-								$resultats->closeCursor();
-							?>
-							</select>
-						</div>
-						<div class="form-group" id="formPiece1" style="visibility: hidden;">
-							<label>Select Room</label>
-							<select class="form-control" id="optionpiece1" onchange="showCapteur(this.value, 1)">
-								<option>Choisir</option>
-							</select>
-						</div>
-						<div class="form-group" id="formCapteur1" style="visibility: hidden;" >
-							<label>Select Sensor</label>
-							<select class="form-control" id="optioncapteur1" onchange="showLib(this.value, 1)">
-								<option>Choisir</option>
-							</select>
-						</div>
-						<div class="form-group" id="formLib1" style="visibility: hidden;" >
-							<label>Select Variable</label>
-							<select class="form-control" id="optionlib1">
-								<option>Choisir</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Seconde donnée-->
-			<div class="col-lg-4" id="var2">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Second data (y)</h3>
-					</div>
-					<div class="panel-body">
-						<div class="form-group">
-							<label>Select Building</label>
-							<select class="form-control" onchange="showPiece(this.value, 2)">
-								<option>Choose :</option>
-							<?php
-								$resultats=$connection->query("SELECT nom FROM batiment");
-								$resultats->setFetchMode(PDO::FETCH_OBJ);
-								while( $resultat = $resultats->fetch() )
-								{
-										echo '<option>'.$resultat->nom.'</option>';
-								}
-								$resultats->closeCursor();
-							?>
-							</select>
-						</div>
-						<div class="form-group" id="formPiece2" style="visibility: hidden;">
-							<label>Select Room</label>
-							<select class="form-control" id="optionpiece2" onchange="showCapteur(this.value, 2)">
-								<option>Choisir</option>
-							</select>
-						</div>
-						<div class="form-group" id="formCapteur2" style="visibility: hidden;" >
-							<label>Select Sensor</label>
-							<select class="form-control" id="optioncapteur2" onchange="showLib(this.value, 2)">
-								<option>Choisir</option>
-							</select>
-						</div>
-						<div class="form-group" id="formLib2" style="visibility: hidden;" >
-							<label>Select Variable</label>
-							<select class="form-control" id="optionlib2">
-								<option>Choisir</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Troisième donnée-->
-			<div class="col-lg-4" id="var3">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Third data (value)</h3>
-					</div>
-					<div class="panel-body">
-						<div class="form-group">
-							<label>Select Building</label>
-							<select class="form-control" onchange="showPiece(this.value, 3)">
-								<option>Choose :</option>
-							<?php
-								$resultats=$connection->query("SELECT nom FROM batiment");
-								$resultats->setFetchMode(PDO::FETCH_OBJ);
-								while( $resultat = $resultats->fetch() )
-								{
-										echo '<option>'.$resultat->nom.'</option>';
-								}
-								$resultats->closeCursor();
-							?>
-							</select>
-						</div>
-						<div class="form-group" id="formPiece3" style="visibility: hidden;">
-							<label>Select Room</label>
-							<select class="form-control" id="optionpiece3" onchange="showCapteur(this.value, 3)">
-								<option>Choisir</option>
-							</select>
-						</div>
-						<div class="form-group" id="formCapteur3" style="visibility: hidden;" >
-							<label>Select Sensor</label>
-							<select class="form-control" id="optioncapteur3" onchange="showLib(this.value, 3)">
-								<option>Choisir</option>
-							</select>
-						</div>
-						<div class="form-group" id="formLib3" style="visibility: hidden;" >
-							<label>Select Variable</label>
-							<select class="form-control" id="optionlib3">
-								<option>Choisir</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12" id="sliderDate">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
-					</div>
-					<div class="panel-body">
-						<div class="form-group">
-							<div id="slider"></div>
-						</div>
-						<div class="form-group" style="width: 150px;">
-							<label>Select Group by</label>
-							<select class="form-control" id="groupBy">
-								<option value='HOUR'>Hour</option>
-								<option value='DAY'>Day</option>
-								<option value='WEEK'>Week</option>
-								<option value='MONTH'>Month</option>
-								<option value='YEAR'>Year</option>
-							</select>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
 		<!-- Autres paramètre (couleur, forme, ...) et BtnSubmit -->
 		<div class="row">
 			<div class="col-lg-4"  id="parameters" style="display:none;">
@@ -817,9 +478,6 @@ function updaValues(){
 				</div>
 			</div>
 
-			
-			
-
 			<div class="col-lg-4">
 				<div class="panel panel-primary" style="height: 215px;">
 					<div class="panel-heading">
@@ -828,12 +486,12 @@ function updaValues(){
 					<div class="panel-body">
 						<div class="form-group">
 							<label class="col-sm-3" style="padding-left: 0px;">Start : </label>
-							<input type="text"  class="col-sm-9" id="datetimepickerDeb"/>
+							<input type="text"  class="col-sm-9" id="datetimepickerDeb" onChange="showSubmit();"/>
 						</div>
 						<br>
 						<div class="form-group">
 							<label class="col-sm-3" style="padding-left: 0px;">End : </label>
-							<input type="text"class="col-sm-9" id="datetimepickerFin"/>
+							<input type="text"class="col-sm-9" id="datetimepickerFin" onChange="showSubmit();"/>
 						</div><br>
 						<div class="form-group" >
 							<label>Select Group by</label>
@@ -881,55 +539,24 @@ function updaValues(){
 				</div>
 			</div>
 		</div>
-		
-		
-		
-		
 	</div>
-	
-
 </div>
-<!-- Lance le dateSlider -->	
-<script>
-	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-  $("#slider").dateRangeSlider({
-    bounds: {min: new Date(2010, 11, 1), max: new Date(2010, 12, 31)},
-    defaultValues: {min: new Date(2010, 11, 13), max: new Date(2010, 11, 20)},
-    scales: [{
-      first: function(value){ return value; },
-      end: function(value) {return value; },
-      next: function(value){
-        var next = new Date(value);
-        return new Date(next.setMonth(value.getMonth() + 1));
-      },
-      label: function(value){
-        return months[value.getMonth()];
-      },
-      format: function(tickContainer, tickStart, tickEnd){
-        tickContainer.addClass("myCustomClass");
-      }
-    }]
-  });
-</script>
-	
-	
-<script>
-	$("#slider").bind("valuesChanged", function(e, data){
-		updaStats();
-	});
 
+<script>
 	$('#datetimepickerDeb').datetimepicker().datetimepicker({
 		step:30,
+		format:'Y-m-d H:i',
 		onChangeDateTime:function(dp,$input){
 			$('#datetimepickerFin').datetimepicker({
 				timepicker:true,
-				formatDate:'Y/m/d H:i',
+				step:30,
+				format:'Y-m-d H:i',
+				formatDate:'Y-m-d H:i',
 				minDate:$input.val(),
-				maxDate:'2099/12/31 23:59'
+				maxDate:'2099-12-31 23:59'
 			});
+			$("#datetimepickerFin").val($input.val());
 		}
 	});
-	
 	$(".chosentree").bind("click", function(){showSubmit();});
-	
 </script>
