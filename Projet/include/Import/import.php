@@ -13,7 +13,7 @@
 
 
 <!--<form role="form" enctype="multipart/form-data" action="./include/parser.php" method="POST">-->
-<form role="form" enctype="multipart/form-data" action="./index.php?p=parser" method="POST">
+<form role="form" enctype="multipart/form-data" action="./index.php?p=Import/parser" method="POST">
 	<div class="row">
 			<div class="col-lg-12">
 					<div class="form-group">

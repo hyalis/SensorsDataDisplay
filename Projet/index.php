@@ -24,6 +24,8 @@
 				break;
 			case 'Import/import' :  	$import = "active";
 				break;
+			case 'Import/parser' :  	$import = "active";
+				break;
 		}
 	} else {
 		$dashboard = "active";
@@ -69,22 +71,12 @@
 			float: left;
 			padding-left: 0px;
 		}
-		#tree-wrapper {
-			width: 0%;
-			float: left;
-		}
 	</style>
 	
 </head>
 
 <body>
-	<div id="tree-wrapper">
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');">Geo</a></li>
-			<li><a href="#time" data-toggle="tab" onClick="reLoadTree('Time');">Time</a></li>
-		</ul>
-		<div class="chosentree" style="width=20%;"></div>
-	</div>
+	
 	<div id="wrapper">
 		<!-- Sidebar -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

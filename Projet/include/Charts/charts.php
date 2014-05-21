@@ -4,33 +4,18 @@
 
 <script src="js/jquery-1.10.2.js"></script>
 <link rel="stylesheet" href="css/jquery-ui.css">
-<script type='text/javascript' src='js/jquery.treeselect.js'></script>
 <link rel='stylesheet' type='text/css' href='css/jquery.treeselect.css' />
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
 
 
+<script type='text/javascript' src='js/jquery.treeselect.js'></script>
 <script type="text/javascript" src="./js/jscolor.js"></script>
 <script src="js/jquery-ui-1.10.4.custom.js"></script>
 <script src="js/jQDateRangeSlider-withRuler-min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="./amcharts/serial.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
 
-
-
-
-
-	<style>
-		#wrapper {
-			width: 80%;
-			float: left;
-			padding-left: 0px;
-		}
-		#tree-wrapper {
-			width: 20%;
-			float: left;
-			margin-top: 65px;
-			padding-left: 25px;
-		}
-	</style>
 
 <link rel="stylesheet" href="./css/iThing.css" type="text/css" >
 
@@ -285,14 +270,18 @@ function updaValues(){
 		var dateDeb = $(".ui-rangeSlider-leftLabel .ui-rangeSlider-label-value").html();
 		var dateFin = $(".ui-rangeSlider-rightLabel .ui-rangeSlider-label-value").html();
 		
-		opt1capt = document.getElementById('optioncapteur1').value;
-		opt1lib = document.getElementById('optionlib1').value;
 		
-		opt2capt = document.getElementById('optioncapteur2').value;
-		opt2lib = document.getElementById('optionlib2').value;
+		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		
-		opt3capt = document.getElementById('optioncapteur3').value;
-		opt3lib = document.getElementById('optionlib3').value;
+
+		opt1capt = idCapteursIdLibVal[0].split("LibVal")[0];
+		opt1lib = idCapteursIdLibVal[0].split("LibVal")[1];
+		
+		opt2capt = idCapteursIdLibVal[1].split("LibVal")[0];
+		opt2lib = idCapteursIdLibVal[1].split("LibVal")[1];
+		
+		opt3capt = idCapteursIdLibVal[2].split("LibVal")[0];
+		opt3lib = idCapteursIdLibVal[2].split("LibVal")[1];
 		
 		groupBy = document.getElementById('groupBy').value;
 		
@@ -491,7 +480,7 @@ function updaValues(){
 
 <script>
 	function showSubmit(){
-		if($("#optionlib1").css("visibility") == "visible" && $("#optionlib2").css("visibility") == "visible" && $("#optionlib3").css("visibility") == "visible"){
+		if($(".chosentree-choices li").size() > 3){
 			document.getElementById('submit').style.display='';
 			updaStats();
 		} else {
@@ -602,11 +591,10 @@ function updaValues(){
 			});
 		}
 	}
-		
-		
     //FIN TREE
-</script>
+	
 
+</script>
 
 <!-- En tête du wrapper -->
 <div class="row">
@@ -618,233 +606,289 @@ function updaValues(){
   </div>
 </div><!-- /.row -->
 
-
-<div class="row" id="graphiques" style="position:absolute; top:-2000px;">
-	<div class="col-lg-12">
-		<h2>Charts</h2>
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Your differents charts</h3>
-			</div>
-			<div class="panel-body">
-				 
-				<ul class="nav nav-tabs" id="onglet">
-					<li class="active"><a href="#line" data-toggle="tab" onclick="onLine();">Line</a></li>
-					<li><a href="#bubble" data-toggle="tab" onclick="onBubble();">Bubble</a></li>
-				</ul>
-				
-				<div id="graphdiv" style="width: auto; height: 350px;"></div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- Paramétrage des trois variables -->
 <div class="row">
-	<!-- Première donnée-->
-	<div class="col-lg-4">
-		<div class="panel panel-primary" id="var1">
-			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> First data (x)</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<label>Select Building</label>
-					<select class="form-control" onchange="showPiece(this.value, 1)">
-						<option>Choose :</option>
-					<?php
-						$resultats=$connection->query("SELECT nom FROM batiment");
-						$resultats->setFetchMode(PDO::FETCH_OBJ);
-						while( $resultat = $resultats->fetch() )
-						{
-								echo '<option>'.$resultat->nom.'</option>';
-						}
-						$resultats->closeCursor();
-					?>
-					</select>
+	<div class="col-lg-3">
+		<div id="tree-wrapper">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Select label(s)</h3>
 				</div>
-				<div class="form-group" id="formPiece1" style="visibility: hidden;">
-					<label>Select Room</label>
-					<select class="form-control" id="optionpiece1" onchange="showCapteur(this.value, 1)">
-						<option>Choisir</option>
-					</select>
-				</div>
-				<div class="form-group" id="formCapteur1" style="visibility: hidden;" >
-					<label>Select Sensor</label>
-					<select class="form-control" id="optioncapteur1" onchange="showLib(this.value, 1)">
-						<option>Choisir</option>
-					</select>
-				</div>
-				<div class="form-group" id="formLib1" style="visibility: hidden;" >
-					<label>Select Variable</label>
-					<select class="form-control" id="optionlib1">
-						<option>Choisir</option>
-					</select>
+				<div class="panel-body">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');">Geo</a></li>
+						<li><a href="#time" data-toggle="tab" onClick="reLoadTree('Time');">Time</a></li>
+					</ul>
+					<div class="chosentree" style="width=20%;"></div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Seconde donnée-->
-	<div class="col-lg-4" id="var2">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Second data (y)</h3>
+	<div class="col-lg-9">
+		<!-- Paramétrage des trois variables -->
+		<div class="row">
+			<!-- Première donnée-->
+			<div class="col-lg-4">
+				<div class="panel panel-primary" id="var1">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> First data (x)</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Select Building</label>
+							<select class="form-control" onchange="showPiece(this.value, 1)">
+								<option>Choose :</option>
+							<?php
+								$resultats=$connection->query("SELECT nom FROM batiment");
+								$resultats->setFetchMode(PDO::FETCH_OBJ);
+								while( $resultat = $resultats->fetch() )
+								{
+										echo '<option>'.$resultat->nom.'</option>';
+								}
+								$resultats->closeCursor();
+							?>
+							</select>
+						</div>
+						<div class="form-group" id="formPiece1" style="visibility: hidden;">
+							<label>Select Room</label>
+							<select class="form-control" id="optionpiece1" onchange="showCapteur(this.value, 1)">
+								<option>Choisir</option>
+							</select>
+						</div>
+						<div class="form-group" id="formCapteur1" style="visibility: hidden;" >
+							<label>Select Sensor</label>
+							<select class="form-control" id="optioncapteur1" onchange="showLib(this.value, 1)">
+								<option>Choisir</option>
+							</select>
+						</div>
+						<div class="form-group" id="formLib1" style="visibility: hidden;" >
+							<label>Select Variable</label>
+							<select class="form-control" id="optionlib1">
+								<option>Choisir</option>
+							</select>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<label>Select Building</label>
-					<select class="form-control" onchange="showPiece(this.value, 2)">
-						<option>Choose :</option>
-					<?php
-						$resultats=$connection->query("SELECT nom FROM batiment");
-						$resultats->setFetchMode(PDO::FETCH_OBJ);
-						while( $resultat = $resultats->fetch() )
-						{
-								echo '<option>'.$resultat->nom.'</option>';
-						}
-						$resultats->closeCursor();
-					?>
-					</select>
+			<!-- Seconde donnée-->
+			<div class="col-lg-4" id="var2">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Second data (y)</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Select Building</label>
+							<select class="form-control" onchange="showPiece(this.value, 2)">
+								<option>Choose :</option>
+							<?php
+								$resultats=$connection->query("SELECT nom FROM batiment");
+								$resultats->setFetchMode(PDO::FETCH_OBJ);
+								while( $resultat = $resultats->fetch() )
+								{
+										echo '<option>'.$resultat->nom.'</option>';
+								}
+								$resultats->closeCursor();
+							?>
+							</select>
+						</div>
+						<div class="form-group" id="formPiece2" style="visibility: hidden;">
+							<label>Select Room</label>
+							<select class="form-control" id="optionpiece2" onchange="showCapteur(this.value, 2)">
+								<option>Choisir</option>
+							</select>
+						</div>
+						<div class="form-group" id="formCapteur2" style="visibility: hidden;" >
+							<label>Select Sensor</label>
+							<select class="form-control" id="optioncapteur2" onchange="showLib(this.value, 2)">
+								<option>Choisir</option>
+							</select>
+						</div>
+						<div class="form-group" id="formLib2" style="visibility: hidden;" >
+							<label>Select Variable</label>
+							<select class="form-control" id="optionlib2">
+								<option>Choisir</option>
+							</select>
+						</div>
+					</div>
 				</div>
-				<div class="form-group" id="formPiece2" style="visibility: hidden;">
-					<label>Select Room</label>
-					<select class="form-control" id="optionpiece2" onchange="showCapteur(this.value, 2)">
-						<option>Choisir</option>
-					</select>
-				</div>
-				<div class="form-group" id="formCapteur2" style="visibility: hidden;" >
-					<label>Select Sensor</label>
-					<select class="form-control" id="optioncapteur2" onchange="showLib(this.value, 2)">
-						<option>Choisir</option>
-					</select>
-				</div>
-				<div class="form-group" id="formLib2" style="visibility: hidden;" >
-					<label>Select Variable</label>
-					<select class="form-control" id="optionlib2">
-						<option>Choisir</option>
-					</select>
+			</div>
+			<!-- Troisième donnée-->
+			<div class="col-lg-4" id="var3">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Third data (value)</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Select Building</label>
+							<select class="form-control" onchange="showPiece(this.value, 3)">
+								<option>Choose :</option>
+							<?php
+								$resultats=$connection->query("SELECT nom FROM batiment");
+								$resultats->setFetchMode(PDO::FETCH_OBJ);
+								while( $resultat = $resultats->fetch() )
+								{
+										echo '<option>'.$resultat->nom.'</option>';
+								}
+								$resultats->closeCursor();
+							?>
+							</select>
+						</div>
+						<div class="form-group" id="formPiece3" style="visibility: hidden;">
+							<label>Select Room</label>
+							<select class="form-control" id="optionpiece3" onchange="showCapteur(this.value, 3)">
+								<option>Choisir</option>
+							</select>
+						</div>
+						<div class="form-group" id="formCapteur3" style="visibility: hidden;" >
+							<label>Select Sensor</label>
+							<select class="form-control" id="optioncapteur3" onchange="showLib(this.value, 3)">
+								<option>Choisir</option>
+							</select>
+						</div>
+						<div class="form-group" id="formLib3" style="visibility: hidden;" >
+							<label>Select Variable</label>
+							<select class="form-control" id="optionlib3">
+								<option>Choisir</option>
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Troisième donnée-->
-	<div class="col-lg-4" id="var3">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Third data (value)</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<label>Select Building</label>
-					<select class="form-control" onchange="showPiece(this.value, 3)">
-						<option>Choose :</option>
-					<?php
-						$resultats=$connection->query("SELECT nom FROM batiment");
-						$resultats->setFetchMode(PDO::FETCH_OBJ);
-						while( $resultat = $resultats->fetch() )
-						{
-								echo '<option>'.$resultat->nom.'</option>';
-						}
-						$resultats->closeCursor();
-					?>
-					</select>
-				</div>
-				<div class="form-group" id="formPiece3" style="visibility: hidden;">
-					<label>Select Room</label>
-					<select class="form-control" id="optionpiece3" onchange="showCapteur(this.value, 3)">
-						<option>Choisir</option>
-					</select>
-				</div>
-				<div class="form-group" id="formCapteur3" style="visibility: hidden;" >
-					<label>Select Sensor</label>
-					<select class="form-control" id="optioncapteur3" onchange="showLib(this.value, 3)">
-						<option>Choisir</option>
-					</select>
-				</div>
-				<div class="form-group" id="formLib3" style="visibility: hidden;" >
-					<label>Select Variable</label>
-					<select class="form-control" id="optionlib3">
-						<option>Choisir</option>
-					</select>
+
+		<div class="row">
+			<div class="col-lg-12" id="sliderDate">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<div id="slider"></div>
+						</div>
+						<div class="form-group" style="width: 150px;">
+							<label>Select Group by</label>
+							<select class="form-control" id="groupBy">
+								<option value='HOUR'>Hour</option>
+								<option value='DAY'>Day</option>
+								<option value='WEEK'>Week</option>
+								<option value='MONTH'>Month</option>
+								<option value='YEAR'>Year</option>
+							</select>
+						</div>
+						
+					</div>
 				</div>
 			</div>
 		</div>
+
+
+
+		<!-- Autres paramètre (couleur, forme, ...) et BtnSubmit -->
+		<div class="row">
+			<div class="col-lg-4"  id="parameters" style="display:none;">
+				<div class="panel panel-primary" style="height: 215px;">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Parameters</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Select Color</label>
+							<input class="form-control color" onchange="updaColor(this.value)" value="00FFFF">
+						</div>
+						<div class="form-group">
+							<label>Select Bullet</label>
+							<select class="form-control" onchange="changeBullet(this.value)">
+								<option>none</option>
+								<option>round</option>
+								<option>square</option>
+								<option>triangleUp</option>
+								<option>triangleDown</option>
+								<option>triangleLeft</option>
+								<option>triangleRight</option>
+								<option selected="selected">bubble</option>
+								<option>diamond</option>
+								<option>xError</option>
+								<option>yError</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+			
+
+			<div class="col-lg-4">
+				<div class="panel panel-primary" style="height: 215px;">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="col-sm-3" style="padding-left: 0px;">Start : </label>
+							<input type="text"  class="col-sm-9" id="datetimepickerDeb"/>
+						</div>
+						<br>
+						<div class="form-group">
+							<label class="col-sm-3" style="padding-left: 0px;">End : </label>
+							<input type="text"class="col-sm-9" id="datetimepickerFin"/>
+						</div><br>
+						<div class="form-group" >
+							<label>Select Group by</label>
+							<select class="form-control" id="groupBy">
+								<option value='HOUR'>Hour</option>
+								<option value='DAY'>Day</option>
+								<option value='WEEK'>Week</option>
+								<option value='MONTH'>Month</option>
+								<option value='YEAR'>Year</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-lg-4" id="submit" style="display:none; ">
+				<div class="panel panel-primary" style="height: 215px;">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Data (approximate)</h3>
+					</div>
+					 <div class="panel-body">
+						<b><span id="nbrData">0</span></b> <br><br>
+						<button class="btn btn-success" style="float: right;" onClick="updaValues(); ">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.row -->
+		
+		<div class="row" id="graphiques" style="position:absolute; top:-2000px;">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Your differents charts</h3>
+					</div>
+					<div class="panel-body">
+						 
+						<ul class="nav nav-tabs" id="onglet">
+							<li class="active"><a href="#line" data-toggle="tab" onclick="onLine();">Line</a></li>
+							<li><a href="#bubble" data-toggle="tab" onclick="onBubble();">Bubble</a></li>
+						</ul>
+						
+						<div id="graphdiv" style="width: auto; height: 350px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
 	</div>
+	
+
 </div>
-
-<div class="row">
-	<div class="col-lg-12" id="sliderDate">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<div id="slider"></div>
-				</div>
-				<div class="form-group" style="width: 150px;">
-					<label>Select Group by</label>
-					<select class="form-control" id="groupBy">
-						<option value='HOUR'>Hour</option>
-						<option value='DAY'>Day</option>
-						<option value='WEEK'>Week</option>
-						<option value='MONTH'>Month</option>
-						<option value='YEAR'>Year</option>
-					</select>
-				</div>
-				
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- Autres paramètre (couleur, forme, ...) et BtnSubmit -->
-<div class="row">
-	<div class="col-lg-8"  id="parameters" style="display:none;">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Parameters</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<label>Select Color</label>
-					<input class="form-control color" onchange="updaColor(this.value)" value="00FFFF">
-				</div>
-				<div class="form-group">
-					<label>Select Bullet</label>
-					<select class="form-control" onchange="changeBullet(this.value)">
-						<option>none</option>
-						<option>round</option>
-						<option>square</option>
-						<option>triangleUp</option>
-						<option>triangleDown</option>
-						<option>triangleLeft</option>
-						<option>triangleRight</option>
-						<option selected="selected">bubble</option>
-						<option>diamond</option>
-						<option>xError</option>
-						<option>yError</option>
-					</select>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4" id="submit" style="display:none;">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Data (approximate)</h3>
-			</div>
-			 <div class="panel-body">
-				<b><span id="nbrData">0</span></b> <br><br><br>
-				<button class="btn btn-success" style="float: right;" onClick="updaValues(); ">Submit</button>
-			</div>
-		</div>
-	</div>
-</div><!-- /.row -->
-
 <!-- Lance le dateSlider -->	
 <script>
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -873,5 +917,19 @@ function updaValues(){
 	$("#slider").bind("valuesChanged", function(e, data){
 		updaStats();
 	});
+
+	$('#datetimepickerDeb').datetimepicker().datetimepicker({
+		step:30,
+		onChangeDateTime:function(dp,$input){
+			$('#datetimepickerFin').datetimepicker({
+				timepicker:true,
+				formatDate:'Y/m/d H:i',
+				minDate:$input.val(),
+				maxDate:'2099/12/31 23:59'
+			});
+		}
+	});
+	
+	$(".chosentree").bind("click", function(){showSubmit();});
 	
 </script>

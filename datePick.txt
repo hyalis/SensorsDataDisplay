@@ -1,0 +1,8 @@
+http://aryweb.nl/projects/mootools-datepicker/Test/
+
+http://eternicode.github.io/bootstrap-datepicker/?markup=range&format=dd%2Fmm%2Fyyyy&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&todayBtn=false&language=fr&orientation=auto&multidate=true&multidateSeparator=sffe&todayHighlight=on&keyboardNavigation=on#sandbox
+
+http://www.eyecon.ro/datepicker/#about
+
+
+http://tarruda.github.io/bootstrap-datetimepicker/
