@@ -128,68 +128,6 @@
 	   // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
 	  // chart2.addListener("dataUpdated", zoomChart);
 
-	   // AXES
-	   // category
-	   var categoryAxis = chart2.categoryAxis;
-	   categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-	   categoryAxis.minPeriod = "hh"; // our data is daily, so we set minPeriod to DD
-	   categoryAxis.minorGridEnabled = true;
-	   categoryAxis.axisColor = "#DADADA";
-
-	   // first value axis (on the left)
-	   var valueAxis1 = new AmCharts.ValueAxis();
-	   valueAxis1.axisColor = "#FF6600";
-	   valueAxis1.axisThickness = 2;
-	   valueAxis1.gridAlpha = 0;
-	   chart2.addValueAxis(valueAxis1);
-
-	   // second value axis (on the right)
-	   var valueAxis2 = new AmCharts.ValueAxis();
-	   valueAxis2.position = "right"; // this line makes the axis to appear on the right
-	   valueAxis2.axisColor = "#FCD202";
-	   valueAxis2.gridAlpha = 0;
-	   valueAxis2.axisThickness = 2;
-	   chart2.addValueAxis(valueAxis2);
-
-	   // third value axis (on the left, detached)
-	   valueAxis3 = new AmCharts.ValueAxis();
-	   valueAxis3.offset = 50; // this line makes the axis to appear detached from plot area
-	   valueAxis3.gridAlpha = 0;
-	   valueAxis3.axisColor = "#B0DE09";
-	   valueAxis3.axisThickness = 2;
-	   chart2.addValueAxis(valueAxis3);
-
-	   // GRAPHS
-	   // first graph
-	   var graph1 = new AmCharts.AmGraph();
-	   graph1.valueAxis = valueAxis1; // we have to indicate which value axis should be used
-	   graph1.title = "0";
-	   graph1.valueField = "0";
-	   graph1.bullet = "round";
-	   graph1.hideBulletsCount = 30;
-	   graph1.bulletBorderThickness = 1;
-	   chart2.addGraph(graph1);
-
-	   // second graph
-	   var graph2 = new AmCharts.AmGraph();
-	   graph2.valueAxis = valueAxis2; // we have to indicate which value axis should be used
-	   graph2.title = "1";
-	   graph2.valueField = "1";
-	   graph2.bullet = "square";
-	   graph2.hideBulletsCount = 30;
-	   graph2.bulletBorderThickness = 1;
-	   chart2.addGraph(graph2);
-
-	   // third graph
-	   var graph3 = new AmCharts.AmGraph();
-	   graph3.valueAxis = valueAxis3; // we have to indicate which value axis should be used
-	   graph3.valueField = "2";
-	   graph3.title = "2";
-	   graph3.bullet = "triangleUp";
-	   graph3.hideBulletsCount = 30;
-	   graph3.bulletBorderThickness = 1;
-	   chart2.addGraph(graph3);
-
 	   // CURSOR
 	   var chartCursor = new AmCharts.ChartCursor();
 	   chartCursor.cursorPosition = "mouse";
@@ -221,7 +159,8 @@
 	   chart2.zoomToIndexes(10, 20);
 	}
 	
-<!-- Recharge les data du chart en fonction du temps -->
+	var tabGraphs = new Array();
+	<!-- Recharge les data du chart en fonction du temps -->
 	function updaValues(){
 		var dateDeb = $("#datetimepickerDeb").val();
 		var dateFin = $("#datetimepickerFin").val();
@@ -256,7 +195,22 @@
 				
 				} else {
 					document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';
-					//$("#slider").resize();
+					
+					for(i=0; i < tabGraphs.length; i++){
+						chart2.removeGraph(tabGraphs[i]);
+					}
+					tabGraphs = new Array();
+					for(i=0; i < $(".chosentree-choices li").size()-1; i++){
+						
+						var graph = new AmCharts.AmGraph();
+						graph.title = i;
+						graph.valueField = i;
+						graph.bullet = "round";
+						graph.hideBulletsCount = 30;
+						graph.bulletBorderThickness = 1;
+						chart2.addGraph(graph);		
+						tabGraphs[i] = graph;
+					}
 					
 					var elem = xmlhttp.responseText.split('END');
 					var dataBubble = elem[0];
@@ -289,6 +243,7 @@
 					} else {
 						chart.write("graphdiv");
 					}
+					chart2.validateData();
 				}
 			}
 		}
@@ -346,6 +301,7 @@
 	function onLine(){
 		document.getElementById('parameters').style.display='none'; 
 		chart2.write('graphdiv');
+		chart2.validateData();
 	}
 	
 	function onBubble(){
