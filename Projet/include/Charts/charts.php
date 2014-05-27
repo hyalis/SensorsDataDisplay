@@ -121,12 +121,19 @@
 	   // SERIAL CHART
 	   chart2 = new AmCharts.AmSerialChart();
 	   chart2.pathToImages = "./amcharts/images/";
-	   chart2.dataDateFormat = "YYYY-MM-DD HH";
+	   chart2.dataDateFormat = "YYYY-MM-DD HH:NN:SS";
 	   chart2.dataProvider = chartData;
 	   chart2.categoryField = "date";
 	   chart2.autoMarginOffset = 20;
 	   // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
 	  // chart2.addListener("dataUpdated", zoomChart);
+	  
+		//AXES
+		var categoryAxis = chart2.categoryAxis;
+		categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+		categoryAxis.minPeriod = "ss"; // our data is daily, so we set minPeriod to DD
+		categoryAxis.minorGridEnabled = true;
+		categoryAxis.axisColor = "#DADADA";
 
 	   // CURSOR
 	   var chartCursor = new AmCharts.ChartCursor();
@@ -165,16 +172,22 @@
 		var dateDeb = $("#datetimepickerDeb").val();
 		var dateFin = $("#datetimepickerFin").val();
 		
+		if($("#live .active input").val() == 'ON')
+			dateFin = "2999-12-31 23:59:59";
+		
 		groupBy = document.getElementById('groupBy').value;
 		
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		var pieces = new Array();
 		var capteurs = new Array();
 		var libVals = new Array();
 		var strPHP = "./include/Charts/reqChart.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
 		for(i=0; i < idCapteursIdLibVal.length; i++){
-			capteurs[i] = idCapteursIdLibVal[i].split("LibVal")[0];
-			libVals[i] = idCapteursIdLibVal[i].split("LibVal")[1];
+			pieces[i] = idCapteursIdLibVal[i].split("xxx")[0];
+			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[1];
+			libVals[i] = idCapteursIdLibVal[i].split("xxx")[2];
+			strPHP = strPHP + "&idPiece" + (i+1) + "=" + pieces[i];
 			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
 			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
 			
@@ -201,9 +214,18 @@
 					}
 					tabGraphs = new Array();
 					for(i=0; i < $(".chosentree-choices li").size()-1; i++){
+					
+						var valueAxis = new AmCharts.ValueAxis();
+						valueAxis.axisColor = "#FF6600";
+						valueAxis.axisThickness = 2;
+						valueAxis.gridAlpha = 0;
+						valueAxis.axisAlpha = 0;
+						valueAxis.labelsEnabled = false;
+						chart2.addValueAxis(valueAxis);
 						
 						var graph = new AmCharts.AmGraph();
-						graph.title = i;
+						graph.title = $(".chosentree-choices li span").get(i).textContent;
+						graph.valueAxis = valueAxis;
 						graph.valueField = i;
 						graph.bullet = "round";
 						graph.hideBulletsCount = 30;
@@ -232,6 +254,10 @@
 							break;
 						case "HOUR": chart2.categoryAxis.minPeriod = "hh";	
 							break;
+						case "MIN" : chart2.categoryAxis.minPeriod = "mm";
+							break;
+						case "SEC" : chart2.categoryAxis.minPeriod = "ss";
+							break;
 						default : chart2.categoryAxis.minPeriod = "DD";
 					}
 									
@@ -244,12 +270,55 @@
 						chart.write("graphdiv");
 					}
 					chart2.validateData();
+					
+					//Test du LIVE
+					if($("#live .active input").val() == 'ON')
+						liveData();
 				}
 			}
 		}
 		xmlhttp.open("GET",strPHP,true);
 		xmlhttp.send();
 	}
+	
+	function liveData(){
+		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		var capteurs = new Array();
+		var libVals = new Array();
+		var strPHP = "./include/Charts/live.php?time=5";
+	
+		for(i=0; i < idCapteursIdLibVal.length; i++){
+			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[1];
+			libVals[i] = idCapteursIdLibVal[i].split("xxx")[2];
+			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
+			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
+			
+		}
+		setInterval(function(){
+						if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
+							xmlhttp=new XMLHttpRequest();
+						} else {	// code for IE6, IE5
+							xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+						}
+						xmlhttp.onreadystatechange=function(){
+							if (xmlhttp.readyState==4 && xmlhttp.status==200){
+								if(xmlhttp.responseText==""){
+								
+								} else {
+									//alert(xmlhttp.responseText);
+									chart2.dataProvider.shift();
+									chart2.dataProvider.push(JSON.parse(xmlhttp.responseText));
+									chart2.validateData();
+									
+								}
+							}
+						}
+						xmlhttp.open("GET",strPHP,true);
+						xmlhttp.send();
+					},6000);
+	
+	}
+	
 
 	<!-- Change la couleur du graph -->
 	function updaColor(color){
@@ -263,7 +332,11 @@
 	}
 
 	function showSubmit(){
-		if($(".chosentree-choices li").size() > 3 && $("#datetimepickerDeb").val() != "" && $("#datetimepickerFin").val() != "" && $("#datetimepickerDeb").val() != $("#datetimepickerFin").val()){
+		if($(	".chosentree-choices li").size() > 1 
+				&& $("#datetimepickerDeb").val() != "" 
+				&& (	($("#datetimepickerFin").val() != "" && $("#datetimepickerDeb").val() != $("#datetimepickerFin").val()) 
+					|| $("#live .active input").val() == 'ON' )
+		){
 			document.getElementById('submit').style.display='';
 			updaStats();
 		} else {
@@ -276,9 +349,11 @@
 		var dateFin = $("#datetimepickerFin").val();
 		
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
-		opt1capt = idCapteursIdLibVal[0].split("LibVal")[0];
-		opt1lib = idCapteursIdLibVal[0].split("LibVal")[1];
 		
+		opt1pie = idCapteursIdLibVal[0].split("xxx")[0];
+		opt1capt = idCapteursIdLibVal[0].split("xxx")[1];
+		opt1lib = idCapteursIdLibVal[0].split("xxx")[2];
+		nbData = $(".chosentree-choices li").size()-1;
 		
 		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
@@ -294,7 +369,7 @@
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/Charts/stats.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib,true);
+		xmlhttp.open("GET","./include/Charts/stats.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib+"&idPiece="+opt1pie+"&nbData="+nbData,true);
 		xmlhttp.send();
 	}
 
@@ -372,6 +447,8 @@
 		}
 	}
     //FIN TREE
+	
+
 </script>
 
 <!-- En tête du wrapper -->
@@ -404,6 +481,47 @@
 	<div class="col-lg-9">
 		<!-- Autres paramètre (couleur, forme, ...) et BtnSubmit -->
 		<div class="row">
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group text-right">
+							<div class="btn-group" data-toggle="buttons" id="live">
+								<label class="btn btn-primary active">
+									<input type="radio" name="options" id="option1" value="OFF"> LIVE OFF
+								</label>
+								<label class="btn btn-primary">
+									<input type="radio" name="options" id="option2" value="ON"> LIVE ON
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3" style="padding-left: 0px;">Start : </label>
+							<input type="text"  class="col-sm-9" id="datetimepickerDeb" onChange="showSubmit();"/>
+						</div><br>
+						<div class="form-group" id="ddf">
+							<br>
+							<label class="col-sm-3" style="padding-left: 0px;">End : </label>
+							<input type="text"class="col-sm-9" id="datetimepickerFin" onChange="showSubmit();"/>
+						</div><br>
+						<div class="form-group" >
+							<label>Select Group by</label>
+							<select class="form-control" id="groupBy">
+								<option value='SEC'>Second</option>
+								<option value='MIN'>Minute</option>
+								<option value='HOUR'>Hour</option>
+								<option value='DAY'>Day</option>
+								<option value='WEEK'>Week</option>
+								<option value='MONTH'>Month</option>
+								<option value='YEAR'>Year</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="col-lg-4"  id="parameters" style="display:none;">
 				<div class="panel panel-primary" style="height: 215px;">
 					<div class="panel-heading">
@@ -433,37 +551,7 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col-lg-4">
-				<div class="panel panel-primary" style="height: 215px;">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
-					</div>
-					<div class="panel-body">
-						<div class="form-group">
-							<label class="col-sm-3" style="padding-left: 0px;">Start : </label>
-							<input type="text"  class="col-sm-9" id="datetimepickerDeb" onChange="showSubmit();"/>
-						</div>
-						<br>
-						<div class="form-group">
-							<label class="col-sm-3" style="padding-left: 0px;">End : </label>
-							<input type="text"class="col-sm-9" id="datetimepickerFin" onChange="showSubmit();"/>
-						</div><br>
-						<div class="form-group" >
-							<label>Select Group by</label>
-							<select class="form-control" id="groupBy">
-								<option value='HOUR'>Hour</option>
-								<option value='DAY'>Day</option>
-								<option value='WEEK'>Week</option>
-								<option value='MONTH'>Month</option>
-								<option value='YEAR'>Year</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
+			
 			<div class="col-lg-4" id="submit" style="display:none; ">
 				<div class="panel panel-primary" style="height: 215px;">
 					<div class="panel-heading">
@@ -500,7 +588,7 @@
 
 <script>
 	$('#datetimepickerDeb').datetimepicker().datetimepicker({
-		step:30,
+		step:2,
 		format:'Y-m-d H:i',
 		onChangeDateTime:function(dp,$input){
 			$('#datetimepickerFin').datetimepicker({
@@ -515,4 +603,17 @@
 		}
 	});
 	$(".chosentree").bind("click", function(){showSubmit();});
+	
+	$( "#live .btn" ).click('event', function() {
+		setTimeout(function(){
+								if($("#live .active input").val() == 'ON'){
+									$("#ddf").hide();
+									$("#datetimepickerFin").val("");
+									showSubmit();
+								} else {
+									$("#ddf").show();
+									showSubmit();
+								}
+							},100);
+	});
 </script>

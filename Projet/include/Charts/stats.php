@@ -6,21 +6,26 @@
 	
 	$idCapteur1 = $_GET['idCapteur1'];
 	$idLibVal1 = $_GET['idLibVal1'];
+	$idPiece = $_GET['idPiece'];
+	
+	$nbData = $_GET['nbData'];
 
 	$resultats=$connection->query("	SELECT count(valeur) as total
-									FROM valeurmesure, mesure 
+									FROM valeurmesure, mesure, localiser 
 									WHERE valeurmesure.Mesure_idMesure = mesure.idMesure 
-									AND Capteur_idCapteur = '$idCapteur1' 
+									AND mesure.Capteur_idCapteur = localiser.Capteur_idCapteur
+									AND mesure.Capteur_idCapteur = '$idCapteur1' 
 									AND LibVal_idLibVal = '$idLibVal1' 
+									AND Piece_idPiece = $idPiece
 									AND mesure.date BETWEEN '$dateDeb' AND '$dateFin'");
-									
+																	
 									
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	$res = $resultats->fetch();
-	$stats = "	Hour : ". ceil(($res->total)/2) ." <br>
-				Day : ". ceil(($res->total)/2/24) ." <br>
-				Week : ". ceil(($res->total)/2/24/7) ." <br>
-				Month : ". ceil(($res->total)/2/24/30) ." <br>
-				Year : ". ceil(($res->total)/2/24/30/12) ;
+	$stats = "	Hour : ". ceil((($res->total)/2))*$nbData ." <br>
+				Day : ". ceil(($res->total)/2/24)*$nbData ." <br>
+				Week : ". ceil(($res->total)/2/24/7)*$nbData ." <br>
+				Month : ". ceil(($res->total)/2/24/30)*$nbData ." <br>
+				Year : ". ceil(($res->total)/2/24/30/12)*$nbData ;
 	echo $stats;
 ?>

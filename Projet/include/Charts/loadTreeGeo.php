@@ -46,7 +46,7 @@
 						$cap = $resultat->idCapteur;
 						$etat = 4;
 				break;
-			case 4 :	$json = $json .	"{'id':'Cap" . $resultat->idCapteur . "LibVal" . $resultat->idLibVal . "',
+			case 4 :	$json = $json .	"{'id':'xxx" . $resultat->idPiece ."xxx" . $resultat->idCapteur . "xxx" . $resultat->idLibVal . "',
 										'title':'" . $resultat->libelle . "',
 										'has_children':false,
 										'level': $etat,
