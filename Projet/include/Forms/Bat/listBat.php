@@ -21,11 +21,14 @@
 						<td>'.$resultat->ville.'</td>
 						<td>'.$resultat->nbPiece.'</td>
 						<td>
-							<a href="./include/Forms/Bat/remBat.php?idBatiment='.$resultat->idBatiment.'"><span class="glyphicon glyphicon-remove"></a>
 							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editBatModal" onClick="editBat('.$resultat->idBatiment.')"></span></a>
-							<a href="index.php?p=Forms/Pie/editP&idBatiment='.$resultat->idBatiment.'"><span class="glyphicon glyphicon-home"></a>
-						</td>
+							<a href="index.php?p=Forms/Pie/editP&idBatiment='.$resultat->idBatiment.'"><span class="glyphicon glyphicon-home"></a> ';
+							
+			if ($resultat->nbPiece == 0) 
+				echo 		'<a href="./include/Forms/Bat/remBat.php?idBatiment='.$resultat->idBatiment.'"><span class="glyphicon glyphicon-remove"></a> ' ;
+			echo '		</td>
 					</tr>';
+		
 	}
 	$resultats->closeCursor(); 
 ?>

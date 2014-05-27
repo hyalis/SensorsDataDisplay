@@ -15,8 +15,8 @@
 						<td>'.$resultat->description.'</td>
 						<td>'.$resultat->unite.'</td>
 						<td>
-							<a href="./include/Forms/Lab/remLab.php?idLibVal='.$resultat->idLibVal.'&idTypeCapteur='.$idTypeCapteur.'"><span class="glyphicon glyphicon-remove"></a>
 							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editLabelModal" onClick="editLabel('.$resultat->idLibVal.')"></span></a>
+							<a href="./include/Forms/Lab/remLab.php?idLibVal='.$resultat->idLibVal.'&idTypeCapteur='.$idTypeCapteur.'"><span class="glyphicon glyphicon-remove"></a>
 						</td>
 					</tr>';
 	}

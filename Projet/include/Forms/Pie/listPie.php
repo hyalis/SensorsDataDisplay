@@ -27,10 +27,11 @@
 						<td>'.$resultat->nom.'</td>
 						<td>'.$resultat->nbPiece.'</td>
 						<td>
-							<a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->idPiece.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></a>
-							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->idPiece.')"></span></a>
-							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->idPiece.'"><span class="glyphicon glyphicon-signal"></a>
-						</td>
+							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->idPiece.')"></span></a>
+							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->idPiece.'"><span class="glyphicon glyphicon-signal"></span></a> ';
+			if ($resultat->nbPiece ==0)
+				echo 		' <a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->idPiece.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></span></a> ';
+			echo 		'</td>
 					</tr>';
 	}
 	$resultats->closeCursor(); 
