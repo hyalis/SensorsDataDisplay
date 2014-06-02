@@ -137,7 +137,7 @@
 		  </div>
 		  <div class="col-xs-6 text-right">
 			<p class="announcement-heading"><?php echo $nbTypes; ?></p>
-			<p class="announcement-text">Types of Types</p>
+			<p class="announcement-text">Types of sensors</p>
 		  </div>
 		</div>
 	  </div>
