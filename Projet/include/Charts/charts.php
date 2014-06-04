@@ -181,7 +181,7 @@
 		var pieces = new Array();
 		var capteurs = new Array();
 		var libVals = new Array();
-		var strPHP = "./include/Charts/reqChart.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
+		var strPHP = "./include/Charts/reqChartPie.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
 		for(i=0; i < idCapteursIdLibVal.length; i++){
 			pieces[i] = idCapteursIdLibVal[i].split("xxx")[0];
