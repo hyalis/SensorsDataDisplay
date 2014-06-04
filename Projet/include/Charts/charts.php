@@ -148,17 +148,8 @@
 	   var legend = new AmCharts.AmLegend();
 	   legend.marginLeft = 110;
 	   legend.useGraphSettings = true;
-	   chart2.addLegend(legend);
-
-	   // WRITE
-	   //chart2.write("graphdiv");
-	   
+	   chart2.addLegend(legend);	   
 	});
-
-	// generate some random data, quite different range
-	/* function generateChartData() {
-		chartData.push(<?php include "reqLineChart.php"; ?>);
-	}*/
 
 	// this method is called when chart is first inited as we listen for "dataUpdated" event
 	function zoomChart() {
@@ -177,25 +168,18 @@
 		
 		groupBy = document.getElementById('groupBy').value;
 		
-		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
-		var pieces = new Array();
-		var capteurs = new Array();
-		var libVals = new Array();
-		var strPHP = "./include/Charts/reqChartPie.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
-	
-		for(i=0; i < idCapteursIdLibVal.length; i++){
-			pieces[i] = idCapteursIdLibVal[i].split("xxx")[0];
-			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[1];
-			libVals[i] = idCapteursIdLibVal[i].split("xxx")[2];
-			strPHP = strPHP + "&idPiece" + (i+1) + "=" + pieces[i];
-			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
-			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
+		if($(".nav-tabs .active a").html() == "Geo")
+			url = updaValueGeo(dateDeb,dateFin,groupBy);
+		if($(".nav-tabs .active a").html() == "Sensor")
+			url = updaValueSen(dateDeb,dateFin,groupBy);
+		if($(".nav-tabs .active a").html() == "Exper")
+			url = updaValueExp(dateDeb,dateFin,groupBy);
+
 			
-		}
-		strPHP = strPHP + "&groupBy=" + groupBy;
-		
-		document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';	
+		//document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';	
 		document.getElementById('graphdiv').innerHTML='<h2><img src="./img/loading.gif" style="margin-right:25px;"/>Please wait...</h2>';
+		$("#graphiques .nav-tabs li").removeClass('active');
+		$("#graphiques .nav-tabs li:contains(Line)").attr("class","active");
 		
 		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
@@ -207,7 +191,9 @@
 				if(xmlhttp.responseText==""){
 				
 				} else {
-					document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';
+					//document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';
+					document.getElementById('map-canvas').style.display='none';
+					document.getElementById('graphdiv').style.display='';
 					
 					for(i=0; i < tabGraphs.length; i++){
 						chart2.removeGraph(tabGraphs[i]);
@@ -241,7 +227,6 @@
 					var chartData = JSON.parse("[" + dataBubble + "]");
 					chart.dataProvider = chartData;
 					chart.validateData();
-					//chart.write("chartdiv");
 					
 					chartData = JSON.parse("[" + dataLine + "]"); 
 					
@@ -270,15 +255,50 @@
 						chart.write("graphdiv");
 					}
 					chart2.validateData();
-					
-					//Test du LIVE
+
 					if($("#live .active input").val() == 'ON')
 						liveData();
 				}
 			}
 		}
-		xmlhttp.open("GET",strPHP,true);
+		xmlhttp.open("GET",url,true);
 		xmlhttp.send();
+	}
+	
+	function updaValueGeo(dateDeb,dateFin,groupBy) {
+		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		var pieces = new Array();
+		var capteurs = new Array();
+		var libVals = new Array();
+		var strPHP = "./include/Charts/reqChartGeo.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
+	
+		for(i=0; i < idCapteursIdLibVal.length; i++){
+			pieces[i] = idCapteursIdLibVal[i].split("xxx")[0];
+			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[1];
+			libVals[i] = idCapteursIdLibVal[i].split("xxx")[2];
+			strPHP = strPHP + "&idPiece" + (i+1) + "=" + pieces[i];
+			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
+			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
+			
+		}
+		strPHP = strPHP + "&groupBy=" + groupBy;
+		return strPHP;
+	}
+	
+	function updaValueSen(dateDeb,dateFin,groupBy) {
+		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		var capteurs = new Array();
+		var libVals = new Array();
+		var strPHP = "./include/Charts/reqChartSen.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
+	
+		for(i=0; i < idCapteursIdLibVal.length; i++){
+			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[0];
+			libVals[i] = idCapteursIdLibVal[i].split("xxx")[1];
+			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
+			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
+		}
+		strPHP = strPHP + "&groupBy=" + groupBy;
+		return strPHP;
 	}
 	
 	function liveData(){
@@ -292,7 +312,6 @@
 			libVals[i] = idCapteursIdLibVal[i].split("xxx")[2];
 			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
 			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
-			
 		}
 		setInterval(function(){
 						if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -375,8 +394,20 @@
 
 	function onLine(){
 		document.getElementById('parameters').style.display='none'; 
+		$("#graphiques .nav-tabs li").removeClass('active');
+		$("#graphiques .nav-tabs li:contains(Line)").attr("class","active");
+		document.getElementById('map-canvas').style.display='none';
+		document.getElementById('graphdiv').style.display='';
 		chart2.write('graphdiv');
 		chart2.validateData();
+	}
+	
+	function onMap(){
+		document.getElementById('parameters').style.display='none'; 
+		$("#graphiques .nav-tabs li").removeClass('active');
+		$("#graphiques .nav-tabs li:contains(Map)").attr("class","active");
+		document.getElementById('map-canvas').style.display='';
+		document.getElementById('graphdiv').style.display='none';
 	}
 	
 	function onBubble(){
@@ -388,12 +419,6 @@
 	var loadChildrenGeo = function(node, level) {
 		var hasChildren = node.level < 3;
 		node.children.push(<?php include "./include/Charts/loadTreeGeo.php"; ?>);		
-		return node;
-	};
-	
-	var loadChildrenTime = function(node, level) {
-		var hasChildren = node.level < 5;
-		node.children.push(<?php include "./include/Charts/loadTreeTime.php"; ?>);		
 		return node;
 	};
 	
@@ -491,9 +516,27 @@
 		}
 	}
     //FIN TREE
-	
-
 </script>
+	<style type="text/css">
+		#map-canvas { height: 460px; width: 100%; }
+    </style>
+	
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQZg8pUxWMmRpO_RHxyF29tPPthfvIRX8&sensor=true">
+	</script>
+	<script type="text/javascript">
+		function initialize() {
+			var mapOptions = {
+				center: new google.maps.LatLng(43.561267, 1.469426),
+				zoom: 16
+			};
+			var map = new google.maps.Map(document.getElementById("map-canvas"),
+			mapOptions);
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+	
+	
 
 <!-- En tête du wrapper -->
 <div class="row">
@@ -515,8 +558,7 @@
 				<div class="panel-body">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');">Geo</a></li>
-						<li><a href="#time" data-toggle="tab" onClick="reLoadTree('Time');">Time</a></li>
-						<li><a href="#Sensor" data-toggle="tab" onClick="reLoadTree('Sensor');">Sensor</a></li>
+						<li><a href="#Sen" data-toggle="tab" onClick="reLoadTree('Sensor');">Sensor</a></li>
 						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');">Exper</a></li>
 					<div class="chosentree" style="width=20%;"></div>
 				</div>
@@ -610,20 +652,22 @@
 			</div>
 		</div><!-- /.row -->
 		
-		<div class="row" id="graphiques" style="position:absolute; top:-2000px;">
+		<div class="row" id="graphiques" >
 			<div class="col-lg-12">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Your differents charts</h3>
 					</div>
 					<div class="panel-body">
-						 
 						<ul class="nav nav-tabs" id="onglet">
-							<li class="active"><a href="#line" data-toggle="tab" onclick="onLine();">Line</a></li>
+							<li class="active"><a href="#" data-toggle="tab" onclick="onMap();">Map</a></li>
+							<li><a href="#line" data-toggle="tab" onclick="onLine();">Line</a></li>
 							<li><a href="#bubble" data-toggle="tab" onclick="onBubble();">Bubble</a></li>
 						</ul>
+						<br>
+						<div id="graphdiv" style="width: auto; height: 350px;display:none; " ></div>
+						<div id="map-canvas"/>
 						
-						<div id="graphdiv" style="width: auto; height: 350px;"></div>
 					</div>
 				</div>
 			</div>
