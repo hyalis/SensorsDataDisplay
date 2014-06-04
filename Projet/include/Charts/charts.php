@@ -398,6 +398,19 @@
 	};
 	
 	
+	var loadChildrenSensor = function(node, level) {
+		var hasChildren = node.level < 3;
+		node.children.push(<?php include "./include/Charts/loadTreeSensor.php"; ?>);		
+		return node;
+	};
+	
+	var loadChildrenExper = function(node, level) {
+		var hasChildren = node.level < 4;
+		node.children.push(<?php include "./include/Charts/loadTreeExper.php"; ?>);		
+		return node;
+	};
+	
+	
 	jQuery(function() {
 		$('div.chosentree').chosentree({
 			width: 200,
@@ -430,7 +443,8 @@
 					}, 1200);
 				}
 			});
-		} else {
+		}
+		if (typeTree == "Time"){
 			$('div.chosentree').chosentree({
 				width: 200,
 				deepLoad: true,
@@ -441,6 +455,36 @@
 					}, 1000);
 					setTimeout(function() {
 					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
+					}, 1200);
+				}
+			});
+		}
+		if (typeTree=="Sensor"){
+			$('div.chosentree').chosentree({
+				width: 200,
+				deepLoad: true,
+				showtree: true,
+				load: function(node, callback) {
+					setTimeout(function() {
+					callback(loadChildrenSensor(node, 0));
+					}, 1000);
+					setTimeout(function() {
+					$(".treenode .odd input, .treenode .even input").remove("[value=typ],[value=cap]");
+					}, 1200);
+				}
+			});
+		}
+		if (typeTree=="Exper"){
+			$('div.chosentree').chosentree({
+				width: 200,
+				deepLoad: true,
+				showtree: true,
+				load: function(node, callback) {
+					setTimeout(function() {
+					callback(loadChildrenExper(node, 0));
+					}, 1000);
+					setTimeout(function() {
+					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=typ]");
 					}, 1200);
 				}
 			});
@@ -472,7 +516,8 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');">Geo</a></li>
 						<li><a href="#time" data-toggle="tab" onClick="reLoadTree('Time');">Time</a></li>
-					</ul>
+						<li><a href="#Sensor" data-toggle="tab" onClick="reLoadTree('Sensor');">Sensor</a></li>
+						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');">Exper</a></li>
 					<div class="chosentree" style="width=20%;"></div>
 				</div>
 			</div>
@@ -483,7 +528,7 @@
 		<div class="row">
 			<div class="col-lg-4">
 				<div class="panel panel-primary">
-					<div class="panel-heading">
+					<div class="panel-heading" >
 						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
 					</div>
 					<div class="panel-body">
@@ -523,7 +568,7 @@
 			</div>
 
 			<div class="col-lg-4"  id="parameters" style="display:none;">
-				<div class="panel panel-primary" style="height: 215px;">
+				<div class="panel panel-primary" style="height: 268px;">
 					<div class="panel-heading">
 						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Parameters</h3>
 					</div>
@@ -553,7 +598,7 @@
 			</div>
 			
 			<div class="col-lg-4" id="submit" style="display:none; ">
-				<div class="panel panel-primary" style="height: 215px;">
+				<div class="panel panel-primary" style="height: 268px;">
 					<div class="panel-heading">
 						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Data (approximate)</h3>
 					</div>
