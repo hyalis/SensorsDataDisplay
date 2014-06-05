@@ -123,7 +123,7 @@
 		$date = $value[0];
 		for($i = 1; $i <= $nbCourbes; $i++){
 			if(!isset($value[$i]))
-				$value[$i] = "undefined";
+				$value[$i] = "false";
 		}
 
 		if($test){

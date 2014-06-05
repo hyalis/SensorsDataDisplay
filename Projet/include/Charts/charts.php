@@ -216,6 +216,7 @@
 						graph.bullet = "round";
 						graph.hideBulletsCount = 30;
 						graph.bulletBorderThickness = 1;
+						graph.connect = false;
 						chart2.addGraph(graph);		
 						tabGraphs[i] = graph;
 					}
@@ -509,7 +510,7 @@
 					callback(loadChildrenExper(node, 0));
 					}, 1000);
 					setTimeout(function() {
-					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=typ]");
+					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=typ],[value=cap]");
 					}, 1200);
 				}
 			});
