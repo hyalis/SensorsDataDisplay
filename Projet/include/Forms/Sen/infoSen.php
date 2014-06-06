@@ -2,7 +2,7 @@
 	include "../../bdd.php";
 	$idSensor = $_GET['idSensor'];
 	
-	$resultats=$connection->query("SELECT IDCAPTEUR, NOMCAPTEUR, TYPECAPTEUR_IDTYPECAPTEUR FROM CAPTEUR WHERE IDCAPTEUR = $idSensor");
+	$resultats=$connection->query("SELECT IDCAPTEUR, NOMCAPTEUR, TYPECAPTEUR_IDTYPECAPTEUR FROM CAPTEUR WHERE idCapteur = $idSensor");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	$resultat = $resultats->fetch();
 	

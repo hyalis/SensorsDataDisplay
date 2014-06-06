@@ -2,7 +2,7 @@
 	include "./bdd.php";
 	$resultats=$connection->query("	SELECT IDCAPTEUR, NOMCAPTEUR, NOMTYPE 
 									FROM CAPTEUR, TYPECAPTEUR
-									WHERE TYPECAPTEUR_IDTYPECAPTEUR = IDTYPECAPTEUR ");
+									WHERE TypeCapteur_idTypeCapteur = idTypeCapteur ");
 														
 																											
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
