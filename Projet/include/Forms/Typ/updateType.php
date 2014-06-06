@@ -3,7 +3,7 @@
 	$idTypeCapteur = $_GET['idTypeCapteur']; 
 	$name = $_GET['name'];
 	
-	$resultats=$connection->query("UPDATE TYPECAPTEUR SET NOMTYPE = '$name' WHERE IDTYPECAPTEUR = $idTypeCapteur");
+	$resultats=$connection->query("UPDATE typecapteur SET nomType = '$name' WHERE idTypeCapteur = $idTypeCapteur");
 	
 	//echo "UPDATE typecapteur SET nomType = '$name' WHERE idTypeCapteur = $idTypeCapteur" ;
 
