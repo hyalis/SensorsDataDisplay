@@ -38,7 +38,7 @@
 						$etat = 3;
 				break;
 			case 3 :	$json = $json .	"{'id':'xxx" . $resultat->IDCAPTEUR ."xxx" . $resultat->IDLIBVAL ."',
-										'title':'" . $resultat->libelle . "',
+										'title':'" . $resultat->LIBELLE . "',
 										'has_children':false,
 										'level': $etat,
 										'children':[]}";

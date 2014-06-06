@@ -34,7 +34,7 @@
 										'has_children':true,
 										'level': $etat,
 										'children':[";
-						$bat = $resultat->idBatiment;
+						$bat = $resultat->IDBATIMENT;
 						$etat = 2;
 				break;
 			case 2 :	$json = $json .	"{'id':'pie',
