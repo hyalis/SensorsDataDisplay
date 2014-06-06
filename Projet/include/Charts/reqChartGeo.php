@@ -65,7 +65,6 @@
 											  OR	(dateD <= '$dateDeb%' AND (dateF >= '$dateFin%' OR dateF IS NULL)))
 										ORDER BY dateD ASC";*/
 		$resultats->setFetchMode(PDO::FETCH_OBJ);
-		
 		while( $resultat = $resultats->fetch() )
 		{
 			//echo "<br><br><br>idLoc = " . $resultat->idLocaliser . " dateD = " . $resultat->dateD . " dateF = " . $resultat->dateF . "<br><br><br>";
@@ -111,12 +110,25 @@
 				$data[$val->dateMesure][($i+1)] = $val->valeur;
 				//echo "Pour le capteur $i data[date][($i+1)] =  " . $val->valeur . "<br>";
 			}
+			
+			//$dateTrou = $dateF + 1 seconde;
+			
+			$dateTrou = new DateTime($dateF);
+			$dateTrou->add(new DateInterval('PT1S'));
+			//echo "dateTrou = " . $dateTrou->format('Y-m-d H:i:s') . "<br>";
+			
+			$data[$dateTrou->format('Y-m-d H:i:s')][0] = $dateTrou->format('Y-m-d H:i:s');
+			$data[$dateTrou->format('Y-m-d H:i:s')][($i+1)] = "false";
+			
 		}
 	}
 	
-	//echo "<br><br><br><br><br><br><br><br><b>Tableau final</b><br>";		
+	//echo "<br><br><br><br><br><br><br><br><b>Tableau final</b>AVANT<br>";		
 	//print_r($data);
-	asort($data);
+	ksort($data);
+	//echo "<br><br><br>APRES<br>";	
+	//print_r($data);
+	//echo "<br><br><br><br>";	
 	echo "END";
 	$test = true;
 	foreach ($data as &$value) {
