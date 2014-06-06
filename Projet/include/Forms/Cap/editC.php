@@ -82,11 +82,11 @@
 <?php
 	include "./bdd.php";
 	$idPiece = $_GET['idPiece'];
-	$resultats=$connection->query("SELECT Batiment_idBatiment, nom FROM Piece WHERE idPiece = $idPiece;");
+	$resultats=$connection->query("SELECT Batiment_idBatiment as IDBAT, NOM FROM Piece WHERE idPiece = $idPiece");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	$resultat = $resultats->fetch();
-	$idBatiment = $resultat->Batiment_idBatiment;
-	$nomPiece = $resultat->nom;
+	$idBatiment = $resultat->IDBAT;
+	$nomPiece = $resultat->NOM;
 ?>
 <div class="row">
 	<div class="col-lg-12">

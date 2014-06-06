@@ -1,13 +1,13 @@
 <?php
 	include "bdd.php";
 	$idBatiment = $_GET['idBatiment'];
-	$resultats=$connection->query("	SELECT idPiece, nom, count(idCapteur) as nbPiece
+	$resultats=$connection->query("	SELECT IDPIECE, NOM, count(idCapteur) as NBPIECE
 														FROM piece, capteur, localiser
 														WHERE Piece_idPiece = idPiece
 														AND Capteur_idCapteur = idCapteur
 														AND Batiment_idBatiment = $idBatiment
 														AND dateF IS NULL
-														GROUP BY idPiece
+														GROUP BY IDPIECE, NOM
 															UNION
 														SELECT idPiece, nom, 0
 														FROM piece
@@ -22,15 +22,15 @@
 	
 	while( $resultat = $resultats->fetch() )
 	{
-		if($resultat->nom != "")
+		if($resultat->NOM != "")
 			echo	'<tr>
-						<td>'.$resultat->nom.'</td>
-						<td>'.$resultat->nbPiece.'</td>
+						<td>'.$resultat->NOM.'</td>
+						<td>'.$resultat->NBPIECE.'</td>
 						<td>
-							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->idPiece.')"></span></a>
-							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->idPiece.'"><span class="glyphicon glyphicon-signal"></span></a> ';
-			if ($resultat->nbPiece ==0)
-				echo 		' <a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->idPiece.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></span></a> ';
+							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->NBPIECE.')"></span></a>
+							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->IDPIECE.'"><span class="glyphicon glyphicon-signal"></span></a> ';
+			if ($resultat->NBPIECE ==0)
+				echo 		' <a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->IDPIECE.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></span></a> ';
 			echo 		'</td>
 					</tr>';
 	}

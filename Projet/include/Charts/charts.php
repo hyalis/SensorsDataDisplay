@@ -436,7 +436,6 @@
 		return node;
 	};
 	
-	
 	jQuery(function() {
 		$('div.chosentree').chosentree({
 			width: 200,
@@ -448,7 +447,7 @@
 				}, 1000);
 				setTimeout(function() {
 				$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
-				}, 1200);
+				}, 1500);
 			}
 		});
 	});
@@ -463,10 +462,10 @@
 				load: function(node, callback) {
 					setTimeout(function() {
 					callback(loadChildrenGeo(node, 0));
-					}, 1000);
+					}, 1);
 					setTimeout(function() {
 					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
-					}, 1200);
+					}, 500);
 				}
 			});
 		}
@@ -478,10 +477,10 @@
 				load: function(node, callback) {
 					setTimeout(function() {
 					callback(loadChildrenTime(node, 0));
-					}, 1000);
+					}, 1);
 					setTimeout(function() {
 					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
-					}, 1200);
+					}, 500);
 				}
 			});
 		}
@@ -493,10 +492,10 @@
 				load: function(node, callback) {
 					setTimeout(function() {
 					callback(loadChildrenSensor(node, 0));
-					}, 1000);
+					}, 1);
 					setTimeout(function() {
 					$(".treenode .odd input, .treenode .even input").remove("[value=typ],[value=cap]");
-					}, 1200);
+					}, 500);
 				}
 			});
 		}
@@ -508,10 +507,10 @@
 				load: function(node, callback) {
 					setTimeout(function() {
 					callback(loadChildrenExper(node, 0));
-					}, 1000);
+					}, 1);
 					setTimeout(function() {
 					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=typ],[value=cap]");
-					}, 1200);
+					}, 500);
 				}
 			});
 		}

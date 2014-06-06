@@ -1,7 +1,7 @@
 <?php
 	include "../../bdd.php";
 	
-	$resultats=$connection->query("	SELECT idCapteur, nomCapteur
+	$resultats=$connection->query("	SELECT IDCAPTEUR, NOMCAPTEUR
 									FROM capteur, localiser l1
 									WHERE l1.Capteur_idCapteur = idCapteur 
 									AND dateF IS NOT NULL
@@ -12,11 +12,11 @@
 									UNION
 									SELECT idCapteur, nomCapteur
 									FROM capteur
-									WHERE idCapteur NOT IN (SELECT Capteur_idCapteur FROM Localiser);");
+									WHERE idCapteur NOT IN (SELECT Capteur_idCapteur FROM Localiser)");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	while( $resultat = $resultats->fetch() )
 	{
-		echo "<option value='" . $resultat->idCapteur . "'>" . $resultat->nomCapteur . "</option>";
+		echo "<option value='" . $resultat->IDCAPTEUR . "'>" . $resultat->NOMCAPTEUR . "</option>";
 	}
 	$resultats->closeCursor(); 
 ?>

@@ -17,7 +17,7 @@
 		$capteur[(($i+1)/2)-1][1] = $params[$i+1];
 	}
 	
-	$req = "SELECT LEFT(T1.date,19) as dateMesure ";
+	$req = "SELECT LEFT(T1.date,19) as DATEMESURE ";
 	
 	for($i = 0; $i < sizeof($_GET)/3; $i++){
 		$req = $req . ", ROUND(T" . ($i+1) . ".V" . ($i+1) . ",2) as Value" . $i;
@@ -44,7 +44,7 @@
 		$req = substr($req, 0, strlen($req)-3);
 	}
 	
-	$req = $req . " ORDER BY dateMesure DESC";
+	$req = $req . " ORDER BY DATEMESURE DESC";
 	
 	//echo $req . "<br><br><br><br>";
 
@@ -52,8 +52,8 @@
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 
 	$resultat = $resultats->fetch();
-	if(isset($resultat->dateMesure) && $resultat->dateMesure != ""){
-		echo	'{"date" : "' . $resultat->dateMesure .'",';
+	if(isset($resultat->DATEMESURE) && $resultat->DATEMESURE != ""){
+		echo	'{"date" : "' . $resultat->DATEMESURE .'",';
 		for($i = 0; $i < sizeof($capteur)-1; $i++){
 			$name = "Value".$i;
 			echo	'"' . $i . '" : "' . $resultat->$name . '",';	

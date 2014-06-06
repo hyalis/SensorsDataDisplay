@@ -1,14 +1,14 @@
 <?php
 	include "./bdd.php";
 	
-	$resultats=$connection->query("	SELECT DISTINCT   idBatiment, Batiment.nom as nomBat , idPiece ,Piece.nom as nomPie, idTypeCapteur, nomType, idLibVal, libelle, idCapteur, nomCapteur
+	$resultats=$connection->query("	SELECT DISTINCT   IDBATIMENT, Batiment.nom as NOMBAT , IDPIECE ,Piece.nom as NOMPIE, IDTYPECAPTEUR, NOMTYPE, IDLIBVAL, LIBELLE, IDCAPTEUR, NOMCAPTEUR
 									FROM Batiment , Piece , localiser, capteur, typeCapteur, libval 
 									WHERE Batiment_idBatiment = idBatiment
 									AND idPiece = Piece_idPiece
 									AND Capteur_idCapteur = idCapteur
 									AND Capteur.TypeCapteur_idTypeCapteur = idTypeCapteur
 									AND idTypeCapteur = libval.TypeCapteur_idTypeCapteur
-									ORDER BY idBatiment, idPiece, idTypeCapteur, idLibval , idCapteur
+									ORDER BY IDBATIMENT, IDPIECE, IDTYPECAPTEUR, IDLIBVAL , IDCAPTEUR
 									");
 									
 									
@@ -30,7 +30,7 @@
 	{
 		switch($etat){
 			case 1 : 	$json = $json .	"{'id':'bat',
-										'title':'" . $resultat->nomBat . "',
+										'title':'" . $resultat->NOMBAT . "',
 										'has_children':true,
 										'level': $etat,
 										'children':[";
@@ -38,37 +38,37 @@
 						$etat = 2;
 				break;
 			case 2 :	$json = $json .	"{'id':'pie',
-										'title':'" . $resultat->nomPie . "',
+										'title':'" . $resultat->NOMPIE . "',
 										'has_children':true,
 										'level': $etat,
 										'children':[";
-						$pie = $resultat->idPiece;
+						$pie = $resultat->IDPIECE;
 						$etat = 3;
 				break;
 			case 3 :	$json = $json .	"{'id':'typ',
-										'title':'" . $resultat->nomType . "',
+										'title':'" . $resultat->NOMTYPE . "',
 										'has_children':true,
 										'level': $etat,
 										'children':[";
-						$typ = $resultat->idTypeCapteur;
+						$typ = $resultat->IDTYPECAPTEUR;
 						$etat = 4;
 				break;
 			case 4 :	//$jsonC = $jsonC .	"{'id':'xxx" . $resultat->idPiece ."xxx" . $resultat->idTypeCapteur ."xxx" . $resultat->idLibVal ."xxx". $resultat->idCapteur."',
 						$jsonC = $jsonC .	"{'id':'cap',
-										'title':'" . $resultat->nomCapteur . "',
+										'title':'" . $resultat->NOMCAPTEUR . "',
 										'has_children':false,
 										'level': 5,
 										'children':[]}";
 										
-						$lib = $resultat->idLibVal ;
-						$libelle = $resultat->libelle ;
-						$cap = $resultat->idCapteur ;
+						$lib = $resultat->IDLIBVAL ;
+						$libelle = $resultat->LIBELLE ;
+						$cap = $resultat->IDCAPTEUR ;
 						
 						$resultat = $resultats->fetch();
-						if($resultat && $bat == $resultat->idBatiment) {
-							if($pie == $resultat->idPiece) {
-								if($typ == $resultat->idTypeCapteur) {
-									if($lib == $resultat->idLibVal){
+						if($resultat && $bat == $resultat->IDBATIMENT) {
+							if($pie == $resultat->IDPIECE) {
+								if($typ == $resultat->IDTYPECAPTEUR) {
+									if($lib == $resultat->IDLIBVAL){
 										$tempId = $tempId ."xxx". $cap ;
 										$jsonC = $jsonC .	",";
 										$etat = 4;

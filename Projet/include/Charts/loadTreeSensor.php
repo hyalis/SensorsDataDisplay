@@ -1,11 +1,11 @@
 <?php
 	include "./bdd.php";
 	
-	$resultats=$connection->query("	SELECT idTypeCapteur , nomType, idCapteur, nomCapteur, idLibVal, libelle
+	$resultats=$connection->query("	SELECT IDTYPECAPTEUR , NOMTYPE, IDCAPTEUR, NOMCAPTEUR, IDLIBVAL, LIBELLE
 									FROM typecapteur, capteur, libval
 									WHERE idTypeCapteur = capteur.TypeCapteur_idTypeCapteur
 									AND libval.TypeCapteur_idTypeCapteur = idTypeCapteur
-									ORDER BY idTypeCapteur, idCapteur, idlibval");
+									ORDER BY IDTYPECAPTEUR, IDCAPTEUR, IDLIBVAL");
 									
 									
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
@@ -22,29 +22,29 @@
 	{
 		switch($etat){
 			case 1 : 	$json = $json .	"{'id':'typ',
-										'title':'" . $resultat->nomType . "',
+										'title':'" . $resultat->NOMTYPE . "',
 										'has_children':true,
 										'level': $etat,
 										'children':[";
-						$typ = $resultat->idTypeCapteur;
+						$typ = $resultat->IDTYPECAPTEUR;
 						$etat = 2;
 				break;
 			case 2 :	$json = $json .	"{'id':'cap',
-										'title':'" . $resultat->nomCapteur . "',
+										'title':'" . $resultat->NOMCAPTEUR . "',
 										'has_children':true,
 										'level': $etat,
 										'children':[";
-						$cap = $resultat->idCapteur;
+						$cap = $resultat->IDCAPTEUR;
 						$etat = 3;
 				break;
-			case 3 :	$json = $json .	"{'id':'xxx" . $resultat->idCapteur ."xxx" . $resultat->idLibVal ."',
+			case 3 :	$json = $json .	"{'id':'xxx" . $resultat->IDCAPTEUR ."xxx" . $resultat->IDLIBVAL ."',
 										'title':'" . $resultat->libelle . "',
 										'has_children':false,
 										'level': $etat,
 										'children':[]}";
 						$resultat = $resultats->fetch();
-						if($resultat && $typ == $resultat->idTypeCapteur) {
-							if($cap == $resultat->idCapteur) {
+						if($resultat && $typ == $resultat->IDTYPECAPTEUR) {
+							if($cap == $resultat->IDCAPTEUR) {
 								$json = $json .	",";
 								$etat = 3;
 							} else {

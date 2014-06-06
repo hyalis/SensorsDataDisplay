@@ -47,7 +47,7 @@
 	
 	for($i = 0; $i < $nbCourbes; $i++){
 		//Récupère les dates ou le capteur était utilisé dans CETTE pièce
-		$resultats=$connection->query("	SELECT idLocaliser, dateD, dateF 
+		$resultats=$connection->query("	SELECT IDLOCALISER, DATED, DATEF 
 										FROM localiser 
 										WHERE Capteur_idCapteur = " . $capteur[$i][1] . "
 										AND Piece_idPiece = " . $capteur[$i][0] . "
@@ -69,23 +69,30 @@
 		{
 			//echo "<br><br><br>idLoc = " . $resultat->idLocaliser . " dateD = " . $resultat->dateD . " dateF = " . $resultat->dateF . "<br><br><br>";
 
-			$dateD = $resultat->dateD;
+			$dateD = $resultat->DATED;
 			
 			if($dateD < $dateDeb)
 				$dateD = $dateDeb;
 				
-			//Si il n'y a pas de date de fin c'est que le capteur est tj ds la pièce... On va le plus loin possible (2099 est pas mal)
+			//Si il n'y a pas de date de fin c'est que le capteur est tj ds la pièce...
 			if(empty($resultat->dateF) == 1){
 				$dateF = $dateFin;
 			} else {
 				if($resultat->dateF > $dateFin)
 					$dateF = $dateFin;
 				else
-					$dateF = $resultat->dateF;
+					$dateF = $resultat->DATEF;
+				$dateTrou = new DateTime($dateF);
+				$dateTrou->add(new DateInterval('PT1S'));
+				$data[$dateTrou->format('Y-m-d H:i:s')][0] = $dateTrou->format('Y-m-d H:i:s');
+				$data[$dateTrou->format('Y-m-d H:i:s')][($i+1)] = "false";
 			}
+			
+
+
 
 			//Récupère les données de CE capteur aux dates ou il se trouvait dans CETTE pièce
-			$res=$connection->query("	SELECT LEFT(mesure.date,19) as dateMesure, valeur 
+			$res=$connection->query("	SELECT LEFT(mesure.date,19) as DATEMESURE, VALEUR 
 										FROM valeurmesure, mesure 
 										WHERE valeurmesure.Mesure_idMesure = mesure.idMesure 
 										AND mesure.Capteur_idCapteur = " . $capteur[$i][1] . "
@@ -106,20 +113,15 @@
 			
 			while($val = $res->fetch())
 			{
-				$data[$val->dateMesure][0] = $val->dateMesure;
-				$data[$val->dateMesure][($i+1)] = $val->valeur;
+				$data[$val->DATEMESURE][0] = $val->DATEMESURE;
+				$data[$val->DATEMESURE][($i+1)] = $val->VALEUR;
 				//echo "Pour le capteur $i data[date][($i+1)] =  " . $val->valeur . "<br>";
 			}
 			
 			//$dateTrou = $dateF + 1 seconde;
 			
-			$dateTrou = new DateTime($dateF);
-			$dateTrou->add(new DateInterval('PT1S'));
-			//echo "dateTrou = " . $dateTrou->format('Y-m-d H:i:s') . "<br>";
 			
-			$data[$dateTrou->format('Y-m-d H:i:s')][0] = $dateTrou->format('Y-m-d H:i:s');
-			$data[$dateTrou->format('Y-m-d H:i:s')][($i+1)] = "false";
-			
+			//echo "dateTrou = " . $dateTrou->format('Y-m-d H:i:s') . "<br>";		
 		}
 	}
 	

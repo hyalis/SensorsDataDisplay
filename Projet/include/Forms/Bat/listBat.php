@@ -1,31 +1,30 @@
 <?php
 	include "./bdd.php";
-	$resultats=$connection->query("	SELECT idBatiment, batiment.nom, adresse, cp, ville, count(idPiece) as nbPiece
+	$resultats=$connection->query("	SELECT IDBATIMENT, batiment.NOM, ADRESSE, CP, VILLE, count(idPiece) as NBPIECE
 														FROM batiment, piece 
 														WHERE Batiment_idBatiment = idBatiment
-														GROUP BY idBatiment
+														GROUP BY IDBATIMENT, batiment.NOM, ADRESSE, CP, VILLE
 															UNION
 														SELECT idBatiment, batiment.nom, adresse, cp, ville, 0 FROM batiment
 														WHERE idBatiment NOT IN (	SELECT DISTINCT Batiment_idBatiment 
 																					FROM piece
-																				);
+																				)
 														");
-														
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	while( $resultat = $resultats->fetch() )
 	{
 			echo	'<tr>
-						<td>'.$resultat->nom.'</td>
-						<td>'.$resultat->adresse.'</td>
-						<td>'.$resultat->cp.'</td>
-						<td>'.$resultat->ville.'</td>
-						<td>'.$resultat->nbPiece.'</td>
+						<td>'.$resultat->NOM .'</td>
+						<td>'.$resultat->ADRESSE .'</td>
+						<td>'.$resultat->CP .'</td>
+						<td>'.$resultat->VILLE .'</td>
+						<td>'.$resultat->NBPIECE .'</td>
 						<td>
-							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editBatModal" onClick="editBat('.$resultat->idBatiment.')"></span></a>
-							<a href="index.php?p=Forms/Pie/editP&idBatiment='.$resultat->idBatiment.'"><span class="glyphicon glyphicon-home"></a> ';
+							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editBatModal" onClick="editBat('.$resultat->IDBATIMENT.')"></span></a>
+							<a href="index.php?p=Forms/Pie/editP&idBatiment='.$resultat->IDBATIMENT.'"><span class="glyphicon glyphicon-home"></a> ';
 							
-			if ($resultat->nbPiece == 0) 
-				echo 		'<a href="./include/Forms/Bat/remBat.php?idBatiment='.$resultat->idBatiment.'"><span class="glyphicon glyphicon-remove"></a> ' ;
+			if ($resultat->NBPIECE == 0) 
+				echo 		'<a href="./include/Forms/Bat/remBat.php?idBatiment='.$resultat->IDBATIMENT.'"><span class="glyphicon glyphicon-remove"></a> ' ;
 			echo '		</td>
 					</tr>';
 		

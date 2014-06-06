@@ -46,7 +46,7 @@
 	for($i = 0; $i < $nbCourbes; $i++){
 
 			//Récupère toutes les données de ce capteur entre ces deux dates
-			$res=$connection->query("	SELECT mesure.date as dateMesure, valeur
+			$res=$connection->query("	SELECT mesure.date as DATEMESURE, VALEUR
 										FROM mesure, valeurmesure
 										WHERE Capteur_idCapteur = " . $capteur[$i][0] . "
 										AND LibVal_idLibVal = " . $capteur[$i][1] . "
@@ -67,8 +67,8 @@
 			
 			while($val = $res->fetch())
 			{
-				$data[$val->dateMesure][0] = $val->dateMesure;
-				$data[$val->dateMesure][($i+1)] = $val->valeur;
+				$data[$val->DATEMESURE][0] = $val->DATEMESURE;
+				$data[$val->DATEMESURE][($i+1)] = $val->VALEUR;
 				//echo "Pour le capteur $i data[date][($i+1)] =  " . $val->valeur . "<br>";
 			}
 		

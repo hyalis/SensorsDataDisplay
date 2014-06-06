@@ -51,10 +51,10 @@
 		<h1>Edit Rooms 
 			<small> Edit rooms of #<?php 
 				include "./bdd.php";
-				$resultats=$connection->query("SELECT nom FROM batiment WHERE idBatiment = ".$_GET['idBatiment'].";" );
+				$resultats=$connection->query("SELECT NOM FROM batiment WHERE idBatiment = ".$_GET['idBatiment'] );
 				$resultats->setFetchMode(PDO::FETCH_OBJ);
 				$resultat = $resultats->fetch() ; 
-				echo $resultat->nom ; ?>
+				echo $resultat->NOM ; ?>
 			</small>
 		</h1>
 		<ol class="breadcrumb">

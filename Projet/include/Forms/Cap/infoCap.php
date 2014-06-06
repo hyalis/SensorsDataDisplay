@@ -2,19 +2,19 @@
 	include "../../bdd.php";
 	$idCapteur = $_GET['idCapteur'];
 	
-	$resultats=$connection->query("SELECT idCapteur, nomCapteur, TypeCapteur_idTypeCapteur FROM capteur WHERE idCapteur = $idCapteur");
+	$resultats=$connection->query("SELECT IDCAPTEUR, NOMCAPTEUR, TypeCapteur_idTypeCapteur as TYPE FROM capteur WHERE idCapteur = $idCapteur");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	$resultat = $resultats->fetch();
 	
-	$return = $resultat->nomCapteur . "***";
-	$return = $return . $resultat->idCapteur;
-	$idTypeCapteurCourant = $resultat->TypeCapteur_idTypeCapteur;
+	$return = $resultat->NOMCAPTEUR . "***";
+	$return = $return . $resultat->IDCAPTEUR;
+	$idTypeCapteurCourant = $resultat->TYPE;
 	
-	$resultats=$connection->query("SELECT idTypeCapteur, nomType FROM typecapteur");
+	$resultats=$connection->query("SELECT IDTYPECAPTEUR, NOMTYPE FROM typecapteur");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	while( $resultat = $resultats->fetch() )
 	{
-		$return = $return . "***" . $resultat->idTypeCapteur . "***" . $resultat->nomType;
+		$return = $return . "***" . $resultat->IDTYPECAPTEUR . "***" . $resultat->NOMTYPE;
 	}
 	
 	$return = $return . "***" . $idTypeCapteurCourant;

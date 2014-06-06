@@ -10,7 +10,7 @@
 	
 	$nbData = $_GET['nbData'];
 
-	$resultats=$connection->query("	SELECT count(valeur) as total
+	$resultats=$connection->query("	SELECT count(valeur) as TOTAL
 									FROM valeurmesure, mesure, localiser 
 									WHERE valeurmesure.Mesure_idMesure = mesure.idMesure 
 									AND mesure.Capteur_idCapteur = localiser.Capteur_idCapteur
@@ -22,10 +22,10 @@
 									
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	$res = $resultats->fetch();
-	$stats = "	Hour : ". ceil((($res->total)/2))*$nbData ." <br>
-				Day : ". ceil(($res->total)/2/24)*$nbData ." <br>
-				Week : ". ceil(($res->total)/2/24/7)*$nbData ." <br>
-				Month : ". ceil(($res->total)/2/24/30)*$nbData ." <br>
-				Year : ". ceil(($res->total)/2/24/30/12)*$nbData ;
+	$stats = "	Hour : ". ceil((($res->TOTAL)/2))*$nbData ." <br>
+				Day : ". ceil(($res->TOTAL)/2/24)*$nbData ." <br>
+				Week : ". ceil(($res->TOTAL)/2/24/7)*$nbData ." <br>
+				Month : ". ceil(($res->TOTAL)/2/24/30)*$nbData ." <br>
+				Year : ". ceil(($res->TOTAL)/2/24/30/12)*$nbData ;
 	echo $stats;
 ?>
