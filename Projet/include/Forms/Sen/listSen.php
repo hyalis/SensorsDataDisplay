@@ -11,11 +11,11 @@
 	{
 		if($resultat->NOMCAPTEUR != "")
 			echo	'<tr>
-						<td>'.$resultat->NOMCAPTEUR.'</td>
-						<td>'.$resultat->NOMTYPE.'</td>
+						<td>'. $resultat->NOMCAPTEUR .'</td>
+						<td>'. $resultat->NOMTYPE .'</td>
 						<td>
-							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editSenModal" onClick="editSen('.$resultat->IDCAPTEUR.')"></span></a>
-							<a href="./include/Forms/Sen/remSen.php?idSensor='.$resultat->IDCAPTEUR.'"><span class="glyphicon glyphicon-remove"></span></a>
+							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editSenModal" onClick="editSen('. $resultat->IDCAPTEUR .')"></span></a>
+							<a href="./include/Forms/Sen/remSen.php?idSensor='. $resultat->IDCAPTEUR .'"><span class="glyphicon glyphicon-remove"></span></a>
 						</td>
 					</tr>';
 	}
