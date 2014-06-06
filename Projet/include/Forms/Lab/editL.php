@@ -56,10 +56,10 @@
 		<h1> Edit Label 
 			<small> Edit your Label of #<?php 
 				include "./bdd.php";
-				$resultats=$connection->query("SELECT nomType FROM typecapteur WHERE idTypeCapteur = ".$_GET['idTypeCapteur'].";" );
+				$resultats=$connection->query("SELECT NOMTYPE FROM TYPECAPTEUR WHERE IDTYPECAPTEUR = ".$_GET['idTypeCapteur'] );
 				$resultats->setFetchMode(PDO::FETCH_OBJ);
 				$resultat = $resultats->fetch() ; 
-				echo $resultat->nomType ; ?>
+				echo $resultat->NOMTYPE ; ?>
 			</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="index.php?p=Forms/Typ/editT"><i class="fa fa-dashboard"></i> Edit Type </a></li>

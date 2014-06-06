@@ -2,9 +2,9 @@
 	include "../../bdd.php";
 	$idLibVal = $_GET['idLibVal'];
 	
-	$resultats=$connection->query("SELECT libelle, description, unite FROM libval WHERE idLibVal = $idLibVal");
+	$resultats=$connection->query("SELECT LIBELLE, DESCRIPTION, UNITE FROM LIBVAL WHERE IDLIBVAL = $idLibVal");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	$resultat = $resultats->fetch();
-	echo $resultat->libelle . "***" . $resultat->description . "***" . $resultat->unite ;
+	echo $resultat->LIBELLE . "***" . $resultat->DESCRIPTION . "***" . $resultat->UNITE ;
 	$resultats->closeCursor(); 
 ?>

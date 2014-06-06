@@ -4,7 +4,7 @@
 	$idLibVal = $_GET['idLibVal'];
 	$idTypeCapteur = $_GET['idTypeCapteur'];
 	
-	$resultats=$connection->query("DELETE FROM libval WHERE idLibVal = $idLibVal");
+	$resultats=$connection->query("DELETE FROM LIBVAL WHERE IDLIBVAL = $idLibVal");
 	echo "DELETE FROM libval WHERE idLibVal = $idLibVal" ;
 	
 	include "listLab.php";

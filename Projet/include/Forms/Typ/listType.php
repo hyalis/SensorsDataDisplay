@@ -1,26 +1,26 @@
 ﻿<?php
 	include "./bdd.php";
-	$resultats=$connection->query("	SELECT nomType, idTypeCapteur,count(*) as numberMeasure 
-														FROM typecapteur, libval 
-														where idTypeCapteur = TypeCapteur_IdTypeCapteur
-														group by TypeCapteur_idTypeCapteur
+	$resultats=$connection->query("	SELECT NOMTYPE, IDTYPECAPTEUR ,count(*) as NUMBERMEASURE 
+														FROM TYPECAPTEUR, LIBVAL 
+														WHERE IDTYPECAPTEUR = TYPECAPTEUR_IDTYPECAPTEUR
+														GROUP BY TYPECAPTEUR_IDTYPECAPTEUR
 														UNION
-														SELECT nomType, idTypeCapteur,0 from typecapteur
-														WHERE idTypeCapteur NOT IN (SELECT DISTINCT TypeCapteur_idTypeCapteur 
+														SELECT NOMTYPE, IDTYPECAPTEUR,0 from typecapteur
+														WHERE IDTYPECAPTEUR NOT IN (SELECT DISTINCT TYPECAPTEUR_IDTYPECAPTEUR 
 																					FROM libval)
-															;");
+														");
 	//SELECT count(*) FROM libval WHERE TypeCapteur_idTypeCapteur group by TypeCapteur_idTypeCapteur
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	while( $resultat = $resultats->fetch() )
 	{
 			echo	'<tr>
-						<td>'.$resultat->nomType.'</td>
-						<td>'.$resultat->numberMeasure.'</td>
+						<td>'.$resultat->NOMTYPE.'</td>
+						<td>'.$resultat->NUMBERMEASURE.'</td>
 						<td>
-							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editTypeModal" onClick="editType('.$resultat->idTypeCapteur.')"></span></a> 
-							<a href="index.php?p=Forms/Lab/editL&idTypeCapteur='.$resultat->idTypeCapteur.'"></span><span class="glyphicon glyphicon-plus-sign"  ></span></a> ';
-			if($resultat->numberMeasure ==0)
-				echo		'<a href="./include/Forms/Typ/remType.php?idTypeCapteur='.$resultat->idTypeCapteur.'"><span class="glyphicon glyphicon-remove" </a> ';
+							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editTypeModal" onClick="editType('.$resultat->IDTYPECAPTEUR.')"></span></a> 
+							<a href="index.php?p=Forms/Lab/editL&idTypeCapteur='.$resultat->IDTYPECAPTEUR.'"></span><span class="glyphicon glyphicon-plus-sign"  ></span></a> ';
+			if($resultat->NUMBERMEASURE ==0)
+				echo		'<a href="./include/Forms/Typ/remType.php?idTypeCapteur='.$resultat->IDTYPECAPTEUR.'"><span class="glyphicon glyphicon-remove" </a> ';
 			echo 		'</td>
 					</tr>';
 	}
