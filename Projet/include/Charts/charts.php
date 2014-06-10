@@ -511,7 +511,7 @@
 					callback(loadChildrenExper(node, 0));
 					}, 1);
 					setTimeout(function() {
-					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=typ],[value=cap]");
+					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=typ],[value=capsup]");
 					}, 500);
 				}
 			});
@@ -752,7 +752,10 @@
 			$("#datetimepickerFin").val($input.val());
 		}
 	});
-	$(".chosentree").bind("click", function(){showSubmit();});
+	$(".chosentree").bind("click", function(){
+		 showSubmit();setTimeout(function(){
+								$("#choice_capsup").remove();
+							},50)});
 	
 	$( "#live .btn" ).click('event', function() {
 		setTimeout(function(){

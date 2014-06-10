@@ -20,7 +20,7 @@
 	$bat = "";
 	$pie = "";
 	$typ = "";
-	$lib = "";
+	$idlibval = "";
 	$tempId = "";
 	$libelle = "";
 	
@@ -54,13 +54,13 @@
 						$etat = 4;
 				break;
 			case 4 :	//$jsonC = $jsonC .	"{'id':'xxx" . $resultat->idPiece ."xxx" . $resultat->idTypeCapteur ."xxx" . $resultat->idLibVal ."xxx". $resultat->idCapteur."',
-						$jsonC = $jsonC .	"{'id':'cap',
+						$jsonC = $jsonC .	"{'id':'capsup',
 										'title':'" . $resultat->NOMCAPTEUR . "',
 										'has_children':false,
 										'level': 5,
 										'children':[]}";
 										
-						$lib = $resultat->IDLIBVAL ;
+						$idlibval= $resultat->IDLIBVAL ;
 						$libelle = $resultat->LIBELLE ;
 						$cap = $resultat->IDCAPTEUR ;
 						
@@ -68,13 +68,13 @@
 						if($resultat && $bat == $resultat->IDBATIMENT) {
 							if($pie == $resultat->IDPIECE) {
 								if($typ == $resultat->IDTYPECAPTEUR) {
-									if($lib == $resultat->IDLIBVAL){
+									if($idlibval== $resultat->IDLIBVAL){
 										$tempId = $tempId ."xxx". $cap ;
 										$jsonC = $jsonC .	",";
 										$etat = 4;
 									} else {
 										
-										$json = $json .	"{'id':'xxx".$pie."xxx".$lib.$tempId."xxx".$cap."',
+										$json = $json .	"{'id':'xxx".$pie."xxx".$idlibval."',
 														'title':'". $libelle ."',
 														'has_children':true,
 														'level': 4,
@@ -85,7 +85,7 @@
 									}
 									
 								} else {
-									$json = $json .	"{'id':'xxx".$pie."xxx".$lib.$tempId."xxx".$cap."',
+									$json = $json .	"{'id':'xxx".$pie."xxx".$idlibval."',
 													'title':'". $libelle ."',
 													'has_children':true,
 													'level': 4,
@@ -95,7 +95,7 @@
 									$etat = 3;
 								}
 							} else {
-								$json = $json ."{'id':'xxx".$pie."xxx".$lib.$tempId."xxx".$cap."',
+								$json = $json ."{'id':'xxx".$pie."xxx".$idlibval."',
 												'title':'". $libelle ."',
 												'has_children':true,
 												'level': 4,
@@ -105,7 +105,7 @@
 								$etat = 2;
 							}
 						} else {
-							$json = $json .	"{'id':'xxx".$pie."xxx".$lib.$tempId."xxx".$cap."',
+							$json = $json .	"{'id':'xxx".$pie."xxx".$idlibval."',
 											'title':'". $libelle ."',
 											'has_children':true,
 											'level': 4,
