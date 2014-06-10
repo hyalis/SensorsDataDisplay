@@ -8,22 +8,22 @@
 	$dateFin = $_GET['dateFin'];
 	$groupBy = $_GET['groupBy'];
 	
-	//echo "<b>Paramètres</b><br><br>Date début : " . $dateDeb . "<br>Date fin : " . $dateFin . "<br>GroupBy : " . $groupBy . "<br>";
-	//echo "<br><br><b>Les paramètres dynamiques</b><br>***********************<br><br>";
+	echo "<b>Paramètres</b><br><br>Date début : " . $dateDeb . "<br>Date fin : " . $dateFin . "<br>GroupBy : " . $groupBy . "<br>";
+	echo "<br><br><b>Les paramètres dynamiques</b><br>***********************<br><br>";
 	
 	for($i = 2; $i <= $nbArgs - 2; $i = $i + 3){
 		//DEBUG
-		//echo "idPiece" . (($i+1)/3) . " = " . $params[$i] . "<br>";
-		//echo "Capteur" . (($i+1)/3) . " = " . $params[$i+1] . "<br>";
-		//echo "LibVal" . (($i+1)/3) . " = " . $params[$i+2] . "<br>";
-		//echo "------------------<br>";
+		echo "idPiece" . (($i+1)/3) . " = " . $params[$i] . "<br>";
+		echo "Capteur" . (($i+1)/3) . " = " . $params[$i+1] . "<br>";
+		echo "LibVal" . (($i+1)/3) . " = " . $params[$i+2] . "<br>";
+		echo "------------------<br>";
 		
 		//Remplissage du tableau
 		$capteur[(($i+1)/3)-1][0] = $params[$i];
 		$capteur[(($i+1)/3)-1][1] = $params[$i+1];
 		$capteur[(($i+1)/3)-1][2] = $params[$i+2];
 	}
-	//echo "***********************<br><br>";
+	echo "***********************<br><br>";
 	$nbCourbes = sizeof($capteur);
 	
 	$grbStr = "";
@@ -55,19 +55,19 @@
 											  OR 	dateF BETWEEN '$dateDeb%' AND '$dateFin%'
 											  OR	(dateD <= '$dateDeb%' AND (dateF >= '$dateFin%' OR dateF IS NULL)))
 										ORDER BY dateD ASC");
-		//echo "<br><br><b>Requête qui liste la position du capteur #$i</b><br>";		
-		/*echo "	SELECT idLocaliser, dateD, dateF 
+		echo "<br><br><b>Requête qui liste la position du capteur #$i</b><br>";		
+		echo "	SELECT idLocaliser, dateD, dateF 
 										FROM localiser 
 										WHERE Capteur_idCapteur = " . $capteur[$i][1] . "
 										AND Piece_idPiece = " . $capteur[$i][0] . "
 										AND ( 		dateD BETWEEN '$dateDeb%' AND '$dateFin%'
 											  OR 	dateF BETWEEN '$dateDeb%' AND '$dateFin%'
 											  OR	(dateD <= '$dateDeb%' AND (dateF >= '$dateFin%' OR dateF IS NULL)))
-										ORDER BY dateD ASC";*/
+										ORDER BY dateD ASC";
 		$resultats->setFetchMode(PDO::FETCH_OBJ);
 		while( $resultat = $resultats->fetch() )
 		{
-			//echo "<br><br><br>idLoc = " . $resultat->idLocaliser . " dateD = " . $resultat->dateD . " dateF = " . $resultat->dateF . "<br><br><br>";
+			echo "<br><br><br>idLoc = " . $resultat->IDLOCALISER . " dateD = " . $resultat->DATED . " dateF = " . $resultat->DATEF . "<br><br><br>";
 
 			$dateD = $resultat->DATED;
 			
@@ -75,7 +75,7 @@
 				$dateD = $dateDeb;
 				
 			//Si il n'y a pas de date de fin c'est que le capteur est tj ds la pièce...
-			if(empty($resultat->dateF) == 1){
+			if(empty($resultat->DATEF) == 1){
 				$dateF = $dateFin;
 			} else {
 				if($resultat->dateF > $dateFin)
@@ -99,16 +99,16 @@
 										AND LibVal_idLibVal = " . $capteur[$i][2] . "
 										AND mesure.date BETWEEN '$dateD' AND '$dateF'
 										$grbStr");
-			//echo "<br><br><b>Requête qui liste les valeurs pour le capteur $i</b><br>";		
-			//echo "<br><b>Capteur = </b> " . $capteur[$i][1] ."<br>";	
-			//echo "<br><b>LibVal = </b> " . $capteur[$i][2] ."<br>";	
-			/*echo "	SELECT LEFT(mesure.date,19) as dateMesure, valeur 
+			echo "<br><br><b>Requête qui liste les valeurs pour le capteur $i</b><br>";		
+			echo "<br><b>Capteur = </b> " . $capteur[$i][1] ."<br>";	
+			echo "<br><b>LibVal = </b> " . $capteur[$i][2] ."<br>";	
+			echo "	SELECT LEFT(mesure.date,19) as dateMesure, valeur 
 										FROM valeurmesure, mesure 
 										WHERE valeurmesure.Mesure_idMesure = mesure.idMesure 
 										AND mesure.Capteur_idCapteur = " . $capteur[$i][1] . "
 										AND LibVal_idLibVal = " . $capteur[$i][2] . "
 										AND mesure.date BETWEEN '$dateD' AND '$dateF'
-										GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure)<br>";*/
+										GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure)<br>";
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			
 			while($val = $res->fetch())
