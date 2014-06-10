@@ -534,6 +534,65 @@
 			};
 			var map = new google.maps.Map(document.getElementById("map-canvas"),
 			mapOptions);
+			
+			var bounds = new google.maps.LatLngBounds();
+			
+			
+			if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			} else {	// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+	
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					var pieces = xmlhttp.responseText.split("<br>");
+					var infoWindowContent = new Array();
+					var markers = new Array();
+					for (index = 0; index < pieces.length-1; ++index) {
+						piece = pieces[index].split("***");
+						
+						//Markers
+						markers.push([piece[1],piece[2],piece[3]]);
+					
+						//Nom de la piece dans le batiment
+						contentString = "<h4>" + piece[0] + "</h4>" + piece[1];
+						infoWindowContent.push(contentString);
+						
+					}
+					
+					var infoWindow = new google.maps.InfoWindow(), marker, i;
+					
+					for( i = 0; i < markers.length; i++ ) {
+						piece = pieces[i].split("***");
+						var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+						bounds.extend(position);
+						marker = new google.maps.Marker({
+							position: position,
+							map: map,
+							//icon: icon,
+							title: markers[i][0]
+						});
+						
+						google.maps.event.addListener(marker, 'click', (function(marker, i) {
+							return function() {
+								infoWindow.setContent(infoWindowContent[i]);
+								infoWindow.open(map, marker);
+							}
+						})(marker, i));
+
+						map.fitBounds(bounds);
+					}
+
+					var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+						this.setZoom(15);
+						google.maps.event.removeListener(boundsListener);
+					});
+					
+				}
+			}
+			xmlhttp.open("GET","./include/Charts/setMap.php",true);
+			xmlhttp.send();	
 		}
 		google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
