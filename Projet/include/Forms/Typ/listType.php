@@ -3,11 +3,11 @@
 	$resultats=$connection->query("	SELECT NOMTYPE, IDTYPECAPTEUR ,count(*) as NUMBERMEASURE 
 														FROM TYPECAPTEUR, LIBVAL 
 														WHERE idTypecapteur = TypeCapteur_idTypeCapteur
-														GROUP BY TypeCapteur_idTypeCapteur
+														GROUP BY TypeCapteur_idTypeCapteur, NOMTYPE, IDTYPECAPTEUR 
 														UNION
 														SELECT NOMTYPE, IDTYPECAPTEUR,0 FROM typecapteur
 														WHERE idTypecapteur NOT IN (SELECT DISTINCT TypeCapteur_idTypeCapteur 
-																					FROM LIBVAL)
+																					FROM LIBVAL);
 														");
 														
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
