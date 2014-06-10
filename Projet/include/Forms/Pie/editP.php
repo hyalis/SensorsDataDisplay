@@ -14,7 +14,10 @@
 					alert ("La req n'a pas fonctionne");
 					alert(xmlhttp.responseText);
 				} else {
-					$("#inpName").val(xmlhttp.responseText);
+					var infType = xmlhttp.responseText.split('***');
+					$("#inpName").val(infType[0]);
+					$("#inpLAT").val(infType[1]);
+					$("#inpLNG").val(infType[2]);
 					$("#inpIdPie").val(idPie);
 				}
 			}
@@ -75,6 +78,8 @@
 					<tr>
 						<th>Name <i class="fa fa-sort"></i></th>
 						<th>Sensors<i class="fa fa-sort"></i></th>
+						<th>Latitude<i class="fa fa-sort"></i></th>
+						<th>Longitude<i class="fa fa-sort"></i></th>
 						<th>Edit <i class="fa fa-sort"></i></th>
 					</tr>
 				</thead>
@@ -115,6 +120,16 @@
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="name" onkeyup="checkInfo();" id="inpName">
 							</div>
+							<br></br>
+							<label class="col-sm-2 control-label">Latitude</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="lat" onkeyup="checkInfo();" id="inpLAT">
+							</div>
+							<br></br>
+							<label class="col-sm-2 control-label">Longitude</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="lng" onkeyup="checkInfo();" id="inpLNG">
+							</div>
 						</div>					
 				</div>
 				<div class="modal-footer">
@@ -143,6 +158,16 @@
 							<label class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="name" onkeyup="checkInfo();"  id="addNameValue">
+							</div>
+							<br></br>
+							<label class="col-sm-2 control-label">Latitude</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="lat" onkeyup="checkInfo();" id="inpLAT">
+							</div>
+							<br></br>
+							<label class="col-sm-2 control-label">Longitude</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="lng" onkeyup="checkInfo();" id="inpLNG">
 							</div>
 						</div>					
 				</div>
