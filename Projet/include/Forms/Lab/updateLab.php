@@ -12,5 +12,5 @@
 
 	$resultats2->setFetchMode(PDO::FETCH_OBJ);
 	$resultat = $resultats2->fetch();
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Lab/editL&idTypeCapteur='.$resultat->TYPECAPTEUR_IDTYPECAPTEUR); 
+	header('Location: '. $chemin .'index.php?p=Forms/Lab/editL&idTypeCapteur='.$resultat->TYPECAPTEUR_IDTYPECAPTEUR); 
 ?>

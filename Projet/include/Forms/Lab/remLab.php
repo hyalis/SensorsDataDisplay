@@ -10,5 +10,5 @@
 	include "listLab.php";
 	$resultats->closeCursor();
 	
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Lab/EditL&idTypeCapteur='.$idTypeCapteur); 
+	header('Location: '. $chemin .'index.php?p=Forms/Lab/EditL&idTypeCapteur='.$idTypeCapteur); 
 ?>

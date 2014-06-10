@@ -5,5 +5,5 @@
 	$resultats=$connection->query("DELETE FROM batiment WHERE idBatiment = $idBatiment");
 	
 	$resultats->closeCursor();
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Bat/editB'); 
+	header('Location: '. $chemin .'index.php?p=Forms/Bat/editB'); 
 ?>

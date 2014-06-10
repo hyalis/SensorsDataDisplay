@@ -6,5 +6,5 @@
 	
 	$resultats=$connection->query("UPDATE localiser SET dateF = now() WHERE Piece_idPiece = $idPiece AND Capteur_idCapteur = $idCapteur");
 	
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Cap/editC&idPiece='.$idPiece); 
+	header('Location: '. $chemin .'index.php?p=Forms/Cap/editC&idPiece='.$idPiece); 
 ?>

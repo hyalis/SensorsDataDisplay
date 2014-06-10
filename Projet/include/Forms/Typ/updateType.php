@@ -7,5 +7,5 @@
 	
 	//echo "UPDATE typecapteur SET nomType = '$name' WHERE idTypeCapteur = $idTypeCapteur" ;
 
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Typ/editT'); 
+	header('Location: ' . $chemin . 'index.php?p=Forms/Typ/editT'); 
 ?>

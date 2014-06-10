@@ -4,4 +4,6 @@
 	$utilisateur = 'root';
 	$motDePasse = '';
 	$connection = new PDO( $dns, $utilisateur, $motDePasse ) ;
+	
+	$chemin = "/SensorsDataDisplay/Projet/";
 ?>

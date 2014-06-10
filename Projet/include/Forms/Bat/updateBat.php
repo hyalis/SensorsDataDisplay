@@ -7,5 +7,5 @@
 	$city = $_GET['city'];
 
 	$resultats=$connection->query("UPDATE Batiment SET nom = '$name', adresse = '$adresse', cp = '$zip', ville = '$city' WHERE idBatiment = $idBatiment");
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Bat/editB'); 
+	header('Location: '. $chemin .'index.php?p=Forms/Bat/editB'); 
 ?>

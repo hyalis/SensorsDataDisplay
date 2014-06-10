@@ -6,5 +6,5 @@
 	$idTypeCapteur = $_GET['idTypeCapteur'];
 	
 	$resultats=$connection->query("UPDATE Capteur SET nomCapteur = '$name', TypeCapteur_idTypeCapteur = $idTypeCapteur WHERE idCapteur = $idCapteur");
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Cap/editC&idPiece='.$idPiece); 
+	header('Location: '. $chemin .'index.php?p=Forms/Cap/editC&idPiece='.$idPiece); 
 ?>

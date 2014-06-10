@@ -6,5 +6,5 @@
 	
 	$resultats=$connection->query("INSERT INTO CAPTEUR(nomCapteur, TypeCapteur_idTypeCapteur) VALUES ('$name',$idTypeCapteur)");
 
-	header('Location: /SensorsDataDisplay/Projet/index.php?p=Forms/Sen/editS'); 
+	header('Location: ' . $chemin . 'index.php?p=Forms/Sen/editS'); 
 ?>
