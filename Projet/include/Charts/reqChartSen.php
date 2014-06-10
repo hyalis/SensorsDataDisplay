@@ -8,14 +8,14 @@
 	$dateFin = $_GET['dateFin'];
 	$groupBy = $_GET['groupBy'];
 	
-	//echo "<b>Paramètres</b><br><br>Date début : " . $dateDeb . "<br>Date fin : " . $dateFin . "<br>GroupBy : " . $groupBy . "<br>";
-	//echo "<br><br><b>Les paramètres dynamiques</b><br>***********************<br><br>";
+	// echo "<b>Paramètres</b><br><br>Date début : " . $dateDeb . "<br>Date fin : " . $dateFin . "<br>GroupBy : " . $groupBy . "<br>";
+	// echo "<br><br><b>Les paramètres dynamiques</b><br>***********************<br><br>";
 	
 	for($i = 2; $i <= $nbArgs - 2; $i = $i + 2){
 		//DEBUG
-		//echo "idCapteur" . (($i)/2) . " = " . $params[$i] . "<br>";
-		//echo "LibVal" . (($i)/2) . " = " . $params[$i+1] . "<br>";
-		//echo "------------------<br>";
+		// echo "idCapteur" . (($i)/2) . " = " . $params[$i] . "<br>";
+		// echo "LibVal" . (($i)/2) . " = " . $params[$i+1] . "<br>";
+		// echo "------------------<br>";
 		
 		//Remplissage du tableau
 		$capteur[(($i)/2)-1][0] = $params[$i];
@@ -42,7 +42,7 @@
 		case "SEC" : 	$grbStr = " GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure), HOUR(dateMesure), MINUTE(dateMesure), SECOND(dateMesure) ";
 			break;
 	}
-	
+
 	for($i = 0; $i < $nbCourbes; $i++){
 
 			//Récupère toutes les données de ce capteur entre ces deux dates
@@ -56,13 +56,13 @@
 			
 			
 
-			/*echo "	SELECT mesure.date, valeur
-					FROM mesure, valeurmesure
-					WHERE Capteur_idCapteur = " . $capteur[$i][0] . "
-					AND LibVal_idLibVal = " . $capteur[$i][1] . "
-					AND mesure.date BETWEEN '$dateDeb' AND '$dateFin'
-					AND Mesure_idMesure = idMesure
-					$grbStr";*/
+			// echo "	SELECT mesure.date as DATEMESURE, VALEUR
+										// FROM mesure, valeurmesure
+										// WHERE Capteur_idCapteur = " . $capteur[$i][0] . "
+										// AND LibVal_idLibVal = " . $capteur[$i][1] . "
+										// AND mesure.date BETWEEN '$dateDeb' AND '$dateFin'
+										// AND Mesure_idMesure = idMesure
+										// $grbStr";
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			
 			while($val = $res->fetch())

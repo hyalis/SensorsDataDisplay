@@ -314,7 +314,9 @@
 			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
 			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
 		}
-		setInterval(function(){
+		var intervalId = setInterval(function(){
+						if($("#live .active input").val() == 'OFF')
+							clearInterval(intervalId);
 						if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
 							xmlhttp=new XMLHttpRequest();
 						} else {	// code for IE6, IE5
@@ -335,7 +337,7 @@
 						}
 						xmlhttp.open("GET",strPHP,true);
 						xmlhttp.send();
-					},6000);
+					},5000);
 	
 	}
 	

@@ -27,7 +27,7 @@
 						<td>'.$resultat->NOM.'</td>
 						<td>'.$resultat->NBPIECE.'</td>
 						<td>
-							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->NBPIECE.')"></span></a>
+							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->IDPIECE.')"></span></a>
 							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->IDPIECE.'"><span class="glyphicon glyphicon-signal"></span></a> ';
 			if ($resultat->NBPIECE ==0)
 				echo 		' <a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->IDPIECE.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></span></a> ';
