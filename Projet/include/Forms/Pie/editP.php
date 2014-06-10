@@ -118,19 +118,21 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="name" onkeyup="checkInfo();" id="inpName">
+								<input type="text" class="form-control" name="name" onkeyup="checkInfo();"  id="addNameValue">
 							</div>
-							<br></br>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label">Latitude</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="lat" onkeyup="checkInfo();" id="inpLAT">
 							</div>
-							<br></br>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label">Longitude</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="lng" onkeyup="checkInfo();" id="inpLNG">
 							</div>
-						</div>					
+						</div>						
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -159,12 +161,14 @@
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="name" onkeyup="checkInfo();"  id="addNameValue">
 							</div>
-							<br></br>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label">Latitude</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="lat" onkeyup="checkInfo();" id="inpLAT">
 							</div>
-							<br></br>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label">Longitude</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="lng" onkeyup="checkInfo();" id="inpLNG">
