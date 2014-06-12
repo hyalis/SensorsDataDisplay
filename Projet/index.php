@@ -18,6 +18,8 @@
 				break;
 			case 'Forms/Sen/editS' : 		$form = "active";
 				break;
+			case 'Forms/His/editH' : 		$form = "active";
+				break;
 			case 'Forms/Pie/editP' : 		$form = "active";
 				break;
 			case 'Forms/Cap/editC' : 		$form = "active";
@@ -104,7 +106,7 @@
 						<ul class="dropdown-menu">
 						<li><a href="index.php?p=Forms/Bat/editB">Edit Buildings/Rooms</a></li>
 						<li><a href="index.php?p=Forms/Typ/editT">Edit Types/Label</a></li>
-						<li><a href="index.php?p=Forms/Sen/editS">Edit Sensors</a></li>
+						<li><a href="index.php?p=Forms/Sen/editS">Edit Sensors/History</a></li>
 						</ul>
 					</li>
 					<li class="<?php echo $import; ?>"><a href="index.php?p=Import/import"><i class="fa fa-file"></i> Import File</a></li>
