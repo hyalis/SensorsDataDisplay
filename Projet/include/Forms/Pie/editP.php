@@ -52,6 +52,96 @@
 	
 	
 </script>
+<style type="text/css">
+	#map-canvasEdit { height: 225px; width: 100%; }
+	#map-canvasAdd { height: 225px; width: 100%; }
+</style>
+
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC578bQir1LR4a7et03L-sfZURnwlWD0TI&sensor=true">
+</script>
+<script type="text/javascript">
+	var mapEdit = null;
+	var mapAdd = null;
+	
+	var marker = null;
+
+	var infowindow = new google.maps.InfoWindow(
+	{ 
+		size: new google.maps.Size(150,50)
+	});
+
+// A function to create the marker and set up the event window function 
+function createMarker(mapParam, latlng, name, html) {
+    var contentString = html;
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: mapParam,
+        zIndex: Math.round(latlng.lat()*-100000)<<5
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(contentString); 
+        infowindow.open(mapParam,marker);
+        });
+    google.maps.event.trigger(marker, 'click');    
+    return marker;
+}
+
+	function initialize() {
+		var mapOptions = {
+			center: new google.maps.LatLng(43.561267, 1.469426),
+			zoom: 16,
+			mapTypeControl: true,
+			mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+			navigationControl: true,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		
+		mapEdit = new google.maps.Map(document.getElementById("map-canvasEdit"),
+		mapOptions);
+		
+		mapAdd = new google.maps.Map(document.getElementById("map-canvasAdd"),
+		mapOptions);
+		
+		google.maps.event.addListener(mapEdit, 'click', function() {
+			infowindow.close();
+        });
+		
+		google.maps.event.addListener(mapAdd, 'click', function() {
+			infowindow.close();
+        });
+
+		google.maps.event.addListener(mapEdit, 'click', function(event) {
+			if (marker) {
+				marker.setMap(null);
+				marker = null;
+			}
+			
+			$("#inpLAT").val(event.latLng.lat());
+			$("#inpLNG").val(event.latLng.lng());
+			
+			marker = createMarker(mapEdit, event.latLng, "name", "<b>Location</b><br>"+event.latLng);
+
+		});
+		
+		google.maps.event.addListener(mapAdd, 'click', function(event) {
+			if (marker) {
+				marker.setMap(null);
+				marker = null;
+			}
+			
+			$("#addLAT").val(event.latLng.lat());
+			$("#addLNG").val(event.latLng.lng());
+			
+			marker = createMarker(mapAdd, event.latLng, "name", "<b>Location</b><br>"+event.latLng);
+
+		});
+
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
 
 <div class="row">
 	<div class="col-lg-12">
@@ -106,7 +196,6 @@
 	</div>
 </div><!-- /.row -->
 
-
 <!-- LES MODALS -->
 <div class="modal fade" id="editPieModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
@@ -128,15 +217,18 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Latitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lat" id="inpLAT">
+								<input type="text" class="form-control" name="lat" id="inpLAT" readonly>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Longitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lng" id="inpLNG">
+								<input type="text" class="form-control" name="lng" id="inpLNG" readonly>
 							</div>
-						</div>						
+						</div>		
+						<div>
+							<div id="map-canvasEdit"></div>
+						</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -146,8 +238,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 <div class="modal fade" id="addPieModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
@@ -169,15 +259,18 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Latitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lat" id="inpLAT">
+								<input type="text" class="form-control" name="lat" id="addLAT" readonly>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Longitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lng" id="inpLNG">
+								<input type="text" class="form-control" name="lng" id="addLNG" readonly>
 							</div>
-						</div>					
+						</div>
+						<div>
+							<div id="map-canvasAdd"></div>
+						</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -187,3 +280,13 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$("#addPieModal").on("shown.bs.modal", function () {
+		google.maps.event.trigger(mapAdd, "resize");
+	});
+	
+	$("#editPieModal").on("shown.bs.modal", function () {
+		google.maps.event.trigger(mapEdit, "resize");
+	});
+</script>
