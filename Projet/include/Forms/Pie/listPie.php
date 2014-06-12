@@ -31,10 +31,48 @@
 							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->IDPIECE.')"></span></a>
 							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->IDPIECE.'"><span class="glyphicon glyphicon-signal"></span></a> ';
 			if ($resultat->NBCAPTEURS ==0)
-				echo 		' <a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->IDPIECE.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></span></a> ';
+				echo 		" <a href='#'><span class='glyphicon glyphicon-remove' onClick='confirmer($resultat->IDPIECE,$idBatiment);'></span></a> ";
 			echo 		'</td>
 					</tr>';
 	}
 	$resultats->closeCursor(); 
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 ?>

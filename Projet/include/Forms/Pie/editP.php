@@ -26,6 +26,10 @@
 		xmlhttp.send();
 	}
 	
+	function confirmer(pie, bat){
+		if (confirm ("Voulez-vous supprimer ?"))
+			window.location="./include/Forms/Pie/remPie.php?idPiece="+pie+"&idBatiment="+bat;
+	}
 	
 	function checkInfo(){
 		if($("#addNameValue").val() != ""){
