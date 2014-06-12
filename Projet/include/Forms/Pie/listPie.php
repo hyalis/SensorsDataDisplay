@@ -1,20 +1,22 @@
 <?php
 	include "bdd.php";
 	$idBatiment = $_GET['idBatiment'];
-	$resultats=$connection->query("	SELECT IDPIECE, NOM, LAT , LNG , count(distinct idCapteur) as NBCAPTEURS
+	$resultats=$connection->query("		SELECT IDPIECE, NOM, LAT , LNG , count(distinct idCapteur) as NBCAPTEURS
 										FROM piece, capteur, localiser
 										WHERE Piece_idPiece = idPiece
 										AND Capteur_idCapteur = idCapteur
 										AND Batiment_idBatiment = $idBatiment
-										GROUP BY IDPIECE, NOM , LAT , LNG
+                                        AND dateF = NULL
+                                        GROUP BY IDPIECE, NOM , LAT , LNG
 												UNION
-												SELECT IDPIECE, NOM, LAT , LNG , 0
-												FROM piece
-												WHERE idPiece NOT IN (
-													SELECT DISTINCT Piece_idPiece
-													FROM localiser
-												)
-												AND Batiment_idBatiment = $idBatiment");
+										SELECT IDPIECE, NOM, LAT , LNG , 0 as NBCAPTEURS
+										FROM piece
+										WHERE idPiece NOT IN (
+											SELECT Piece_idPiece
+											FROM localiser
+											WHERE dateF = NULL
+											)
+										AND Batiment_idBatiment = $idBatiment");
 
 	
 	$resultats->setFetchMode(PDO::FETCH_OBJ);

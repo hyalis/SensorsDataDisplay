@@ -23,6 +23,10 @@ body {
   padding: 5px 15px;
 }
 
+.glyphicon-remove {
+	float : right;
+}
+
 /* Nav Messages */
 
 .messages-dropdown .dropdown-menu .message-preview .avatar,
