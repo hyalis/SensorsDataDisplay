@@ -1,11 +1,11 @@
 <?php
 	include "./bdd.php";
 	$idSensor = $_GET['idSensor'];
-	$resultats=$connection->query("	SELECT IDLOCALISER, DATED, DATEF , PIECE.NOM AS NOMPIECE
-										FROM piece, capteur, localiser
-										WHERE Piece_idPiece = idPiece
-										AND Capteur_idCapteur = $idSensor
-										GROUP BY IDLOCALISER , NOMPIECE, DATED, DATEF");
+	$resultats=$connection->query("	SELECT IDLOCALISER, TO_CHAR(DATED,'yyyy-mm-dd hh:mi:ss') as DATED, TO_CHAR(DATEF,'yyyy-mm-dd hh:mi:ss') as DATEF, PIECE.NOM AS NOMPIECE
+									FROM localiser, Piece
+									WHERE Piece_idPiece = idPiece
+									AND Capteur_idCapteur = $idSensor
+									ORDER BY DATED");
 
 	
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
