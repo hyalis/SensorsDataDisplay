@@ -448,5 +448,3 @@ echo "Moyenne d'ité : $moyit ($nbCheck checks)<br>";*/
 	else // s'il n'as pas été parsé pour quelque raison que ce soit
 		echo "<script>finParser(0,0,0);</script>";
 ?>
-
-

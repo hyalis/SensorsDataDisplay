@@ -290,7 +290,7 @@
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();
 		var libVals = new Array();
-		var strPHP = "./include/Charts/reqChartSen.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
+		var strPHP = "./include/Charts/OracleReqChartSen.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
 		for(i=0; i < idCapteursIdLibVal.length; i++){
 			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[0];
@@ -524,9 +524,30 @@
     </style>
 	
 	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQZg8pUxWMmRpO_RHxyF29tPPthfvIRX8&sensor=true">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC578bQir1LR4a7et03L-sfZURnwlWD0TI&sensor=true">
 	</script>
 	<script type="text/javascript">
+	
+		function chargeLibVal(idTypeCapteur) {
+		
+			if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			} else {	// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					if(xmlhttp.responseText == ""){
+						$("#libValMap").html("NADA !!!!");
+					} else {
+						$("#libValMap").html(xmlhttp.responseText);
+					}
+				}
+			}
+			xmlhttp.open("GET","./include/Charts/getLibVal.php?idTypeCapteur=" + idTypeCapteur,true);
+			xmlhttp.send();
+			
+		}
 		function initialize() {
 			var mapOptions = {
 				center: new google.maps.LatLng(43.561267, 1.469426),
@@ -549,14 +570,17 @@
 					var pieces = xmlhttp.responseText.split("<br>");
 					var infoWindowContent = new Array();
 					var markers = new Array();
-					for (index = 0; index < pieces.length-1; ++index) {
+					for (index = 0; index < pieces.length; ++index) {
 						piece = pieces[index].split("***");
 						
 						//Markers
 						markers.push([piece[1],piece[2],piece[3]]);
 					
 						//Nom de la piece dans le batiment
-						contentString = "<h4>" + piece[0] + "</h4>" + piece[1];
+						contentString = "<h4>" + piece[0] + "</h4>"+
+										"<h5>" + piece[1] + "</h5>"+
+										"<div class='form-group'>"+
+											"<label>Type</label><select class='form-control' onchange='chargeLibVal(this.value)'>" + piece[4] + "</select></div><div class='form-group'><label>Libelle</label><select class='form-control' id='libValMap'></select>";
 						infoWindowContent.push(contentString);
 						
 					}
@@ -570,7 +594,6 @@
 						marker = new google.maps.Marker({
 							position: position,
 							map: map,
-							//icon: icon,
 							title: markers[i][0]
 						});
 						

@@ -17,7 +17,7 @@
 		$capteur[(($i+1)/2)-1][1] = $params[$i+1];
 	}
 	
-	$req = "SELECT LEFT(T1.date,19) as DATEMESURE ";
+	$req = "SELECT LEFT(T1.DateMesure,19) as DATEMESURE ";
 	
 	for($i = 0; $i < sizeof($_GET)/3; $i++){
 		$req = $req . ", ROUND(T" . ($i+1) . ".V" . ($i+1) . ",2) as Value" . $i;
@@ -26,12 +26,12 @@
 	$req = $req . " FROM ";
 
 	for($i = 0; $i < sizeof($capteur); $i++){
-		$req = $req . "(	SELECT valeur as V" . ($i+1) . ", mesure.date 
+		$req = $req . "(	SELECT valeur as V" . ($i+1) . ", mesure.DateMesure 
 									FROM mesure, valeurmesure
 									WHERE LibVal_idLibVal = " . $capteur[$i][1] . "
 									AND Capteur_idCapteur = " . $capteur[$i][0] . "
 									AND Mesure_idMesure = idMesure
-									AND date > NOW() - INTERVAL $time SECOND) T" . ($i+1) . ","; 						
+									AND DateMesure > NOW() - INTERVAL $time SECOND) T" . ($i+1) . ","; 						
 	}
 	
 	$req = substr($req, 0, strlen($req)-1);
@@ -39,7 +39,7 @@
 	if(sizeof($capteur)>1){
 		$req = $req . "	WHERE";
 		for($i = 0; $i < sizeof($capteur) - 1; $i++){
-			$req = $req . " T" . ($i+1) . ".date = T" . ($i+2) . ".date AND";
+			$req = $req . " T" . ($i+1) . ".DateMesure = T" . ($i+2) . ".DateMesure AND";
 		}
 		$req = substr($req, 0, strlen($req)-3);
 	}

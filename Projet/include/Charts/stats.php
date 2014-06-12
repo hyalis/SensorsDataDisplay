@@ -17,7 +17,7 @@
 									AND mesure.Capteur_idCapteur = '$idCapteur1' 
 									AND LibVal_idLibVal = '$idLibVal1' 
 									AND Piece_idPiece = $idPiece
-									AND mesure.date BETWEEN '$dateDeb' AND '$dateFin'");
+									AND mesure.DateMesure BETWEEN '$dateDeb' AND '$dateFin'");
 																	
 									
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
