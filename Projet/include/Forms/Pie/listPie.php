@@ -1,12 +1,11 @@
 <?php
 	include "bdd.php";
 	$idBatiment = $_GET['idBatiment'];
-	$resultats=$connection->query("	SELECT IDPIECE, NOM, LAT , LNG , count(idCapteur) as NBPIECE
+	$resultats=$connection->query("	SELECT IDPIECE, NOM, LAT , LNG , count(distinct idCapteur) as NBCAPTEURS
 										FROM piece, capteur, localiser
 										WHERE Piece_idPiece = idPiece
 										AND Capteur_idCapteur = idCapteur
 										AND Batiment_idBatiment = $idBatiment
-										AND dateF IS NULL
 										GROUP BY IDPIECE, NOM , LAT , LNG
 												UNION
 												SELECT IDPIECE, NOM, LAT , LNG , 0
@@ -25,13 +24,13 @@
 		if($resultat->NOM != "")
 			echo	'<tr>
 						<td>'.$resultat->NOM.'</td>
-						<td>'.$resultat->NBPIECE.'</td>
 						<td>'.$resultat->LAT.'</td>
 						<td>'.$resultat->LNG.'</td>
+						<td>'.$resultat->NBCAPTEURS.'</td>
 						<td>
 							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editPieModal" onClick="editPie('.$resultat->IDPIECE.')"></span></a>
 							<a href="index.php?p=Forms/Cap/editC&idPiece='.$resultat->IDPIECE.'"><span class="glyphicon glyphicon-signal"></span></a> ';
-			if ($resultat->NBPIECE ==0)
+			if ($resultat->NBCAPTEURS ==0)
 				echo 		' <a href="./include/Forms/Pie/remPie.php?idPiece='.$resultat->IDPIECE.'&idBatiment='.$idBatiment.'"><span class="glyphicon glyphicon-remove"></span></a> ';
 			echo 		'</td>
 					</tr>';

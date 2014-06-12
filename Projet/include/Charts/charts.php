@@ -528,8 +528,8 @@
 	</script>
 	<script type="text/javascript">
 	
-		function chargeLibVal(idTypeCapteur) {
-		
+		function chargeLibVal() {
+			idTypeCapteur = $("#idTypeCapteurMap").val();
 			if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
 				xmlhttp=new XMLHttpRequest();
 			} else {	// code for IE6, IE5
@@ -580,7 +580,7 @@
 						contentString = "<h4>" + piece[0] + "</h4>"+
 										"<h5>" + piece[1] + "</h5>"+
 										"<div class='form-group'>"+
-											"<label>Type</label><select class='form-control' onchange='chargeLibVal(this.value)'>" + piece[4] + "</select></div><div class='form-group'><label>Libelle</label><select class='form-control' id='libValMap'></select>";
+											"<label>Type</label><select class='form-control' id='idTypeCapteurMap' onchange='chargeLibVal()'>" + piece[4] + "</select></div><div class='form-group'><label>Libelle</label><select class='form-control' id='libValMap'></select>";
 						infoWindowContent.push(contentString);
 						
 					}
@@ -601,12 +601,12 @@
 							return function() {
 								infoWindow.setContent(infoWindowContent[i]);
 								infoWindow.open(map, marker);
+								chargeLibVal();
 							}
 						})(marker, i));
 
 						map.fitBounds(bounds);
 					}
-
 					var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
 						this.setZoom(15);
 						google.maps.event.removeListener(boundsListener);

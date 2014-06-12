@@ -7,7 +7,8 @@
 									AND idPiece = Piece_idPiece
 									AND idCapteur = Capteur_idCapteur
 									AND idTypeCapteur = Capteur.TypeCapteur_idTypeCapteur
-									AND idTypeCapteur = LibVal.TypeCapteur_idTypeCapteur");
+									AND idTypeCapteur = LibVal.TypeCapteur_idTypeCapteur
+									ORDER BY NOMBAT, NOMPIE, LAT, LNG, IDTYPECAPTEUR, NOMTYPE");
 									
 									
 	/*$resultats=$connection->query("	SELECT Batiment.nom as NOMBAT, Piece.nom as NOMPIE, LAT, LNG

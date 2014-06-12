@@ -43,7 +43,7 @@
 	
 	function cleanForm(){
 		$("#addNameValue").val("");
-		$('#addBatModal button:submit').attr("disabled", true);
+		$('#addPieModal button:submit').attr("disabled", true);
 	}
 	
 	
@@ -77,9 +77,9 @@
 				<thead>
 					<tr>
 						<th>Name <i class="fa fa-sort"></i></th>
-						<th>Sensors<i class="fa fa-sort"></i></th>
-						<th>Latitude<i class="fa fa-sort"></i></th>
-						<th>Longitude<i class="fa fa-sort"></i></th>
+						<th>Latitude <i class="fa fa-sort"></i></th>
+						<th>Longitude <i class="fa fa-sort"></i></th>
+						<th>Sensors <i class="fa fa-sort"></i></th>
 						<th>Edit <i class="fa fa-sort"></i></th>
 					</tr>
 				</thead>
@@ -98,7 +98,7 @@
 
 <div class="row">
 	<div class="col-lg-12 text-center">
-		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPieModal" onClick="cleanForm();" style="width: 100px;font-size: 15pt;">Add</button>
+		<button onClick="cleanForm();" type="button" class="btn btn-success" data-toggle="modal" data-target="#addPieModal" style="width: 100px;font-size: 15pt;">Add</button>
 	</div>
 </div><!-- /.row -->
 
@@ -118,19 +118,19 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="name" onkeyup="checkInfo();"  id="addNameValue">
+								<input type="text" class="form-control" name="name" onkeyup="checkInfo();"  id="inpName">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Latitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lat" onkeyup="checkInfo();" id="inpLAT">
+								<input type="text" class="form-control" name="lat" id="inpLAT">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Longitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lng" onkeyup="checkInfo();" id="inpLNG">
+								<input type="text" class="form-control" name="lng" id="inpLNG">
 							</div>
 						</div>						
 				</div>
@@ -165,13 +165,13 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Latitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lat" onkeyup="checkInfo();" id="inpLAT">
+								<input type="text" class="form-control" name="lat" id="inpLAT">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Longitude</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="lng" onkeyup="checkInfo();" id="inpLNG">
+								<input type="text" class="form-control" name="lng" id="inpLNG">
 							</div>
 						</div>					
 				</div>

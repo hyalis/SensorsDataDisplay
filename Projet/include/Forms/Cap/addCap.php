@@ -16,10 +16,10 @@
 		$idCapteur = $resultat->IDCAPT;
 		
 		$resultats=$connection->query("INSERT INTO Capteur(idCapteur, nomCapteur, TypeCapteur_idTypeCapteur) VALUES ($idCapteur, '$name',$idTypeCapteur)");
-		$resultats=$connection->query("INSERT INTO Localiser(dateD,dateF, Piece_idPiece, Capteur_idCapteur) VALUES (now(), NULL, $idPiece, $idCapteur)");
+		$resultats=$connection->query("INSERT INTO Localiser(dateD,dateF, Piece_idPiece, Capteur_idCapteur) VALUES (SYSDATE , NULL, $idPiece, $idCapteur)");
 	} else {
 		$idCapteur = $_GET['idCapteur'];
-		$resultats=$connection->query("INSERT INTO Localiser(dateD, dateF, Piece_idPiece, Capteur_idCapteur) VALUES (now(), NULL, $idPiece, $idCapteur)");
+		$resultats=$connection->query("INSERT INTO Localiser(dateD, dateF, Piece_idPiece, Capteur_idCapteur) VALUES (SYSDATE , NULL, $idPiece, $idCapteur)");
 	}
 	
 	header('Location: '. $chemin .'index.php?p=Forms/Cap/editC&idPiece='.$idPiece); 
