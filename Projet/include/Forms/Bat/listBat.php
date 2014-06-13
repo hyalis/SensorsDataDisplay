@@ -24,10 +24,10 @@
 							<a href="index.php?p=Forms/Pie/editP&idBatiment='.$resultat->IDBATIMENT.'"><span class="glyphicon glyphicon-home"></a> ';
 							
 			if ($resultat->NBPIECE == 0) 
-				echo 		'<a href="./include/Forms/Bat/remBat.php?idBatiment='.$resultat->IDBATIMENT.'"><span class="glyphicon glyphicon-remove"></a> ' ;
+				echo 		"<a href='#'><span class='glyphicon glyphicon-remove' onClick='confirmer($resultat->IDBATIMENT);'></span></a> " ;
 			echo '		</td>
 					</tr>';
-		
+					
 	}
 	$resultats->closeCursor(); 
 ?>

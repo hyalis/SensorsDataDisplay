@@ -22,7 +22,7 @@
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/Forms/Typ/infoType.php?idTypeCapteur="+idCapteur,true);
+		xmlhttp.open("GET","./include/Forms/Typ/infoTyp.php?idTypeCapteur="+idCapteur,true);
 		xmlhttp.send();
 	}
 	
@@ -43,6 +43,12 @@
 	function cleanForm(){
 		$("#addNameValue").val("");
 		$('#addTypModal button:submit').attr("disabled", true);
+	}
+	
+	
+	function confirmer(idTypeCapateur){
+			if (confirm ("Etes vous sur de vouloir supprimer ?"))
+			window.location="./include/Forms/Typ/remTyp.php?idTypeCapteur="+idTypeCapateur ;
 	}
 	
 </script>
@@ -71,7 +77,7 @@
 				</thead>
 				<tbody id="tabType">
 					<?php
-						include "listType.php";
+						include "listTyp.php";
 					?>
 				</tbody>
 			</table>
@@ -96,7 +102,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="titreModal"></h4>
 			</div>
-			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Typ/updateType.php">
+			<form class="form-horizontal" role="form" method="GET" action="./include/Forms/Typ/updateTyp.php">
 				<div class="modal-body" id="modalBody">
 					<input type="hidden" id="inpIdType" name="idTypeCapteur" value="">
 						<div class="form-group">

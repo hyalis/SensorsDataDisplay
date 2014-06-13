@@ -15,8 +15,8 @@
 						<td>'. $resultat->NOMTYPE .'</td>
 						<td>
 							<a href="#"><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editSenModal" onClick="editSen('. $resultat->IDCAPTEUR .')"></span></a>
-							<a href="./include/Forms/Sen/remSen.php?idSensor='. $resultat->IDCAPTEUR .'"><span class="glyphicon glyphicon-remove"></span></a>
 							<a href="index.php?p=Forms/His/editH&idSensor='. $resultat->IDCAPTEUR .'"><span class="glyphicon glyphicon-calendar"></span></a> 
+							<a href="#"><span class="glyphicon glyphicon-remove" onClick="confirmer('. $resultat->IDCAPTEUR .')";></span></a>
 						</td>
 					</tr>';
 	}

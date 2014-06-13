@@ -49,6 +49,10 @@
 		$('#addLabModal button:submit').attr("disabled", true);
 	}
 	
+	function confirmer(idLibVal, idTypeCapteur2){
+			if (confirm ("Etes vous sur de vouloir supprimer ?"))
+			window.location="./include/Forms/Lab/remLab.php?idLibVal="+idLibVal +"&idTypeCapteur="+ idTypeCapteur2 ;
+	}
 	
 </script>
 <div class="row">

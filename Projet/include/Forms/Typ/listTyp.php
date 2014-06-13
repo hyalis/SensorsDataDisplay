@@ -20,7 +20,7 @@
 							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editTypeModal" onClick="editType('. $resultat->IDTYPECAPTEUR .')"></span></a> 
 							<a href="index.php?p=Forms/Lab/editL&idTypeCapteur='. $resultat->IDTYPECAPTEUR .'"></span><span class="glyphicon glyphicon-plus-sign"  ></span></a> ';
 			if($resultat->NBMESURE == 0)
-				echo		'<a href="./include/Forms/Typ/remType.php?idTypeCapteur='. $resultat->IDTYPECAPTEUR .'"><span class="glyphicon glyphicon-remove" </a> ';
+				echo		'<a href="#"><span class="glyphicon glyphicon-remove" onClick="confirmer('. $resultat->IDTYPECAPTEUR .')";></span></a>';
 			echo 		'</td>
 					</tr>';
 	}
