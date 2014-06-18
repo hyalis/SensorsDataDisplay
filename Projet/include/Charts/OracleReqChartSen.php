@@ -74,41 +74,68 @@
 		
 	}
 	
-	//echo "<br><br><br><br><br><br><br><br><b>Tableau final</b><br>";		
-	//print_r($data);
+	// echo "<br><br><br><br><br><br><br><br><b>Tableau final</b><br>";		
+	 // print_r($data);
 	ksort($data);
 	echo "END";
 	$test = true;
 	
-	
-	
-	
+	$strEcho = "";
 	foreach ($data as &$value) {
 		$date = $value[0];
-		for($i = 1; $i <= $nbCourbes; $i++){
-			if(!isset($value[$i]))
-				$value[$i] = "false";
-		}
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! AVEC trou !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// for($i = 1; $i <= $nbCourbes; $i++){
+			// if(!isset($value[$i]))
+				// $value[$i] = "false";
+		// }
 
+		// if($test){
+			// echo	'	{
+						// "date" : "' . $date .'", 
+				// ';
+			// for($i = 0; $i < $nbCourbes-1; $i++){
+				// echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)]) . '",';	
+			// }	
+			// echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)])  . '"';
+			// echo "}";
+			// $test = false;
+		// } else {
+			// echo	'	,{
+						// "date" : "' . $date .'", 
+				// ';
+			// for($i = 0; $i < $nbCourbes-1; $i++){
+				// echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)])  . '",';	
+			// }	
+			// echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)])  . '"';
+			// echo "}";
+		// }	
+		
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SANS trou, Marche pas !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
 		if($test){
-			echo	'	{
+			$strEcho = $strEcho .	'	{
 						"date" : "' . $date .'", 
 				';
-			for($i = 0; $i < $nbCourbes-1; $i++){
-				echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)]) . '",';	
-			}	
-			echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)])  . '"';
-			echo "}";
+			while (list($key, $val) = each($value)) {
+				if($key != 0)
+					$strEcho = $strEcho .			'"' . ($key-1) . '" : "' . str_replace ( ",", ".", $val) . '", ';	
+			}
+			$strEcho = substr($strEcho,0,-2);
+			$strEcho = $strEcho .	 "}";
 			$test = false;
 		} else {
-			echo	'	,{
+			$strEcho = $strEcho .		'	,{
 						"date" : "' . $date .'", 
 				';
-			for($i = 0; $i < $nbCourbes-1; $i++){
-				echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)])  . '",';	
-			}	
-			echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)])  . '"';
-			echo "}";
-		}	
+				
+				
+			while (list($key, $val) = each($value)) {
+				if($key != 0)
+					$strEcho = $strEcho .			'"' . ($key-1) . '" : "' . str_replace ( ",", ".", $val) . '", ';	
+			}
+			$strEcho = substr($strEcho,0,-2);
+			$strEcho = $strEcho .	 "}";
+		}
 	}
+	echo $strEcho;
 ?>
