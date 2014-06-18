@@ -26,43 +26,41 @@
 	// echo "***********************<br><br>";
 	$nbCourbes = sizeof($capteur);
 	
-	$grbStr = "";
+	
 	
 	switch($groupBy){
-		case "YEAR" :	$grbStr = " GROUP BY YEAR(dateMesure) ";
+		case "YEAR" :	$group = " TO_CHAR(DATEMESURE,'yyyy') ";
 			break;
-		case "MONTH" :	$grbStr = " GROUP BY YEAR(dateMesure), MONTH(dateMesure) ";
+		case "MONTH" :	$group = " TO_CHAR(DATEMESURE,'yyyy-mm') ";
 			break;
-		case "WEEK" :	$grbStr = " GROUP BY YEAR(dateMesure), MONTH(dateMesure), WEEK(dateMesure) ";
+		case "DAY" :	$group = " TO_CHAR(DATEMESURE,'yyyy-mm-dd') ";
 			break;
-		case "DAY" :	$grbStr = " GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure) ";
+		case "HOUR" :	$group = " TO_CHAR(DATEMESURE,'yyyy-mm-dd hh24') ";
 			break;
-		case "HOUR" :	$grbStr = " GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure), HOUR(dateMesure) ";
+		case "MIN" :	$group = " TO_CHAR(DATEMESURE,'yyyy-mm-dd hh24:mi') ";
 			break;
-		case "MIN" :	$grbStr = " GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure), HOUR(dateMesure), MINUTE(dateMesure) ";
-			break;
-		case "SEC" : 	$grbStr = " GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure), HOUR(dateMesure), MINUTE(dateMesure), SECOND(dateMesure) ";
+		case "SEC" : 	$group = " TO_CHAR(DATEMESURE,'yyyy-mm-dd hh24:mi:ss') ";
 			break;
 	}
 	
 	for($i = 0; $i < $nbCourbes; $i++){
 		//Récupère les dates ou le capteur était utilisé dans CETTE pièce
-		$resultats=$connection->query("	SELECT IDLOCALISER, DATED, DATEF 
+		$resultats=$connection->query("	SELECT IDLOCALISER, TO_CHAR(DATED,'yyyy-mm-dd hh24:mi:ss') AS DATED, TO_CHAR(DATEF,'yyyy-mm-dd hh24:mi:ss') AS DATEF
 										FROM localiser 
 										WHERE Capteur_idCapteur = " . $capteur[$i][1] . "
 										AND Piece_idPiece = " . $capteur[$i][0] . "
-										AND ( 		dateD BETWEEN '$dateDeb%' AND '$dateFin%'
-											  OR 	dateF BETWEEN '$dateDeb%' AND '$dateFin%'
-											  OR	(dateD <= '$dateDeb%' AND (dateF >= '$dateFin%' OR dateF IS NULL)))
+										AND ( 		dateD BETWEEN TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss')
+											  OR 	dateF BETWEEN TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss')
+											  OR	(dateD <= TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND (dateF >= TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss') OR dateF IS NULL)))
 										ORDER BY dateD ASC");
 		// echo "<br><br><b>Requête qui liste la position du capteur #$i</b><br>";		
-		// echo "	SELECT idLocaliser, dateD, dateF 
+		// echo "	SELECT IDLOCALISER, TO_CHAR(DATED,'yyyy-mm-dd hh24:mi:ss') AS DATED, TO_CHAR(DATEF,'yyyy-mm-dd hh24:mi:ss') AS DATEF
 										// FROM localiser 
 										// WHERE Capteur_idCapteur = " . $capteur[$i][1] . "
 										// AND Piece_idPiece = " . $capteur[$i][0] . "
-										// AND ( 		dateD BETWEEN '$dateDeb%' AND '$dateFin%'
-											  // OR 	dateF BETWEEN '$dateDeb%' AND '$dateFin%'
-											  // OR	(dateD <= '$dateDeb%' AND (dateF >= '$dateFin%' OR dateF IS NULL)))
+										// AND ( 		dateD BETWEEN TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss')
+											  // OR 	dateF BETWEEN TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss')
+											  // OR	(dateD <= TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND (dateF >= TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss') OR dateF IS NULL)))
 										// ORDER BY dateD ASC";
 		$resultats->setFetchMode(PDO::FETCH_OBJ);
 		while( $resultat = $resultats->fetch() )
@@ -92,45 +90,42 @@
 
 
 			//Récupère les données de CE capteur aux dates ou il se trouvait dans CETTE pièce
-			$res=$connection->query("	SELECT LEFT(mesure.DateMesure,19) as DATEMESURE, VALEUR 
+			$res=$connection->query("SELECT $group as DATEMESURE, TRUNC(AVG(VALEUR),2) AS VALEUR
 										FROM valeurmesure, mesure 
 										WHERE valeurmesure.Mesure_idMesure = mesure.idMesure 
 										AND mesure.Capteur_idCapteur = " . $capteur[$i][1] . "
 										AND LibVal_idLibVal = " . $capteur[$i][2] . "
-										AND mesure.DateMesure BETWEEN '$dateD' AND '$dateF'
-										$grbStr");
+										AND mesure.DateMesure BETWEEN TO_DATE('$dateD','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateF','yyyy-mm-dd  hh24:mi:ss')
+										GROUP BY $group
+										ORDER BY DATEMESURE");
 			// echo "<br><br><b>Requête qui liste les valeurs pour le capteur $i</b><br>";		
 			// echo "<br><b>Capteur = </b> " . $capteur[$i][1] ."<br>";	
 			// echo "<br><b>LibVal = </b> " . $capteur[$i][2] ."<br>";	
-			// echo "	SELECT LEFT(mesure.DateMesure,19) as dateMesure, valeur 
+			// echo "	SELECT $group as DATEMESURE, TRUNC(AVG(VALEUR),2) AS VALEUR
 										// FROM valeurmesure, mesure 
 										// WHERE valeurmesure.Mesure_idMesure = mesure.idMesure 
 										// AND mesure.Capteur_idCapteur = " . $capteur[$i][1] . "
 										// AND LibVal_idLibVal = " . $capteur[$i][2] . "
-										// AND mesure.DateMesure BETWEEN '$dateD' AND '$dateF'
-										// GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure)<br>";
+										// AND mesure.DateMesure BETWEEN TO_DATE('$dateD','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateF','yyyy-mm-dd  hh24:mi:ss')
+										// GROUP BY $group
+										// ORDER BY DATEMESURE";
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			
 			while($val = $res->fetch())
 			{
 				$data[$val->DATEMESURE][0] = $val->DATEMESURE;
 				$data[$val->DATEMESURE][($i+1)] = $val->VALEUR;
-				//echo "Pour le capteur $i data[date][($i+1)] =  " . $val->valeur . "<br>";
+				// echo "Pour le capteur $i data[date][($i+1)] =  " . $val->VALEUR . "<br>";
+				// echo "val->DATEMESURE =  " . $val->DATEMESURE . "<br>";
 			}
-			
-			//$dateTrou = $dateF + 1 seconde;
-			
-			
-			//echo "dateTrou = " . $dateTrou->format('Y-m-d H:i:s') . "<br>";		
 		}
 	}
-	
-	//echo "<br><br><br><br><br><br><br><br><b>Tableau final</b>AVANT<br>";		
-	//print_r($data);
+	// echo "<br><br><br><br><br><br><br><br><b>Tableau final</b>AVANT<br>";		
+	// print_r($data);
 	ksort($data);
-	//echo "<br><br><br>APRES<br>";	
-	//print_r($data);
-	//echo "<br><br><br><br>";	
+	// echo "<br><br><br>APRES<br>";	
+	// print_r($data);
+	// echo "<br><br><br><br>";	
 	echo "END";
 	$test = true;
 	foreach ($data as &$value) {
@@ -145,9 +140,9 @@
 						"date" : "' . $date .'", 
 				';
 			for($i = 0; $i < $nbCourbes-1; $i++){
-				echo		'"' . $i . '" : "' . $value[($i+1)] . '",';	
+				echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)]) . '",';	
 			}	
-			echo		'"' . $i . '" : "' . $value[($i+1)] . '"';
+			echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)]) . '"';
 			echo "}";
 			$test = false;
 		} else {
@@ -155,9 +150,9 @@
 						"date" : "' . $date .'", 
 				';
 			for($i = 0; $i < $nbCourbes-1; $i++){
-				echo		'"' . $i . '" : "' . $value[($i+1)] . '",';	
+				echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)]) . '",';	
 			}	
-			echo		'"' . $i . '" : "' . $value[($i+1)] . '"';
+			echo		'"' . $i . '" : "' . str_replace ( ",", ".", $value[($i+1)]) . '"';
 			echo "}";
 		}	
 	}

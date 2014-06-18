@@ -271,7 +271,7 @@
 		var pieces = new Array();
 		var capteurs = new Array();
 		var libVals = new Array();
-		var strPHP = "./include/Charts/reqChartGeo.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
+		var strPHP = "./include/Charts/OracleReqChartGeo.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
 		for(i=0; i < idCapteursIdLibVal.length; i++){
 			pieces[i] = idCapteursIdLibVal[i].split("xxx")[0];
@@ -684,7 +684,6 @@
 								<option value='MIN'>Minute</option>
 								<option value='HOUR'>Hour</option>
 								<option value='DAY'>Day</option>
-								<option value='WEEK'>Week</option>
 								<option value='MONTH'>Month</option>
 								<option value='YEAR'>Year</option>
 							</select>
@@ -692,7 +691,7 @@
 					</div>
 				</div>
 			</div>
-
+<!--
 			<div class="col-lg-4"  id="parameters" style="display:none;">
 				<div class="panel panel-primary" style="height: 268px;">
 					<div class="panel-heading">
@@ -722,7 +721,7 @@
 					</div>
 				</div>
 			</div>
-			
+-->			
 			<div class="col-lg-4" id="submit" style="display:none; ">
 				<div class="panel panel-primary" style="height: 268px;">
 					<div class="panel-heading">
@@ -746,7 +745,7 @@
 						<ul class="nav nav-tabs" id="onglet">
 							<li class="active"><a href="#" data-toggle="tab" onclick="onMap();">Map</a></li>
 							<li><a href="#line" data-toggle="tab" onclick="onLine();">Line</a></li>
-							<li><a href="#bubble" data-toggle="tab" onclick="onBubble();">Bubble</a></li>
+							<!--<li><a href="#bubble" data-toggle="tab" onclick="onBubble();">Bubble</a></li>-->
 						</ul>
 						<br>
 						<div id="graphdiv" style="width: auto; height: 350px;display:none; " ></div>

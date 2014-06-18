@@ -76,7 +76,7 @@
 	
 	//echo "<br><br><br><br><br><br><br><br><b>Tableau final</b><br>";		
 	//print_r($data);
-	asort($data);
+	ksort($data);
 	echo "END";
 	$test = true;
 	
