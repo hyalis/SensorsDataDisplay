@@ -16,7 +16,7 @@
 						<td>'. $resultat->UNITE . '</td>
 						<td>
 							<a href="#"></span><span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#editLabelModal" onClick="editLabel('. $resultat->IDLIBVAL .')"></span></a>
-							<a href="./include/Forms/Lab/remLab.php?idLibVal='. $resultat->IDLIBVAL .'&idTypeCapteur='. $idTypeCapteur .'"><span class="glyphicon glyphicon-remove"></a>
+							<a href="#"><span class="glyphicon glyphicon-remove" onClick="confirmer('.$resultat->IDLIBVAL .', '.$idTypeCapteur.' )";></span></a>
 						</td>
 					</tr>';
 	}

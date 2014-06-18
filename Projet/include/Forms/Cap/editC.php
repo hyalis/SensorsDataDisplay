@@ -73,8 +73,15 @@
 			$('#addCapModal button:submit').removeAttr("disabled", true);
 			$("#inpRadio").val("2");
 		}
-	
+		
 	}
+	
+	function confirmer(idCap,idPie){
+			if (confirm ("Etes vous sur de vouloir supprimer ?"))
+			window.location="./include/Forms/Cap/remCap.php?idCap="+idCap +"&idPiece="+ idPie ;
+	}
+	
+	
 	
 </script>
 

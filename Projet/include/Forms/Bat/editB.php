@@ -51,6 +51,12 @@
 		$('#addBatModal button:submit').attr("disabled", true);
 	}
 	
+	
+	function confirmer(bat){
+		if (confirm ("Voulez-vous supprimer ?"))
+			window.location="./include/Forms/Bat/remBat.php?idBatiment="+bat ;
+	}
+	
 </script>
 
 <div class="row">

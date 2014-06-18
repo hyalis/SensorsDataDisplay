@@ -55,6 +55,11 @@
 		$('#addSenModal button:submit').attr("disabled", true);
 	}
 	
+	function confirmer(idSensor){
+			if (confirm ("Etes vous sur de vouloir supprimer ?"))
+			window.location="./include/Forms/Sen/remSen.php?idSensor="+idSensor ;
+	}
+	
 	
 </script>
 
