@@ -508,7 +508,7 @@
 			});
 		}
 		if (typeTree=="Map"){
-			$('div.chosentree').html("<h2>Selection de la map</h2>");
+			$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap'></ul>");
 		}
 	}
     //FIN TREE
@@ -516,9 +516,10 @@
 	function addItem(){
 		idTypeCapteur = $("#idTypeCapteurMap").val();
 		idLibVal = $("#libValMap").val();
-		alert("idTypeCapteur = " + idTypeCapteur);
-		alert("idLibVal = " + idLibVal);
-		$(".chosentree-choices").html($(".chosentree-choices").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
+		$("#ongletLabels .active").removeClass("active");
+		$("#ongletMapLabel").addClass("active");
+		$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap'></ul>");
+		$("#listeLabelMap").html($("#listeLabelMap").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
 	}
 </script>
 	<style type="text/css">
@@ -649,11 +650,11 @@
 					<h3 class="panel-title"><i class="fa fa-check-square-o"></i>  Select label(s)</h3>
 				</div>
 				<div class="panel-body">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs" id="ongletLabels">
 						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');"><span class="glyphicon glyphicon-tasks"></span></a></li>
 						<li><a href="#Sen" data-toggle="tab" onClick="reLoadTree('Sensor');"><span class="glyphicon glyphicon-screenshot"></span></a></li>
 						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');"><span class="glyphicon glyphicon-filter"></span></a></li>
-						<li><a href="#Map" data-toggle="tab" onClick="reLoadTree('Map');"><span class="glyphicon glyphicon-globe"></span></a></li>
+						<li id="ongletMapLabel"><a href="#Map" data-toggle="tab" onClick="reLoadTree('Map');"><span class="glyphicon glyphicon-globe"></span></a></li>
 					</ul>
 					<div class="chosentree" style="width=20%;"></div>
 				</div>
