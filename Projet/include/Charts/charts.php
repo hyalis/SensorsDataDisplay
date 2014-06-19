@@ -647,6 +647,7 @@
 						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');">Geo</a></li>
 						<li><a href="#Sen" data-toggle="tab" onClick="reLoadTree('Sensor');">Sensor</a></li>
 						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');">Exper</a></li>
+					</ul>
 					<div class="chosentree" style="width=20%;"></div>
 				</div>
 			</div>
