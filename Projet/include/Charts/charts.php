@@ -216,7 +216,10 @@
 						graph.bullet = "round";
 						graph.hideBulletsCount = 30;
 						graph.bulletBorderThickness = 1;
-						graph.connect = false;
+						if($("#connect .active input").val() == "connect")
+							graph.connect = true;
+						else
+							graph.connect = false;
 						chart2.addGraph(graph);		
 						tabGraphs[i] = graph;
 					}
@@ -729,6 +732,14 @@
 					</div>
 					 <div class="panel-body">
 						<b><span id="nbrData">0</span></b> <br><br>
+						<div class="btn-group" data-toggle="buttons" id="connect">
+							<label class="btn btn-primary active">
+								<input type="radio" name="options" id="opt1" value="connect"> Connect
+							</label>
+							<label class="btn btn-primary">
+								<input type="radio" name="options" id="opt2" value="disconnect"> Disconnect
+							</label>
+						</div>
 						<button class="btn btn-success" style="float: right;" onClick="updaValues(); ">Submit</button>
 					</div>
 				</div>
