@@ -428,7 +428,6 @@
 		return node;
 	};
 	
-	
 	var loadChildrenSensor = function(node, level) {
 		var hasChildren = node.level < 3;
 		node.children.push(<?php include "./include/Charts/loadTreeSensor.php"; ?>);		
@@ -446,6 +445,7 @@
 			width: 200,
 			deepLoad: true,
 			showtree: true,
+			input_placeholder: '',
 			load: function(node, callback) {
 				setTimeout(function() {
 				callback(loadChildrenGeo(node, 0));
@@ -464,24 +464,10 @@
 				width: 200,
 				deepLoad: true,
 				showtree: true,
+				input_placeholder: '',
 				load: function(node, callback) {
 					setTimeout(function() {
 					callback(loadChildrenGeo(node, 0));
-					}, 1);
-					setTimeout(function() {
-					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
-					}, 500);
-				}
-			});
-		}
-		if (typeTree == "Time"){
-			$('div.chosentree').chosentree({
-				width: 200,
-				deepLoad: true,
-				showtree: true,
-				load: function(node, callback) {
-					setTimeout(function() {
-					callback(loadChildrenTime(node, 0));
 					}, 1);
 					setTimeout(function() {
 					$(".treenode .odd input, .treenode .even input").remove("[value=bat],[value=pie],[value=cap]");
@@ -494,6 +480,7 @@
 				width: 200,
 				deepLoad: true,
 				showtree: true,
+				input_placeholder: '',
 				load: function(node, callback) {
 					setTimeout(function() {
 					callback(loadChildrenSensor(node, 0));
@@ -509,6 +496,7 @@
 				width: 200,
 				deepLoad: true,
 				showtree: true,
+				input_placeholder: '',
 				load: function(node, callback) {
 					setTimeout(function() {
 					callback(loadChildrenExper(node, 0));
@@ -519,8 +507,19 @@
 				}
 			});
 		}
+		if (typeTree=="Map"){
+			$('div.chosentree').html("<h2>Selection de la map</h2>");
+		}
 	}
     //FIN TREE
+	
+	function addItem(){
+		idTypeCapteur = $("#idTypeCapteurMap").val();
+		idLibVal = $("#libValMap").val();
+		alert("idTypeCapteur = " + idTypeCapteur);
+		alert("idLibVal = " + idLibVal);
+		$(".chosentree-choices").html($(".chosentree-choices").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
+	}
 </script>
 	<style type="text/css">
 		#map-canvas { height: 460px; width: 100%; }
@@ -580,10 +579,17 @@
 						markers.push([piece[1],piece[2],piece[3]]);
 					
 						//Nom de la piece dans le batiment
-						contentString = "<h4>" + piece[0] + "</h4>"+
-										"<h5>" + piece[1] + "</h5>"+
-										"<div class='form-group'>"+
-											"<label>Type</label><select class='form-control' id='idTypeCapteurMap' onchange='chargeLibVal()'>" + piece[4] + "</select></div><div class='form-group'><label>Libelle</label><select class='form-control' id='libValMap'></select>";
+						contentString = "<h4>" + piece[0] + "</h4>" +
+										"<h5>" + piece[1] + "</h5>" +
+										"<div class='form-group'>" +
+											"<label>Type</label>" +
+												"<select class='form-control' id='idTypeCapteurMap' onchange='chargeLibVal()'>" + piece[4] + "</select>" +
+										"</div>" + 
+										"<div class='form-group'>" +
+											"<label>Libelle</label>" + 
+											"<select class='form-control' id='libValMap'></select>" + 
+										"</div>" +
+										"<button type='button' class='btn btn-info' style='float: right;' onClick='addItem();'>Add</button>";
 						infoWindowContent.push(contentString);
 						
 					}
@@ -640,13 +646,14 @@
 		<div id="tree-wrapper">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Select label(s)</h3>
+					<h3 class="panel-title"><i class="fa fa-check-square-o"></i>  Select label(s)</h3>
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');">Geo</a></li>
-						<li><a href="#Sen" data-toggle="tab" onClick="reLoadTree('Sensor');">Sensor</a></li>
-						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');">Exper</a></li>
+						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');"><span class="glyphicon glyphicon-tasks"></span></a></li>
+						<li><a href="#Sen" data-toggle="tab" onClick="reLoadTree('Sensor');"><span class="glyphicon glyphicon-screenshot"></span></a></li>
+						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');"><span class="glyphicon glyphicon-filter"></span></a></li>
+						<li><a href="#Map" data-toggle="tab" onClick="reLoadTree('Map');"><span class="glyphicon glyphicon-globe"></span></a></li>
 					</ul>
 					<div class="chosentree" style="width=20%;"></div>
 				</div>
@@ -659,7 +666,7 @@
 			<div class="col-lg-4">
 				<div class="panel panel-primary">
 					<div class="panel-heading" >
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Date range</h3>
+						<h3 class="panel-title"><i class="fa fa-calendar"></i> Date range</h3>
 					</div>
 					<div class="panel-body">
 						<div class="form-group text-right">
