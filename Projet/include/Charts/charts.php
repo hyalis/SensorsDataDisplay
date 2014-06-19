@@ -396,7 +396,7 @@
 	}
 
 	function onLine(){
-		document.getElementById('parameters').style.display='none'; 
+		//document.getElementById('parameters').style.display='none'; 
 		$("#graphiques .nav-tabs li").removeClass('active');
 		$("#graphiques .nav-tabs li:contains(Line)").attr("class","active");
 		document.getElementById('map-canvas').style.display='none';
@@ -406,7 +406,7 @@
 	}
 	
 	function onMap(){
-		document.getElementById('parameters').style.display='none'; 
+		//document.getElementById('parameters').style.display='none'; 
 		$("#graphiques .nav-tabs li").removeClass('active');
 		$("#graphiques .nav-tabs li:contains(Map)").attr("class","active");
 		document.getElementById('map-canvas').style.display='';
