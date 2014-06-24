@@ -6,7 +6,7 @@
 										WHERE Piece_idPiece = idPiece
 										AND Capteur_idCapteur = idCapteur
 										AND Batiment_idBatiment = $idBatiment
-                                        AND dateF = NULL
+                                        AND dateF IS NULL
                                         GROUP BY IDPIECE, NOM , LAT , LNG
 												UNION
 										SELECT IDPIECE, NOM, LAT , LNG , 0 as NBCAPTEURS
@@ -14,7 +14,7 @@
 										WHERE idPiece NOT IN (
 											SELECT Piece_idPiece
 											FROM localiser
-											WHERE dateF = NULL
+											WHERE dateF IS NULL
 											)
 										AND Batiment_idBatiment = $idBatiment");
 
