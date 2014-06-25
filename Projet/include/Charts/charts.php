@@ -18,6 +18,7 @@
 <!-- Init le bubblechart -->
 <script type="text/javascript">
 	var chart;
+	var dataLibMap = [];
 	var chartData = [{
 								"y" : 0,
 								"x" : 0,
@@ -168,11 +169,11 @@
 		
 		groupBy = document.getElementById('groupBy').value;
 		
-		if($(".nav-tabs .active a").html() == "Geo")
+		if($(".nav-tabs .active a").attr("value") == "Geo")
 			url = updaValueGeo(dateDeb,dateFin,groupBy);
-		if($(".nav-tabs .active a").html() == "Sensor")
+		if($(".nav-tabs .active a").attr("value") == "Sensor")
 			url = updaValueSen(dateDeb,dateFin,groupBy);
-		if($(".nav-tabs .active a").html() == "Exper")
+		if($(".nav-tabs .active a").attr("value") == "Exper")
 			url = updaValueExp(dateDeb,dateFin,groupBy);
 
 			
@@ -525,7 +526,7 @@
 			});
 		}
 		if (typeTree=="Map"){
-			$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap'></ul>");
+			deleteItem(false,false,false);
 		}
 	}
     //FIN TREE
@@ -533,10 +534,27 @@
 	function addItem(){
 		idTypeCapteur = $("#idTypeCapteurMap").val();
 		idLibVal = $("#libValMap").val();
+		textLibVal = $("#libValMap option:selected").text();
+		item = "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idTypeCapteur + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><span class='glyphicon glyphicon-remove'></span>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
+		if(dataLibMap.indexOf(item) == -1)
+			dataLibMap.push(item);
 		$("#ongletLabels .active").removeClass("active");
 		$("#ongletMapLabel").addClass("active");
-		$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap'></ul>");
-		$("#listeLabelMap").html($("#listeLabelMap").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
+		$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap' style='list-style-type: none;'></ul>");
+		for(i=0; i < dataLibMap.length; i++){
+			$("#listeLabelMap").html($("#listeLabelMap").html() + dataLibMap[i]);
+		}
+		//$("#listeLabelMap").html($("#listeLabelMap").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
+	}
+	
+	function deleteItem(idTypeCapteur, idLibVal, textLibVal){
+		item = "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idTypeCapteur + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><span class='glyphicon glyphicon-remove'></span>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
+		if(idTypeCapteur != false)
+			dataLibMap.splice(dataLibMap.indexOf(item),1);
+		$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap' style='list-style-type: none;'></ul>");
+		for(i=0; i < dataLibMap.length; i++){
+			$("#listeLabelMap").html($("#listeLabelMap").html() + dataLibMap[i]);
+		}
 	}
 </script>
 	<style type="text/css">
@@ -668,10 +686,10 @@
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-tabs" id="ongletLabels">
-						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');"><span class="glyphicon glyphicon-tasks"></span></a></li>
-						<li><a href="#Sen" data-toggle="tab" onClick="reLoadTree('Sensor');"><span class="glyphicon glyphicon-screenshot"></span></a></li>
-						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');"><span class="glyphicon glyphicon-filter"></span></a></li>
-						<li id="ongletMapLabel"><a href="#Map" data-toggle="tab" onClick="reLoadTree('Map');"><span class="glyphicon glyphicon-globe"></span></a></li>
+						<li class="active"><a href="#geo" data-toggle="tab" onClick="reLoadTree('Geo');" value="Geo"><span class="glyphicon glyphicon-tasks"></span></a></li>
+						<li><a href="#Sen" data-toggle="tab" onClick="reLoadTree('Sensor');" value="Sensor"><span class="glyphicon glyphicon-screenshot"></span></a></li>
+						<li><a href="#Exp" data-toggle="tab" onClick="reLoadTree('Exper');" value="Exper"><span class="glyphicon glyphicon-filter"></span></a></li>
+						<li id="ongletMapLabel"><a href="#Map" data-toggle="tab" onClick="reLoadTree('Map');" value="Map"><span class="glyphicon glyphicon-globe"></span></a></li>
 					</ul>
 					<div class="chosentree" style="width=20%;"></div>
 				</div>
