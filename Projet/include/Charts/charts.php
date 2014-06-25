@@ -305,6 +305,23 @@
 		return strPHP;
 	}
 	
+	
+	function updaValueExp(dateDeb,dateFin,groupBy) {
+		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		var capteurs = new Array();
+		var libVals = new Array();
+		var strPHP = "./include/Charts/OracleReqChartExp.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
+	
+		for(i=0; i < idCapteursIdLibVal.length; i++){
+			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[0];
+			libVals[i] = idCapteursIdLibVal[i].split("xxx")[1];
+			strPHP = strPHP + "&idPiece" + (i+1) + "=" + capteurs[i];
+			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
+		}
+		strPHP = strPHP + "&groupBy=" + groupBy;
+		return strPHP;
+	}
+	
 	function liveData(){
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();

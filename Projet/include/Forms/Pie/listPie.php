@@ -1,12 +1,11 @@
 <?php
 	include "bdd.php";
 	$idBatiment = $_GET['idBatiment'];
-	$resultats=$connection->query("		SELECT IDPIECE, NOM, LAT , LNG , count(distinct idCapteur) as NBCAPTEURS
+	$resultats=$connection->query("		SELECT IDPIECE, NOM, LAT , LNG , count(DISTINCT IDCAPTEUR) as NBCAPTEURS
 										FROM piece, capteur, localiser
 										WHERE Piece_idPiece = idPiece
 										AND Capteur_idCapteur = idCapteur
 										AND Batiment_idBatiment = $idBatiment
-                                        AND dateF = NULL
                                         GROUP BY IDPIECE, NOM , LAT , LNG
 												UNION
 										SELECT IDPIECE, NOM, LAT , LNG , 0 as NBCAPTEURS
