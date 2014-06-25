@@ -44,39 +44,35 @@
 	
 	for($i = 0; $i < $nbCourbes; $i++){
 	
-			$res=$connection->query("	SELECT DATED , DATEF, CAPTEUR_IDCAPTEUR
-										FROM  LOCALISER, LIBVAL, CAPTEUR
-										WHERE IDLIBVAL = " . $capteur[$i][1] . "
-										AND  LIBVAL.TYPECAPTEUR_IDTYPECAPTEUR = CAPTEUR.TYPECAPTEUR_IDTYPECAPTEUR
-										AND CAPTEUR.IDCAPTEUR = LOCALISER.CAPTEUR_IDCAPTEUR
-										AND Piece_idPiece =" . $capteur[$i][0] );
-										
-					
-			$res ->	setFetchMode(PDO::FETCH_OBJ);
-			
-			while ($resultat = $res-> fetch()){
-			
-				$res2=$connection->query("	SELECT VALEUR ,DATEMESURE
-											FROM  VALEURMESURE, MESURE
-											WHERE MESURE.CAPTEUR_IDCAPTEUR = ". $resultat->CAPTEUR_IDCAPTEUR ."
-											AND MESURE.DATEMESURE BETWEEN TO_DATE(".$resultat->DATED.",'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(".$resultat->DATEF.",'yyyy-mm-dd hh24:mi:ss')
-											AND MESURE.IDMESURE = VALEURMESURE.MESURE_IDMESURE 
-											".$grbStr );
-						
-					
-					
-			
-				$res2->setFetchMode(PDO::FETCH_OBJ);
+		$res=$connection->query("	SELECT TO_CHAR(DATED,'yyyy-mm-dd hh24:mi:ss') AS DATED  , TO_CHAR(DATEF,'yyyy-mm-dd hh24:mi:ss') AS DATEF, CAPTEUR_IDCAPTEUR
+									FROM  LOCALISER, LIBVAL, CAPTEUR
+									WHERE IDLIBVAL = " . $capteur[$i][1] . "
+									AND  LIBVAL.TYPECAPTEUR_IDTYPECAPTEUR = CAPTEUR.TYPECAPTEUR_IDTYPECAPTEUR
+									AND CAPTEUR.IDCAPTEUR = LOCALISER.CAPTEUR_IDCAPTEUR
+									AND Piece_idPiece =" . $capteur[$i][0] );
+									
+				
+		$res ->	setFetchMode(PDO::FETCH_OBJ);
 		
-				while($val = $res2->fetch())
-				{
-					$data[$val->DATEMESURE][0] = $val->DATEMESURE;
-					$data[$val->DATEMESURE][($i+1)] = $val->VALEUR;
-					//echo "Pour le capteur $i data[date][($i+1)] =  " . $val->valeur . "<br>";
-				}
+		while ($resultat = $res-> fetch()){
+		
+			$res2=$connection->query("	SELECT VALEUR ,DATEMESURE
+										FROM  VALEURMESURE, MESURE
+										WHERE MESURE.CAPTEUR_IDCAPTEUR = ". $resultat->CAPTEUR_IDCAPTEUR ."
+										AND MESURE.DATEMESURE BETWEEN TO_DATE(".$resultat->DATED.",'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(".$resultat->DATEF.",'yyyy-mm-dd hh24:mi:ss')
+										AND MESURE.IDMESURE = VALEURMESURE.MESURE_IDMESURE 
+										".$grbStr );
+					
 				
+			$res2->setFetchMode(PDO::FETCH_OBJ);
+	
+			while($val = $res2->fetch())
+			{
+				$data[$val->DATEMESURE][0] = $val->DATEMESURE;
+				$data[$val->DATEMESURE][($i+1)] = $val->VALEUR;
+				//echo "Pour le capteur $i data[date][($i+1)] =  " . $val->valeur . "<br>";
 			}
-				
+		}
 	}
 
 	/* for($i = 0; $i < $nbCourbes; $i++){
@@ -180,8 +176,6 @@
 			 */
 			
 
-	}
-	 */
 	// echo "<br><br><br><br><br><br><br><br><b>Tableau final</b><br>";		
 	 // print_r($data);
 	ksort($data);
