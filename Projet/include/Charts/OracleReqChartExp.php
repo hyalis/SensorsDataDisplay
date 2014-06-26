@@ -55,11 +55,22 @@
 		$res ->	setFetchMode(PDO::FETCH_OBJ);
 		
 		while ($resultat = $res-> fetch()){
-		
+			if ($resultat->DATED < $dateDeb){
+				$dated = $dateDeb ;
+			}
+			else {
+				$dated = $resultat->DATED ;
+			}
+			if ($resultat->DATEF > $dateFin){
+				$datef =$dateFin ;
+			}
+			else {
+				$datef = $resultat->DATEF ;
+			}
 			$res2=$connection->query("	SELECT VALEUR ,DATEMESURE
 										FROM  VALEURMESURE, MESURE
 										WHERE MESURE.CAPTEUR_IDCAPTEUR = ". $resultat->CAPTEUR_IDCAPTEUR ."
-										AND MESURE.DATEMESURE BETWEEN TO_DATE(".$resultat->DATED.",'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(".$resultat->DATEF.",'yyyy-mm-dd hh24:mi:ss')
+										AND MESURE.DATEMESURE BETWEEN TO_DATE(".$dated.",'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(".$datef.",'yyyy-mm-dd hh24:mi:ss')
 										AND MESURE.IDMESURE = VALEURMESURE.MESURE_IDMESURE 
 										".$grbStr );
 					
