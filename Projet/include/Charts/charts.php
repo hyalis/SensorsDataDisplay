@@ -528,6 +528,7 @@
 		if (typeTree=="Map"){
 			deleteItem(false,false,false);
 		}
+		showSubmit();
 	}
     //FIN TREE
 	
@@ -540,10 +541,11 @@
 			dataLibMap.push(item);
 		$("#ongletLabels .active").removeClass("active");
 		$("#ongletMapLabel").addClass("active");
-		$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap' style='list-style-type: none;'></ul>");
+		$('div.chosentree').html("<h2>Selection de la map</h2><div class='chosentree-choices'><ul id='listeLabelMap' style='list-style-type: none;'><li> </li></ul><div>");
 		for(i=0; i < dataLibMap.length; i++){
 			$("#listeLabelMap").html($("#listeLabelMap").html() + dataLibMap[i]);
 		}
+		showSubmit();
 		//$("#listeLabelMap").html($("#listeLabelMap").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
 	}
 	
@@ -551,10 +553,11 @@
 		item = "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idTypeCapteur + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><span class='glyphicon glyphicon-remove'></span>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
 		if(idTypeCapteur != false)
 			dataLibMap.splice(dataLibMap.indexOf(item),1);
-		$('div.chosentree').html("<h2>Selection de la map</h2><ul id='listeLabelMap' style='list-style-type: none;'></ul>");
+		$('div.chosentree').html("<h2>Selection de la map</h2><div class='chosentree-choices'><ul id='listeLabelMap' style='list-style-type: none;'><li> </li></ul><div>");
 		for(i=0; i < dataLibMap.length; i++){
 			$("#listeLabelMap").html($("#listeLabelMap").html() + dataLibMap[i]);
 		}
+		showSubmit();
 	}
 </script>
 	<style type="text/css">
@@ -830,8 +833,9 @@
 		}
 	});
 	$(".chosentree").bind("click", function(){
-		 showSubmit();setTimeout(function(){
+		 setTimeout(function(){
 								$("#choice_capsup").remove();
+								showSubmit();
 							},50)});
 	
 	$( "#live .btn" ).click('event', function() {
