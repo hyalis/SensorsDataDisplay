@@ -173,7 +173,7 @@
 			url = updaValueGeo(dateDeb,dateFin,groupBy);
 		if($(".nav-tabs .active a").attr("value") == "Sensor")
 			url = updaValueSen(dateDeb,dateFin,groupBy);
-		if($(".nav-tabs .active a").attr("value") == "Exper")
+		if($(".nav-tabs .active a").attr("value") == "Exper" || $(".nav-tabs .active a").attr("value") == "Map")
 			url = updaValueExp(dateDeb,dateFin,groupBy);
 
 			
