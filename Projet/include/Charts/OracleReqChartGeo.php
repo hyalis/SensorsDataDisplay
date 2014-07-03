@@ -126,7 +126,7 @@
 	// echo "<br><br><br>APRES<br>";	
 	// print_r($data);
 	// echo "<br><br><br><br>";	
-	echo "END";
+	//echo "END";
 	$test = true;
 	foreach ($data as &$value) {
 		$date = $value[0];

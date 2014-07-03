@@ -190,7 +190,7 @@
 		xmlhttp.onreadystatechange=function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				if(xmlhttp.responseText==""){
-				
+					document.getElementById('graphdiv').innerHTML='<h2>No data</h2>';
 				} else {
 					//document.getElementById('graphiques').style.position = 'relative'; document.getElementById('graphiques').style.top = '0px';
 					document.getElementById('map-canvas').style.display='none';
@@ -225,13 +225,13 @@
 						tabGraphs[i] = graph;
 					}
 					
-					var elem = xmlhttp.responseText.split('END');
-					var dataBubble = elem[0];
-					var dataLine = elem[1];
-					
-					var chartData = JSON.parse("[" + dataBubble + "]");
-					chart.dataProvider = chartData;
-					chart.validateData();
+					// var elem = xmlhttp.responseText.split('END');
+					// var dataBubble = elem[0];
+					// var dataLine = elem[1];
+					var dataLine = xmlhttp.responseText;
+					// var chartData = JSON.parse("[" + dataBubble + "]");
+					// chart.dataProvider = chartData;
+					// chart.validateData();
 					
 					chartData = JSON.parse("[" + dataLine + "]"); 
 					
@@ -256,13 +256,13 @@
 					
 					if($("ul#onglet li.active a").attr('href')=='#line'){
 						chart2.write("graphdiv");
-					} else {
+					} /*else {
 						chart.write("graphdiv");
-					}
+					}*/
 					chart2.validateData();
 
 					if($("#live .active input").val() == 'ON')
-						liveData();
+						liveData();		
 				}
 			}
 		}
@@ -350,7 +350,7 @@
 								} else {
 									//alert(xmlhttp.responseText);
 									chart2.dataProvider.shift();
-									chart2.dataProvider.push(JSON.parse(xmlhttp.responseText));
+									chart2.dataProvider.push(JSON.parse("[" + xmlhttp.responseText + "]"));
 									chart2.validateData();
 									
 								}
@@ -391,12 +391,17 @@
 		var dateDeb = $("#datetimepickerDeb").val();
 		var dateFin = $("#datetimepickerFin").val();
 		
-		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
+		if($("#live .active input").val() == 'ON')
+			dateFin = "2999-12-31 23:59:59";
 		
-		opt1pie = idCapteursIdLibVal[0].split("xxx")[0];
-		opt1capt = idCapteursIdLibVal[0].split("xxx")[1];
-		opt1lib = idCapteursIdLibVal[0].split("xxx")[2];
-		nbData = $(".chosentree-choices li").size()-1;
+		groupBy = document.getElementById('groupBy').value;
+		
+		if($(".nav-tabs .active a").attr("value") == "Geo")
+			url = updaValueGeo(dateDeb,dateFin,groupBy);
+		if($(".nav-tabs .active a").attr("value") == "Sensor")
+			url = updaValueSen(dateDeb,dateFin,groupBy);
+		if($(".nav-tabs .active a").attr("value") == "Exper" || $(".nav-tabs .active a").attr("value") == "Map")
+			url = updaValueExp(dateDeb,dateFin,groupBy);
 		
 		if (window.XMLHttpRequest){	// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
@@ -408,11 +413,11 @@
 				if(xmlhttp.responseText == ""){
 					document.getElementById('nbrData').innerHTML = '';
 				} else {
-					document.getElementById('nbrData').innerHTML = xmlhttp.responseText;
+					document.getElementById('nbrData').innerHTML = $("#groupBy option:selected").text() + " : " + JSON.parse("[" + xmlhttp.responseText+ "]").length;
 				}
 			}
 		}
-		xmlhttp.open("GET","./include/Charts/stats.php?dateDeb="+dateDeb+"&dateFin="+dateFin+"&idCapteur1="+opt1capt+"&idLibVal1="+opt1lib+"&idPiece="+opt1pie+"&nbData="+nbData,true);
+		xmlhttp.open("GET",url,true);
 		xmlhttp.send();
 	}
 
@@ -422,8 +427,12 @@
 		$("#graphiques .nav-tabs li:contains(Line)").attr("class","active");
 		document.getElementById('map-canvas').style.display='none';
 		document.getElementById('graphdiv').style.display='';
-		chart2.write('graphdiv');
-		chart2.validateData();
+		if(chart2.dataProvider.length > 0){
+			chart2.write('graphdiv');
+			chart2.validateData();
+		} else {
+			document.getElementById('graphdiv').innerHTML='<h2>No data</h2>';
+		}
 	}
 	
 	function onMap(){
@@ -611,7 +620,7 @@
 					var pieces = xmlhttp.responseText.split("<br>");
 					var infoWindowContent = new Array();
 					var markers = new Array();
-					for (index = 0; index < pieces.length; ++index) {
+					for (index = 0; index < pieces.length - 1; ++index) {
 						piece = pieces[index].split("***");
 						
 						//Markers
@@ -666,6 +675,7 @@
 			xmlhttp.send();	
 		}
 		google.maps.event.addDomListener(window, 'load', initialize);
+
 	</script>
 	
 	
@@ -729,7 +739,7 @@
 						</div><br>
 						<div class="form-group" >
 							<label>Select Group by</label>
-							<select class="form-control" id="groupBy">
+							<select class="form-control" id="groupBy" onChange="updaStats();">
 								<option value='SEC'>Second</option>
 								<option value='MIN'>Minute</option>
 								<option value='HOUR'>Hour</option>
@@ -806,9 +816,8 @@
 							<!--<li><a href="#bubble" data-toggle="tab" onclick="onBubble();">Bubble</a></li>-->
 						</ul>
 						<br>
-						<div id="graphdiv" style="width: auto; height: 350px;display:none; " ></div>
+						<div id="graphdiv"  style="width: auto; height: 400px; display:none; " ><h2>No data</h2></div>
 						<div id="map-canvas"/>
-						
 					</div>
 				</div>
 			</div>

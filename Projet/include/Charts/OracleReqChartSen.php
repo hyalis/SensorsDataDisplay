@@ -77,7 +77,7 @@
 	// echo "<br><br><br><br><br><br><br><br><b>Tableau final</b><br>";		
 	 // print_r($data);
 	ksort($data);
-	echo "END";
+	//echo "END";
 	$test = true;
 	
 	$strEcho = "";
