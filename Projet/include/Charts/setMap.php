@@ -1,7 +1,7 @@
 <?php
 	include "../../bdd.php";
 	
-	$resultats=$connection->query("	SELECT DISTINCT Batiment.nom as NOMBAT, Piece.nom as NOMPIE, LAT, LNG, IDTYPECAPTEUR, NOMTYPE
+	$resultats=$connection->query("	SELECT DISTINCT Batiment.nom as NOMBAT, Piece.nom as NOMPIE, LAT, LNG, IDTYPECAPTEUR, NOMTYPE, Piece.idPiece
 									FROM Batiment, Piece, Localiser, Capteur, TypeCapteur, LibVal
 									WHERE Batiment_idBatiment = idBatiment
 									AND idPiece = Piece_idPiece
@@ -20,8 +20,9 @@
 	
 	$res = $resultats->fetch();
 	$nomBat = $res->NOMBAT;
+	$idPie = $res->IDPIECE;
 	$nomPie = $res->NOMPIE;
-	echo $nomBat . "***" . $nomPie . "***" . $res->LAT . "***" . $res->LNG . "***<option value='" . $res->IDTYPECAPTEUR . "'>" . $res->NOMTYPE . "</option>";
+	echo $nomBat . "***" . $idPie . "***" . $nomPie . "***" . $res->LAT . "***" . $res->LNG . "***<option value='" . $res->IDTYPECAPTEUR . "'>" . $res->NOMTYPE . "</option>";
 	
 
 	while($res){
@@ -31,8 +32,9 @@
 		}
 		echo "<br>";
 		$nomBat = $res->NOMBAT;
+		$idPie = $res->IDPIECE;
 		$nomPie = $res->NOMPIE;
-		echo $nomBat . "***" . $nomPie . "***" . $res->LAT . "***" . $res->LNG . "***<option value='" . $res->IDTYPECAPTEUR . "'>" . $res->NOMTYPE . "</option>";
+		echo $nomBat . "***" . $idPie . "***" . $nomPie . "***" . $res->LAT . "***" . $res->LNG . "***<option value='" . $res->IDTYPECAPTEUR . "'>" . $res->NOMTYPE . "</option>";
 		$res = $resultats->fetch();
 	}
 ?>

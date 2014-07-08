@@ -30,7 +30,7 @@
 						$etat = 2;
 				break;
 			case 2 :	$json = $json .	"{'id':'cap',
-										'title':'" . $resultat->NOMCAPTEUR . "',
+										'title':'" . str_replace("."," ","$resultat->NOMCAPTEUR") . "',
 										'has_children':true,
 										'level': $etat,
 										'children':[";

@@ -55,13 +55,13 @@
 				break;
 			case 4 :	//$jsonC = $jsonC .	"{'id':'xxx" . $resultat->idPiece ."xxx" . $resultat->idTypeCapteur ."xxx" . $resultat->idLibVal ."xxx". $resultat->idCapteur."',
 						$jsonC = $jsonC .	"{'id':'capsup',
-										'title':'" . $resultat->NOMCAPTEUR . "',
+										'title':'" . str_replace("."," ","$resultat->NOMCAPTEUR") . "',
 										'has_children':false,
 										'level': 5,
 										'children':[]}";
 										
 						$idlibval= $resultat->IDLIBVAL ;
-						$libelle = $resultat->LIBELLE ;
+						$libelle =  $resultat->NOMPIE . " - " . $resultat->LIBELLE ;
 						$cap = $resultat->IDCAPTEUR ;
 						
 						$resultat = $resultats->fetch();

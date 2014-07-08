@@ -107,16 +107,6 @@
 
 
 
-<div class="row">
-	<div class="col-lg-12">
-		<img src="./img/work_in.png" class="img-responsive center-block img-rounded" alt="Work in" style="width: 200px;">
-	</div>
-</div><!-- /.row -->
-
-
-
-
-
 <!-- LES MODALS -->
 <div class="modal fade" id="editSenModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">

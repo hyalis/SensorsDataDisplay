@@ -49,9 +49,9 @@
 										FROM localiser 
 										WHERE Capteur_idCapteur = " . $capteur[$i][1] . "
 										AND Piece_idPiece = " . $capteur[$i][0] . "
-										AND ( 		dateD BETWEEN TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss')
-											  OR 	dateF BETWEEN TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss')
-											  OR	(dateD <= TO_DATE('$dateDeb%','yyyy-mm-dd  hh24:mi:ss') AND (dateF >= TO_DATE('$dateFin%','yyyy-mm-dd  hh24:mi:ss') OR dateF IS NULL)))
+										AND ( 		dateD BETWEEN TO_DATE('$dateDeb','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin','yyyy-mm-dd  hh24:mi:ss')
+											  OR 	dateF BETWEEN TO_DATE('$dateDeb','yyyy-mm-dd  hh24:mi:ss') AND TO_DATE('$dateFin','yyyy-mm-dd  hh24:mi:ss')
+											  OR	(dateD <= TO_DATE('$dateDeb','yyyy-mm-dd  hh24:mi:ss') AND (dateF >= TO_DATE('$dateFin','yyyy-mm-dd  hh24:mi:ss') OR dateF IS NULL)))
 										ORDER BY dateD ASC");
 		// echo "<br><br><b>Requête qui liste la position du capteur #$i</b><br>";		
 		// echo "	SELECT IDLOCALISER, TO_CHAR(DATED,'yyyy-mm-dd hh24:mi:ss') AS DATED, TO_CHAR(DATEF,'yyyy-mm-dd hh24:mi:ss') AS DATEF

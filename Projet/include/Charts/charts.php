@@ -126,6 +126,7 @@
 	   chart2.dataProvider = chartData;
 	   chart2.categoryField = "date";
 	   chart2.autoMarginOffset = 20;
+	   
 	   // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
 	  // chart2.addListener("dataUpdated", zoomChart);
 	  
@@ -139,6 +140,7 @@
 	   // CURSOR
 	   var chartCursor = new AmCharts.ChartCursor();
 	   chartCursor.cursorPosition = "mouse";
+	   chartCursor.categoryBalloonDateFormat = "YYYY-MM-DD HH:NN:SS";
 	   chart2.addChartCursor(chartCursor);
 
 	   // SCROLLBAR
@@ -165,7 +167,7 @@
 		var dateFin = $("#datetimepickerFin").val();
 		
 		if($("#live .active input").val() == 'ON')
-			dateFin = "2999-12-31 23:59:59";
+			dateFin = "2099-12-31 23:59:59";
 		
 		groupBy = document.getElementById('groupBy').value;
 		
@@ -350,7 +352,7 @@
 								} else {
 									//alert(xmlhttp.responseText);
 									chart2.dataProvider.shift();
-									chart2.dataProvider.push(JSON.parse("[" + xmlhttp.responseText + "]"));
+									chart2.dataProvider.push(JSON.parse(xmlhttp.responseText ));
 									chart2.validateData();
 									
 								}
@@ -413,7 +415,13 @@
 				if(xmlhttp.responseText == ""){
 					document.getElementById('nbrData').innerHTML = '';
 				} else {
-					document.getElementById('nbrData').innerHTML = $("#groupBy option:selected").text() + " : " + JSON.parse("[" + xmlhttp.responseText+ "]").length;
+					var nbFalse = xmlhttp.responseText.split("false").length-1 ;
+					var json = JSON.parse("[" + xmlhttp.responseText+ "]");
+					var sizeJSON = json.length;
+					var nbElementMax = sizeJSON * (Object.keys(json[0]).length-1) ;
+					var nbElements = nbElementMax - nbFalse ;
+					
+					document.getElementById('nbrData').innerHTML = $("#groupBy option:selected").text() + " : " + nbElements;
 				}
 			}
 		}
@@ -542,15 +550,15 @@
     //FIN TREE
 	
 	function addItem(){
-		idTypeCapteur = $("#idTypeCapteurMap").val();
+		idPiece = $("#idPieceMap").attr("value");
 		idLibVal = $("#libValMap").val();
-		textLibVal = $("#libValMap option:selected").text();
-		item = "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idTypeCapteur + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><span class='glyphicon glyphicon-remove'></span>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
+		textLibVal = $("#idPieceMap").text() + " - " + $("#libValMap option:selected").text();
+		item = "<li class='search-choice' id='choice_xxx" + idPiece + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idPiece + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><div class='glyphicon glyphicon-remove'></div>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
 		if(dataLibMap.indexOf(item) == -1)
 			dataLibMap.push(item);
 		$("#ongletLabels .active").removeClass("active");
 		$("#ongletMapLabel").addClass("active");
-		$('div.chosentree').html("<h2>Selection de la map</h2><div class='chosentree-choices'><ul id='listeLabelMap' style='list-style-type: none;'><li> </li></ul><div>");
+		$('div.chosentree').html("<h4>Selection de la map</h4><div class='chosentree-choices'><ul id='listeLabelMap' style='list-style-type: none;'><li> </li></ul><div>");
 		for(i=0; i < dataLibMap.length; i++){
 			$("#listeLabelMap").html($("#listeLabelMap").html() + dataLibMap[i]);
 		}
@@ -558,11 +566,11 @@
 		//$("#listeLabelMap").html($("#listeLabelMap").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
 	}
 	
-	function deleteItem(idTypeCapteur, idLibVal, textLibVal){
-		item = "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idTypeCapteur + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><span class='glyphicon glyphicon-remove'></span>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
-		if(idTypeCapteur != false)
+	function deleteItem(idPiece, idLibVal, textLibVal){
+		item = "<li class='search-choice' id='choice_xxx" + idPiece + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idPiece + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><div class='glyphicon glyphicon-remove'></div>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
+		if(idPiece != false)
 			dataLibMap.splice(dataLibMap.indexOf(item),1);
-		$('div.chosentree').html("<h2>Selection de la map</h2><div class='chosentree-choices'><ul id='listeLabelMap' style='list-style-type: none;'><li> </li></ul><div>");
+		$('div.chosentree').html("<h4>Selection de la map</h4><div class='chosentree-choices'><ul id='listeLabelMap' style='list-style-type: none;'><li> </li></ul><div>");
 		for(i=0; i < dataLibMap.length; i++){
 			$("#listeLabelMap").html($("#listeLabelMap").html() + dataLibMap[i]);
 		}
@@ -624,14 +632,14 @@
 						piece = pieces[index].split("***");
 						
 						//Markers
-						markers.push([piece[1],piece[2],piece[3]]);
+						markers.push([piece[2],piece[3],piece[4]]);
 					
 						//Nom de la piece dans le batiment
 						contentString = "<h4>" + piece[0] + "</h4>" +
-										"<h5>" + piece[1] + "</h5>" +
+										"<h5 id='idPieceMap' value='" + piece[1] +"'>" + piece[2] + "</h5>" +
 										"<div class='form-group'>" +
 											"<label>Type</label>" +
-												"<select class='form-control' id='idTypeCapteurMap' onchange='chargeLibVal()'>" + piece[4] + "</select>" +
+												"<select class='form-control' id='idTypeCapteurMap' onchange='chargeLibVal()'>" + piece[5] + "</select>" +
 										"</div>" + 
 										"<div class='form-group'>" +
 											"<label>Libelle</label>" + 
@@ -827,12 +835,12 @@
 
 <script>
 	$('#datetimepickerDeb').datetimepicker().datetimepicker({
-		step:2,
+		step:5,
 		format:'Y-m-d H:i',
 		onChangeDateTime:function(dp,$input){
 			$('#datetimepickerFin').datetimepicker({
 				timepicker:true,
-				step:30,
+				step:5,
 				format:'Y-m-d H:i',
 				formatDate:'Y-m-d H:i',
 				minDate:$input.val(),

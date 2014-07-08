@@ -39,7 +39,7 @@
 						$etat = 3;
 				break;
 			case 3 : 	$json = $json .	"{'id':'cap',
-										'title':'" . $resultat->NOMCAPTEUR . "',
+										'title':'" . str_replace("."," ","$resultat->NOMCAPTEUR") . "',
 										'has_children':true,
 										'level': $etat,
 										'children':[";
@@ -47,7 +47,7 @@
 						$etat = 4;
 				break;
 			case 4 :	$json = $json .	"{'id':'xxx" . $resultat->IDPIECE ."xxx" . $resultat->IDCAPTEUR . "xxx" . $resultat->IDLIBVAL . "',
-										'title':'" . $resultat->LIBELLE . "',
+										'title':'" . $resultat->IDCAPTEUR . " - " . $resultat->LIBELLE . "',
 										'has_children':false,
 										'level': $etat,
 										'children':[]}";
