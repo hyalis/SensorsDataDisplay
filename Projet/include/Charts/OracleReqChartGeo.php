@@ -128,6 +128,7 @@
 	// echo "<br><br><br><br>";	
 	//echo "END";
 	$test = true;
+	// formattage des valeurs numerique conversion de "," en "."
 	foreach ($data as &$value) {
 		$date = $value[0];
 		for($i = 1; $i <= $nbCourbes; $i++){

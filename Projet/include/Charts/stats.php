@@ -1,4 +1,7 @@
 <?php
+
+	// a verifier mais devenu obsolete
+	
 	include "../bdd.php";
 
 	$dateDeb = $_GET['dateDeb'];

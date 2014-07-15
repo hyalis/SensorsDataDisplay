@@ -1,6 +1,7 @@
 <?php
 	include "./bdd.php";
 	
+	// On récupérer les informations ordonnées (typeCapteur > idCapteur > idLibVal) nécessaire a la construction de notre arbre 
 	$resultats=$connection->query("	SELECT IDTYPECAPTEUR , NOMTYPE, IDCAPTEUR, NOMCAPTEUR, IDLIBVAL, LIBELLE
 									FROM typecapteur, capteur, libval
 									WHERE idTypeCapteur = capteur.TypeCapteur_idTypeCapteur
@@ -18,6 +19,8 @@
 	
 	$resultat = $resultats->fetch();
 	
+	// Création du json pour notre treeselect
+	// Seul les items sélectionnables ont des id unique
 	while($resultat)
 	{
 		switch($etat){

@@ -65,6 +65,7 @@
 										// $grbStr";
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			
+			// on renseigne $data avec notre requete 
 			while($val = $res->fetch())
 			{
 				$data[$val->DATEMESURE][0] = $val->DATEMESURE;
@@ -79,6 +80,8 @@
 	asort($data);
 	echo "END";
 	$test = true;
+	
+	// formattage des valeurs numerique conversion de "," en "."
 	foreach ($data as &$value) {
 		$date = $value[0];
 		for($i = 1; $i <= $nbCourbes; $i++){

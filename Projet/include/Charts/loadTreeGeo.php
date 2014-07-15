@@ -1,5 +1,6 @@
 <?php
 	include "./bdd.php";
+	// On récupérer tous les capteur qui sont toujours en train de capter des données au moment présent
 	$resultats=$connection->query("	SELECT IDBATIMENT, Batiment.nom as NOMBAT, IDPIECE, Piece.nom as NOMPIE, IDCAPTEUR, NOMCAPTEUR, IDLIBVAL, LIBELLE
 									FROM Batiment, Piece, localiser, capteur, typeCapteur, LibVal
 									WHERE Batiment_idBatiment = idBatiment
@@ -19,6 +20,8 @@
 	
 	$resultat = $resultats->fetch();
 	
+	// Création du json pour notre treeselect
+	// Seul les items sélectionnables ont des id unique
 	while($resultat)
 	{
 		switch($etat){

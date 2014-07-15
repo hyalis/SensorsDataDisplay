@@ -1,6 +1,6 @@
 <?php
 	include "./bdd.php";
-	
+	// On récupérer toutes les données ordonnées (idBatiment > idPiece > idTypeCapteur > idLibVal > idCapteur)
 	$resultats=$connection->query("	SELECT DISTINCT   IDBATIMENT, Batiment.nom as NOMBAT , IDPIECE ,Piece.nom as NOMPIE, IDTYPECAPTEUR, NOMTYPE, IDLIBVAL, LIBELLE, IDCAPTEUR, NOMCAPTEUR
 									FROM Batiment , Piece , localiser, capteur, typeCapteur, libval 
 									WHERE Batiment_idBatiment = idBatiment
@@ -26,6 +26,8 @@
 	
 	$resultat = $resultats->fetch();
 	
+	// Création du json pour notre treeselect
+	// Seul les items sélectionnables ont des id unique
 	while($resultat)
 	{
 		switch($etat){

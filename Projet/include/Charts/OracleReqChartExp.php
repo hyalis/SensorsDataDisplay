@@ -43,7 +43,7 @@
 	$grbStr = $grbStr . $group;
 	
 	for($i = 0; $i < $nbCourbes; $i++){
-	
+		// On récupérer la date de debut et de fin pour chaque capteur
 		$res=$connection->query("	SELECT TO_CHAR(DATED,'yyyy-mm-dd hh24:mi:ss') AS DATED  , TO_CHAR(DATEF,'yyyy-mm-dd hh24:mi:ss') AS DATEF, CAPTEUR_IDCAPTEUR
 									FROM  LOCALISER, LIBVAL, CAPTEUR
 									WHERE IDLIBVAL = " . $capteur[$i][1] . "
@@ -74,13 +74,13 @@
 					$dateF = $dateFin;
 				else
 					$dateF = $resultat->DATEF;
-				$dateTrou = new DateTime($dateF);
-				$dateTrou->add(new DateInterval('PT1S'));
-				$data[$dateTrou->format('Y-m-d H:i:s')][0] = $dateTrou->format('Y-m-d H:i:s');
-				$data[$dateTrou->format('Y-m-d H:i:s')][($i+1)] = "false";
+					$dateTrou = new DateTime($dateF);
+					$dateTrou->add(new DateInterval('PT1S'));
+					$data[$dateTrou->format('Y-m-d H:i:s')][0] = $dateTrou->format('Y-m-d H:i:s');
+					$data[$dateTrou->format('Y-m-d H:i:s')][($i+1)] = "false";
 			}
 			
-			
+			// On récupérer les DATEMESURE et VALEUR de toutes les éléments qui sont dans l'interval voulu
 			$res2=$connection->query("SELECT $group as DATEMESURE, TRUNC(AVG(VALEUR),2) AS VALEUR
 										FROM valeurmesure, mesure 
 										WHERE valeurmesure.Mesure_idMesure = mesure.idMesure 
@@ -117,6 +117,7 @@
 	$test = true;
 	
 	$strEcho = "";
+	// formattage des valeurs numerique conversion de "," en "."
 	foreach ($data as &$value) {
 		$date = $value[0];
 

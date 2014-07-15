@@ -166,11 +166,13 @@
 		var dateDeb = $("#datetimepickerDeb").val();
 		var dateFin = $("#datetimepickerFin").val();
 		
+		// live activer on met la date de fin  à 2099-12-31 23:59:59
 		if($("#live .active input").val() == 'ON')
 			dateFin = "2099-12-31 23:59:59";
 		
 		groupBy = document.getElementById('groupBy').value;
 		
+		// On construit une url différente en fonction de l'onglet choisi par l'utilisateur
 		if($(".nav-tabs .active a").attr("value") == "Geo")
 			url = updaValueGeo(dateDeb,dateFin,groupBy);
 		if($(".nav-tabs .active a").attr("value") == "Sensor")
@@ -252,8 +254,10 @@
 							break;
 						default : chart2.categoryAxis.minPeriod = "DD";
 					}
-									
+					
+					// On donne les valeur a chart2
 					chart2.dataProvider = chartData;
+					// on redessine les courbes
 					chart2.validateData();
 					
 					if($("ul#onglet li.active a").attr('href')=='#line'){
@@ -272,13 +276,17 @@
 		xmlhttp.send();
 	}
 	
+	// Permet de créer l'url de l'onglet Geo avec tous les élément sélectinoner dans notre tree
 	function updaValueGeo(dateDeb,dateFin,groupBy) {
+		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var pieces = new Array();
 		var capteurs = new Array();
 		var libVals = new Array();
+		// On met la date de début et de fin de pour la requete
 		var strPHP = "./include/Charts/OracleReqChartGeo.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
-	
+		
+		// On ajoute a notre requete les arguments pour chacun des capteurs sélectionnés
 		for(i=0; i < idCapteursIdLibVal.length; i++){
 			pieces[i] = idCapteursIdLibVal[i].split("xxx")[0];
 			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[1];
@@ -288,55 +296,74 @@
 			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
 			
 		}
+		// Et on fini avec le groupBy de notre requete
 		strPHP = strPHP + "&groupBy=" + groupBy;
 		return strPHP;
 	}
 	
+	// Permet de créer l'url de l'onglet Sensor avec tous les élément sélectinoner dans notre tree
 	function updaValueSen(dateDeb,dateFin,groupBy) {
+		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();
 		var libVals = new Array();
+		// On met la date de début et de fin de pour la requete
 		var strPHP = "./include/Charts/OracleReqChartSen.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
+		// On ajoute a notre requete les arguments pour chacun des libVal sélectionnés
 		for(i=0; i < idCapteursIdLibVal.length; i++){
 			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[0];
 			libVals[i] = idCapteursIdLibVal[i].split("xxx")[1];
 			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
 			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
 		}
+		
+		// Et on fini avec le groupBy de notre requete
 		strPHP = strPHP + "&groupBy=" + groupBy;
 		return strPHP;
 	}
 	
 	
+	// Permet de créer l'url de l'onglet Experience avec tous les élément sélectinoner dans notre tree
 	function updaValueExp(dateDeb,dateFin,groupBy) {
+		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();
 		var libVals = new Array();
+		// On met la date de début et de fin de pour la requete
 		var strPHP = "./include/Charts/OracleReqChartExp.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
+		// On ajoute a notre requete les arguments pour chacun des capteur sélectionnés
 		for(i=0; i < idCapteursIdLibVal.length; i++){
 			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[0];
 			libVals[i] = idCapteursIdLibVal[i].split("xxx")[1];
 			strPHP = strPHP + "&idPiece" + (i+1) + "=" + capteurs[i];
 			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
 		}
+		
+		// Et on fini avec le groupBy de notre requete
 		strPHP = strPHP + "&groupBy=" + groupBy;
 		return strPHP;
 	}
 	
+	// Met à jour automatiquement les courbes avec les nouvelles informations
 	function liveData(){
+		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();
 		var libVals = new Array();
+		//on donne une valeur a live pour sont rafraichissement
 		var strPHP = "./include/Charts/live.php?time=5";
-	
+		
+		// on lui passe les informations sur les données qu'il doit observer
 		for(i=0; i < idCapteursIdLibVal.length; i++){
 			capteurs[i] = idCapteursIdLibVal[i].split("xxx")[1];
 			libVals[i] = idCapteursIdLibVal[i].split("xxx")[2];
 			strPHP = strPHP + "&idCapteur" + (i+1) + "=" + capteurs[i];
 			strPHP = strPHP + "&idLibVal" + (i+1) + "=" + libVals[i];
 		}
+		
+		// On lance l'écoute
 		var intervalId = setInterval(function(){
 						if($("#live .active input").val() == 'OFF')
 							clearInterval(intervalId);
@@ -376,19 +403,24 @@
 		chart.validateNow();
 	}
 
+	// On fait appel a showSubmit a chaque action sur notre interface et nous indique si l'on peut afficher les courbes
 	function showSubmit(){
 		if($(	".chosentree-choices li").size() > 1 
 				&& $("#datetimepickerDeb").val() != "" 
 				&& (	($("#datetimepickerFin").val() != "" && $("#datetimepickerDeb").val() != $("#datetimepickerFin").val()) 
 					|| $("#live .active input").val() == 'ON' )
 		){
+			// on a toutes les données nécessaire pour afficher les courbes
 			document.getElementById('submit').style.display='';
+			// on met à jour nos stat 
 			updaStats();
 		} else {
+			// On ne peut pas afficher les courbes avec les informations que l'on a 
 			document.getElementById('submit').style.display='none';
 		}
 	}
 
+	// Permet de connaire le nombre d'élément que l'on devra traiter si l'on doit afficher les courbes
 	function updaStats(){
 		var dateDeb = $("#datetimepickerDeb").val();
 		var dateFin = $("#datetimepickerFin").val();
@@ -398,6 +430,7 @@
 		
 		groupBy = document.getElementById('groupBy').value;
 		
+		// On créer l'url en fonction de l'onglet sélectionner
 		if($(".nav-tabs .active a").attr("value") == "Geo")
 			url = updaValueGeo(dateDeb,dateFin,groupBy);
 		if($(".nav-tabs .active a").attr("value") == "Sensor")
@@ -415,10 +448,13 @@
 				if(xmlhttp.responseText == ""){
 					document.getElementById('nbrData').innerHTML = '';
 				} else {
+					// on va examiner la réponse  pour connaitre le nombre d'élément sur le graphique
+					
 					var nbFalse = xmlhttp.responseText.split("false").length-1 ;
 					var json = JSON.parse("[" + xmlhttp.responseText+ "]");
 					var sizeJSON = json.length;
 					var nbElementMax = sizeJSON * (Object.keys(json[0]).length-1) ;
+					// nbElements correspond aux nombres exactes d'élément que l'on devra afficher
 					var nbElements = nbElementMax - nbFalse ;
 					
 					document.getElementById('nbrData').innerHTML = $("#groupBy option:selected").text() + " : " + nbElements;
@@ -428,7 +464,8 @@
 		xmlhttp.open("GET",url,true);
 		xmlhttp.send();
 	}
-
+	
+	// Permet de signaler a l'utilisateur s'il n'y a pas de données a présenter
 	function onLine(){
 		//document.getElementById('parameters').style.display='none'; 
 		$("#graphiques .nav-tabs li").removeClass('active');
@@ -451,6 +488,7 @@
 		document.getElementById('graphdiv').style.display='none';
 	}
 	
+	// a supprimer ?
 	function onBubble(){
 		document.getElementById('parameters').style.display=''; 
 		chart.write('graphdiv');
@@ -474,7 +512,7 @@
 		node.children.push(<?php include "./include/Charts/loadTreeExper.php"; ?>);		
 		return node;
 	};
-	
+	// a supprimer ?
 	jQuery(function() {
 		$('div.chosentree').chosentree({
 			width: 200,
@@ -492,6 +530,7 @@
 		});
 	});
 	
+	// Met à jour les informations dans notre treeSelect en fontion de l'onglet courant
 	function reLoadTree(typeTree){
 		$('div.chosentree').html("");
 		if(typeTree=="Geo") {
@@ -549,6 +588,7 @@
 	}
     //FIN TREE
 	
+	// Ajoute l'élément sélectionné dans notre map dans le treeSelect
 	function addItem(){
 		idPiece = $("#idPieceMap").attr("value");
 		idLibVal = $("#libValMap").val();
@@ -566,6 +606,7 @@
 		//$("#listeLabelMap").html($("#listeLabelMap").html() + "<li class='search-choice' id='choice_xxx" + idTypeCapteur + "xxx" + idLibVal + "'><span>" + $("#libValMap option:selected").text() + "</span><a class='search-choice-close' href='#'></a></li>");
 	}
 	
+	// Supprime l'élément sélectionné dans notre map dans le treeSelect
 	function deleteItem(idPiece, idLibVal, textLibVal){
 		item = "<li class='search-choice' id='choice_xxx" + idPiece + "xxx" + idLibVal + "'><a href='#' onClick='deleteItem("+idPiece + "," + idLibVal + ",&quot;" + textLibVal + "&quot;);'><div class='glyphicon glyphicon-remove'></div>   </a> <span>   " + textLibVal + "</span><a class='search-choice-close' href='#'></a></li>";
 		if(idPiece != false)
@@ -606,6 +647,8 @@
 			xmlhttp.send();
 			
 		}
+		
+		// Initialisation de la map
 		function initialize() {
 			var mapOptions = {
 				center: new google.maps.LatLng(43.561267, 1.469426),
@@ -651,7 +694,7 @@
 					}
 					
 					var infoWindow = new google.maps.InfoWindow(), marker, i;
-					
+					// On ajoute tous les marqeurs sur la map
 					for( i = 0; i < markers.length; i++ ) {
 						piece = pieces[i].split("***");
 						var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
@@ -700,6 +743,7 @@
 
 <div class="row">
 	<div class="col-lg-3">
+		<!-- TreeSelect -->
 		<div id="tree-wrapper">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -834,13 +878,14 @@
 </div>
 
 <script>
+	// Initialisation de dateTimePicker
 	$('#datetimepickerDeb').datetimepicker().datetimepicker({
-		step:5,
+		step:5,  // Interval pour la sélection de l'heure de début
 		format:'Y-m-d H:i',
 		onChangeDateTime:function(dp,$input){
 			$('#datetimepickerFin').datetimepicker({
 				timepicker:true,
-				step:5,
+				step:5, // Interval pour la sélection de l'heure de fin
 				format:'Y-m-d H:i',
 				formatDate:'Y-m-d H:i',
 				minDate:$input.val(),
@@ -849,12 +894,14 @@
 			$("#datetimepickerFin").val($input.val());
 		}
 	});
+	// Permet a chaque event sur le treeSelect de regarder si l'on peux afficher des courbes
 	$(".chosentree").bind("click", function(){
 		 setTimeout(function(){
 								$("#choice_capsup").remove();
 								showSubmit();
 							},50)});
 	
+	// Permet de supprimer le champs fin de periode lors que l'on passe en live
 	$( "#live .btn" ).click('event', function() {
 		setTimeout(function(){
 								if($("#live .active input").val() == 'ON'){

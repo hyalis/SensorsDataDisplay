@@ -81,6 +81,8 @@
 	$test = true;
 	
 	$strEcho = "";
+	
+	// formattage des valeurs numerique conversion de "," en "."
 	foreach ($data as &$value) {
 		$date = $value[0];
 		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! V.1 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!

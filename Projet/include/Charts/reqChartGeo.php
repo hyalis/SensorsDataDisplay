@@ -11,6 +11,7 @@
 	// echo "<b>Paramètres</b><br><br>Date début : " . $dateDeb . "<br>Date fin : " . $dateFin . "<br>GroupBy : " . $groupBy . "<br>";
 	// echo "<br><br><b>Les paramètres dynamiques</b><br>***********************<br><br>";
 	
+	// on prepare un tableau pour enregistrer chaque capteurs selectionnes
 	for($i = 2; $i <= $nbArgs - 2; $i = $i + 3){
 		//DEBUG
 		// echo "idPiece" . (($i+1)/3) . " = " . $params[$i] . "<br>";
@@ -111,6 +112,7 @@
 										// GROUP BY YEAR(dateMesure), MONTH(dateMesure), DAY(dateMesure)<br>";
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			
+			// on renseigne $data avec notre requete 
 			while($val = $res->fetch())
 			{
 				$data[$val->DATEMESURE][0] = $val->DATEMESURE;
@@ -133,6 +135,8 @@
 	//echo "<br><br><br><br>";	
 	echo "END";
 	$test = true;
+	
+	// formattage des valeurs numerique conversion de "," en "."
 	foreach ($data as &$value) {
 		$date = $value[0];
 		for($i = 1; $i <= $nbCourbes; $i++){

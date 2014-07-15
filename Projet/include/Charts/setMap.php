@@ -1,6 +1,8 @@
 <?php
 	include "../../bdd.php";
 	
+	// Selection des attributs necessaires a la geo localisation des capteurs dans la map ainsi que de pouvoir identifier de maniere unique chaque capteur
+	
 	$resultats=$connection->query("	SELECT DISTINCT Batiment.nom as NOMBAT, Piece.nom as NOMPIE, LAT, LNG, IDTYPECAPTEUR, NOMTYPE, Piece.idPiece
 									FROM Batiment, Piece, Localiser, Capteur, TypeCapteur, LibVal
 									WHERE Batiment_idBatiment = idBatiment
@@ -17,6 +19,7 @@
 									
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	
+	// envoie du premier capteur par echo
 	
 	$res = $resultats->fetch();
 	$nomBat = $res->NOMBAT;
@@ -25,6 +28,8 @@
 	echo $nomBat . "***" . $idPie . "***" . $nomPie . "***" . $res->LAT . "***" . $res->LNG . "***<option value='" . $res->IDTYPECAPTEUR . "'>" . $res->NOMTYPE . "</option>";
 	
 
+	// on transmet tout les autres elements a charts.php pour la gestion de la map
+	
 	while($res){
 		while($nomBat == $res->NOMBAT && $nomPie == $res->NOMPIE){
 			echo "<option value='" . $res->IDTYPECAPTEUR . "'>" . $res->NOMTYPE . "</option>";
