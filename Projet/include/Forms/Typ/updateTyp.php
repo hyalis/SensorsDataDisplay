@@ -3,6 +3,7 @@
 	$idTypeCapteur = $_GET['idTypeCapteur']; 
 	$name = $_GET['name'];
 	
+	// Requête faisant la mise à jour de l'élément après la modification dans le modal d'edition
 	$resultats=$connection->query("UPDATE typecapteur SET nomType = '$name' WHERE idTypeCapteur = $idTypeCapteur");
 	
 	//echo "UPDATE typecapteur SET nomType = '$name' WHERE idTypeCapteur = $idTypeCapteur" ;

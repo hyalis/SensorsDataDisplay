@@ -2,12 +2,16 @@
 	include "./bdd.php";
 	
 	$idTypeCapteur = $_GET['idTypeCapteur'];
+	// Requête permettant de lister tous les libVal
 	$resultats=$connection->query(" SELECT LIBELLE, DESCRIPTION, UNITE, IDLIBVAL
 										FROM LIBVAL
 										WHERE TypeCapteur_idTypeCapteur = $idTypeCapteur ");
 	
 	//SELECT count(*) FROM libval WHERE TypeCapteur_idTypeCapteur group by TypeCapteur_idTypeCapteur
+	
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
+	
+	// Création des éléments du tableau en fonction de la réponse de la requête
 	while( $resultat = $resultats->fetch() )
 	{
 			echo	'<tr>

@@ -1,4 +1,6 @@
 <script>	
+
+	// Permet de faire des modification sur le capteur voulu avec le modal d'édition
 	function editCap(idCap)
 	{
 		$("#listType").html("");
@@ -35,6 +37,7 @@
 	
 	
 	
+	// Permet de vérifier si les infos dans le modal d'ajout ne contient pas des champs invalides
 	function checkInfo(){
 		if($("#addNameValue").val() != ""){
 			$('#addCapModal button:submit').removeAttr("disabled", true);
@@ -49,12 +52,14 @@
 		}
 	}
 	
+	// Vide le champs de saisi dans le modal d'ajout
 	function cleanForm(){
 		$("#addNameValue").val("");
 		editCap(-1);
 		$('#addCapModal button:submit').attr("disabled", true);
 	}
 	
+	// Permet de gère les interactions avec les radioButton dans le modal d'ajout
 	function radioChange(radio){
 		//alert("changement !");
 		if(radio==1){
@@ -76,6 +81,7 @@
 		
 	}
 	
+	// Demande de confirmation de suppression du typeCapteur
 	function confirmer(idCap,idPie){
 			if (confirm ("Etes vous sur de vouloir supprimer ?"))
 			window.location="./include/Forms/Cap/remCap.php?idCap="+idCap +"&idPiece="+ idPie ;

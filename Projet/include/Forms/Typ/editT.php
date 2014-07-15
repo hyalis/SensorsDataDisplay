@@ -1,6 +1,7 @@
 
 <script>
 	
+	// Permet de faire des modification sur le typeCapteur voulu avec le modal d'édition
 	function editType(idCapteur)
 	{
 		$("#titreModal").html("Edition du Type #" + idCapteur);
@@ -25,7 +26,7 @@
 		xmlhttp.open("GET","./include/Forms/Typ/infoTyp.php?idTypeCapteur="+idCapteur,true);
 		xmlhttp.send();
 	}
-	
+	// Permet de vérifier si les infos dans le modal d'ajout ne contient pas des champs invalides
 	function checkInfo(){
 		if($("#addNameValue").val() != ""){
 			$('#addTypModal button:submit').removeAttr("disabled", true);
@@ -40,15 +41,16 @@
 		}
 	}
 	
+	// Vide le champs de saisi dans le modal d'ajout
 	function cleanForm(){
 		$("#addNameValue").val("");
 		$('#addTypModal button:submit').attr("disabled", true);
 	}
 	
-	
-	function confirmer(idTypeCapateur){
+	// Demande de confirmation de suppression du typeCapteur
+	function confirmer(idTypeCapteur){
 			if (confirm ("Etes vous sur de vouloir supprimer ?"))
-			window.location="./include/Forms/Typ/remTyp.php?idTypeCapteur="+idTypeCapateur ;
+			window.location="./include/Forms/Typ/remTyp.php?idTypeCapteur="+idTypeCapteur ;
 	}
 	
 </script>

@@ -1,4 +1,6 @@
 <script>	
+
+	// Permet de faire des modification sur les pièces voulu avec le modal d'édition
 	function editPie(idPie)
 	{
 		$("#titreModal").html("Edition de la piece #" + idPie);
@@ -26,11 +28,13 @@
 		xmlhttp.send();
 	}
 	
+	// Demande de confirmation de suppression de la pièce
 	function confirmer(pie, bat){
 		if (confirm ("Voulez-vous supprimer ?"))
 			window.location="./include/Forms/Pie/remPie.php?idPiece="+pie+"&idBatiment="+bat;
 	}
 	
+	// Permet de vérifier si les infos dans le modal d'ajout ne contient pas des champs invalides
 	function checkInfo(){
 		if($("#addNameValue").val() != ""){
 			$('#addPieModal button:submit').removeAttr("disabled", true);
@@ -45,6 +49,7 @@
 		}
 	}
 	
+	// Vide le champs de saisi dans le modal d'ajout
 	function cleanForm(){
 		$("#addNameValue").val("");
 		$('#addPieModal button:submit').attr("disabled", true);

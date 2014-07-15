@@ -1,7 +1,7 @@
 <?php
 	include "../../bdd.php";
 	$idCapteur = $_GET['idCapteur'];
-	
+	// Retourne les éléments nécessaire pour completer les champs d'edition dans le modal
 	$resultats=$connection->query("SELECT IDCAPTEUR, NOMCAPTEUR, TypeCapteur_idTypeCapteur as TYPE FROM capteur WHERE idCapteur = $idCapteur");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	$resultat = $resultats->fetch();

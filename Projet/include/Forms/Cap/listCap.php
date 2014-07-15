@@ -1,6 +1,7 @@
 <?php
 	include "./bdd.php";
 	$idPiece = $_GET['idPiece'];
+	// Requête retournant la liste des capteur présent dans la pièce
 	$resultats=$connection->query("	SELECT IDCAPTEUR, NOMCAPTEUR, NOMTYPE 
 									FROM Capteur, TypeCapteur, Localiser
 									WHERE TypeCapteur_idTypeCapteur = idTypeCapteur 
@@ -11,6 +12,7 @@
 																											
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	
+	// Création des éléments du tableau en fonction de la réponse de la requête
 	while( $resultat = $resultats->fetch() )
 	{
 		if($resultat->NOMCAPTEUR != "")

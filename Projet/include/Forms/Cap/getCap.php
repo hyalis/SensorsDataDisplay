@@ -1,6 +1,6 @@
 <?php
 	include "../../bdd.php";
-	
+	// Retourne tous les capteurs qui ne sont pas utilisés
 	$resultats=$connection->query("	SELECT IDCAPTEUR, NOMCAPTEUR
 									FROM capteur, localiser l1
 									WHERE l1.Capteur_idCapteur = idCapteur 

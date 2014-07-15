@@ -1,6 +1,7 @@
 
 <script>
 	
+	// Permet de faire des modification sur le libVal voulu avec le modal d'édition
 	function editLabel(idlibelle)
 	{
 		$("#titreModal").html("Edition du Label #" + idlibelle);
@@ -28,6 +29,7 @@
 	}
 	
 	
+	// Permet de vérifier si les infos dans le modal d'ajout ne contient pas des champs invalides
 	function checkInfo(){
 		if($("#addNameValue").val() != ""){
 			$('#addLabModal button:submit').removeAttr("disabled", true);
@@ -42,6 +44,7 @@
 		}
 	}
 	
+	// Vide le champs de saisi dans le modal d'ajout
 	function cleanForm(){
 		$("#addNameValue").val("");
 		$("#addDescValue").val("");
@@ -49,6 +52,7 @@
 		$('#addLabModal button:submit').attr("disabled", true);
 	}
 	
+	// Demande de confirmation de suppression du typeCapteur
 	function confirmer(idLibVal, idTypeCapteur2){
 			if (confirm ("Etes vous sur de vouloir supprimer ?"))
 			window.location="./include/Forms/Lab/remLab.php?idLibVal="+idLibVal +"&idTypeCapteur="+ idTypeCapteur2 ;

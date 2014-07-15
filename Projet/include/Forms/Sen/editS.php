@@ -1,4 +1,5 @@
 <script>	
+	// Permet de faire des modification sur le capteur voulu avec le modal d'édition
 	function editSen(idSen)
 	{
 		$("#listType").html("");
@@ -35,6 +36,7 @@
 	
 	
 	
+	// Permet de vérifier si les infos dans le modal d'ajout ne contient pas des champs invalides
 	function checkInfo(){
 		if($("#addNameValue").val() != ""){
 			$('#addSenModal button:submit').removeAttr("disabled", true);
@@ -49,12 +51,14 @@
 		}
 	}
 	
+	// Vide le champs de saisi dans le modal d'ajout
 	function cleanForm(){
 		$("#addNameValue").val("");
 		editSen(-1);
 		$('#addSenModal button:submit').attr("disabled", true);
 	}
 	
+	// Demande de confirmation de suppression du capteur
 	function confirmer(idSensor){
 			if (confirm ("Etes vous sur de vouloir supprimer ?"))
 			window.location="./include/Forms/Sen/remSen.php?idSensor="+idSensor ;

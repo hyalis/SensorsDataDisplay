@@ -1,6 +1,7 @@
 <?php
 	include "bdd.php";
 	$idBatiment = $_GET['idBatiment'];
+	// Permet d'avoir la list des piece associés a un batiment avec des informations sur chacune des pièces
 	$resultats=$connection->query("		SELECT IDPIECE, NOM, LAT , LNG , count(distinct idCapteur) as NBCAPTEURS
 										FROM piece, capteur, localiser
 										WHERE Piece_idPiece = idPiece
@@ -21,6 +22,7 @@
 	
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	
+	// Création des éléments du tableau en fonction de la réponse de la requête
 	while( $resultat = $resultats->fetch() )
 	{
 		if($resultat->NOM != "")

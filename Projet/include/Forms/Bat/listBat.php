@@ -1,5 +1,6 @@
 <?php
 	include "./bdd.php";
+	// Permet de lister tout les batiments présent
 	$resultats=$connection->query("	SELECT IDBATIMENT, batiment.NOM, ADRESSE, CP, VILLE, count(idPiece) as NBPIECE
 														FROM batiment, piece 
 														WHERE Batiment_idBatiment = idBatiment
@@ -11,6 +12,8 @@
 																				)
 														");
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
+	
+	// Création des éléments du tableau en fonction de la réponse de la requête
 	while( $resultat = $resultats->fetch() )
 	{
 			echo	'<tr>
