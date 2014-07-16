@@ -1,5 +1,6 @@
 <?php
 	include "./bdd.php";
+	
 	// Retourne la liste des idCapteur avec leur nomCapteur et leur nomType
 	$resultats=$connection->query("	SELECT IDCAPTEUR, NOMCAPTEUR, NOMTYPE 
 									FROM CAPTEUR, TYPECAPTEUR
@@ -22,6 +23,6 @@
 						</td>
 					</tr>';
 	}
+	
 	$resultats->closeCursor(); 
-
 ?>

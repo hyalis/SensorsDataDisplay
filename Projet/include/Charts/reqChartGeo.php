@@ -72,6 +72,7 @@
 
 			$dateD = $resultat->DATED;
 			
+			// cas standard
 			if($dateD < $dateDeb)
 				$dateD = $dateDeb;
 				
@@ -83,10 +84,10 @@
 					$dateF = $dateFin;
 				else
 					$dateF = $resultat->DATEF;
-				$dateTrou = new DateTime($dateF);
-				$dateTrou->add(new DateInterval('PT1S'));
-				$data[$dateTrou->format('Y-m-d H:i:s')][0] = $dateTrou->format('Y-m-d H:i:s');
-				$data[$dateTrou->format('Y-m-d H:i:s')][($i+1)] = "false";
+					$dateTrou = new DateTime($dateF);
+					$dateTrou->add(new DateInterval('PT1S'));
+					$data[$dateTrou->format('Y-m-d H:i:s')][0] = $dateTrou->format('Y-m-d H:i:s');
+					$data[$dateTrou->format('Y-m-d H:i:s')][($i+1)] = "false";
 			}
 			
 

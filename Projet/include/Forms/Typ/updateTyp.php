@@ -1,5 +1,6 @@
 <?php
 	include "../../bdd.php";
+	
 	$idTypeCapteur = $_GET['idTypeCapteur']; 
 	$name = $_GET['name'];
 	

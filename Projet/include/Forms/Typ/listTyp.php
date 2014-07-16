@@ -1,5 +1,6 @@
 ﻿<?php
 	include "./bdd.php";
+	
 	// Requête qui retourne la liste des typeCapteurs avec leurs noms, leurs identifiants, et leurs nombres de libVal
 	$resultats=$connection->query("	SELECT NOMTYPE, IDTYPECAPTEUR ,count(*) as NBMESURE 
 														FROM TYPECAPTEUR, LIBVAL 
@@ -13,6 +14,8 @@
 												
 	// Création des éléments du tableau en fonction de la réponse de la requête
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
+	
+	// Construction des éléments du tableau pour charts
 	while( $resultat = $resultats->fetch() )
 	{
 			echo	'<tr>

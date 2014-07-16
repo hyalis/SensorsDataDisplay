@@ -7,6 +7,7 @@
 	
 	$time = $_GET['time'];
 	
+	// On organise dans un tableau tout les couples capteur_idCapteur et libVal_idLibVal pour le traiter par la suite
 	for($i = 1; $i <= $nbArgs - 1; $i = $i + 2){
 		//DEBUG
 		// echo "Capteur" . ((($i+1)/2)-1) . " = " . $params[$i] . "<br>";

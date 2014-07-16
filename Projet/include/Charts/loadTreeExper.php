@@ -16,7 +16,7 @@
 	
 	$json = "";
 	$jsonC = "";
-	$etat = 1;
+	$etat = 1; // Correspond a la profondeur de l'arbre
 	$bat = "";
 	$pie = "";
 	$typ = "";
@@ -55,7 +55,8 @@
 						$typ = $resultat->IDTYPECAPTEUR;
 						$etat = 4;
 				break;
-			case 4 :	//$jsonC = $jsonC .	"{'id':'xxx" . $resultat->idPiece ."xxx" . $resultat->idTypeCapteur ."xxx" . $resultat->idLibVal ."xxx". $resultat->idCapteur."',
+			case 4 :	// On crée la profondeur 5 avant car elle ne sera pas differentiée seul la 4 nous interesse
+						//$jsonC = $jsonC .	"{'id':'xxx" . $resultat->idPiece ."xxx" . $resultat->idTypeCapteur ."xxx" . $resultat->idLibVal ."xxx". $resultat->idCapteur."',
 						$jsonC = $jsonC .	"{'id':'capsup',
 										'title':'" . str_replace("."," ","$resultat->NOMCAPTEUR") . "',
 										'has_children':false,

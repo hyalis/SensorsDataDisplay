@@ -2,6 +2,7 @@
 	include "./bdd.php";
 	
 	$idTypeCapteur = $_GET['idTypeCapteur'];
+	
 	// Requête permettant de lister tous les libVal
 	$resultats=$connection->query(" SELECT LIBELLE, DESCRIPTION, UNITE, IDLIBVAL
 										FROM LIBVAL
@@ -24,5 +25,6 @@
 						</td>
 					</tr>';
 	}
+	
 	$resultats->closeCursor(); 
 ?>

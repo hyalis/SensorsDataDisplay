@@ -1,6 +1,6 @@
 <script>	
 
-	// Permet de faire des modification sur le capteur voulu avec le modal d'édition
+	// Permet de faire des modification sur le capteur localiser voulu avec le modal d'édition
 	function editCap(idCap)
 	{
 		$("#listType").html("");
@@ -17,9 +17,12 @@
 					alert ("La req n'a pas fonctionne");
 					alert(xmlhttp.responseText);
 				} else {
+				
+					// on met à jour tout les champs une fois que l'on a validé l'édition
 					var infoCap = xmlhttp.responseText.split('***');
 					$("#inpName").val(infoCap[0]);
 					$("#inpIdCap").val(infoCap[1]);
+					
 					for(i = 2; i < infoCap.length - 1; i = i + 2){
 						if(infoCap[i] == infoCap[infoCap.length-1])
 							$("#listType,#listTypeAdd").html( $("#listType").html() + "<option value='" + infoCap[i] + "' selected>" + infoCap[i+1] + "</option>");
@@ -81,7 +84,7 @@
 		
 	}
 	
-	// Demande de confirmation de suppression du typeCapteur
+	// Demande de confirmation de suppression du Capteur localiser
 	function confirmer(idCap,idPie){
 			if (confirm ("Etes vous sur de vouloir supprimer ?"))
 			window.location="./include/Forms/Cap/remCap.php?idCap="+idCap +"&idPiece="+ idPie ;

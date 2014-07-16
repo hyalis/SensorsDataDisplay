@@ -1,5 +1,6 @@
 <?php
 	include "../../bdd.php";
+	
 	// Retourne tous les capteurs qui ne sont pas utilisés
 	$resultats=$connection->query("	SELECT IDCAPTEUR, NOMCAPTEUR
 									FROM capteur, localiser l1
@@ -13,10 +14,13 @@
 									SELECT idCapteur, nomCapteur
 									FROM capteur
 									WHERE idCapteur NOT IN (SELECT Capteur_idCapteur FROM Localiser)");
+									
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
+	
 	while( $resultat = $resultats->fetch() )
 	{
 		echo "<option value='" . $resultat->IDCAPTEUR . "'>" . $resultat->NOMCAPTEUR . "</option>";
 	}
+	
 	$resultats->closeCursor(); 
 ?>

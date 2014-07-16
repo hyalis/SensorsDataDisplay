@@ -3,6 +3,7 @@
 	
 	$idPiece = $_GET['idPiece'];
 	$idBatiment = $_GET['idBatiment'];
+	
 	// Requête permettant de supprimer l'élément voulu
 	$resultats=$connection->query("DELETE FROM piece WHERE idPiece = $idPiece");
 	

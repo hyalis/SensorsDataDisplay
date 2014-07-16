@@ -1,6 +1,8 @@
 <?php
 	include "bdd.php";
+	
 	$idBatiment = $_GET['idBatiment'];
+	
 	// Permet d'avoir la list des piece associés a un batiment avec des informations sur chacune des pièces
 	$resultats=$connection->query("		SELECT IDPIECE, NOM, LAT , LNG , count(distinct idCapteur) as NBCAPTEURS
 										FROM piece, capteur, localiser
@@ -39,44 +41,7 @@
 			echo 		'</td>
 					</tr>';
 	}
+	
 	$resultats->closeCursor(); 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 ?>

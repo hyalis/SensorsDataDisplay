@@ -1,5 +1,6 @@
 <?php
 	include "../../bdd.php";
+	
 	$idLibVal = $_GET['idLibVal'];
 	$name = $_GET['name'];
 	$description = $_GET['description'];
@@ -13,5 +14,6 @@
 
 	$resultats2->setFetchMode(PDO::FETCH_OBJ);
 	$resultat = $resultats2->fetch();
+	
 	header('Location: '. $chemin .'index.php?p=Forms/Lab/editL&idTypeCapteur='.$resultat->TYPECAPTEUR_IDTYPECAPTEUR); 
 ?>

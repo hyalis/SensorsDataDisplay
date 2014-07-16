@@ -17,6 +17,7 @@
 					alert ("La req n'a pas fonctionne");
 					alert(xmlhttp.responseText);
 				} else {
+					// Mise à jour des informations après la validation du modal d'édition
 					var infType = xmlhttp.responseText ;
 					$("#inpName").val(infType);
 					$("#inpIdType").val(idCapteur);

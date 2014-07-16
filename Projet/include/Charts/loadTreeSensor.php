@@ -12,7 +12,7 @@
 	$resultats->setFetchMode(PDO::FETCH_OBJ);
 	
 	$json = "";
-	$etat = 1;
+	$etat = 1; // Correspond a la profondeur de l'arbre
 	$typ = "";
 	$cap = "";
 	$mes = "";

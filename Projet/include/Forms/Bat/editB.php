@@ -1,5 +1,6 @@
 ﻿<script>
 
+	// Permet de faire des modification sur le batiment voulu (idBat) avec le modal d'édition
 	function editBat(idBat)
 	{
 		$("#titreModal").html("Edition du batiment #" + idBat);
@@ -16,6 +17,7 @@
 					alert(xmlhttp.responseText);
 				} else {
 					var infoBat = xmlhttp.responseText.split('***');
+					// On renseigne le champs qui a été édité
 					$("#inpName").val(infoBat[0]);
 					$("#inpAdress").html(infoBat[1]);
 					$("#inpZip").val(infoBat[2]);
@@ -29,6 +31,7 @@
 	}
 	
 	
+	// Permet de vérifier si les infos dans le modal d'ajout ne contient pas des champs invalides
 	function checkInfo(){
 		if($("#addNameValue").val() != ""){
 			$('#addBatModal button:submit').removeAttr("disabled", true);
@@ -43,6 +46,7 @@
 		}
 	}
 	
+	// Vide le champs de saisi dans le modal d'ajout
 	function cleanForm(){
 		$("#addNameValue").val("");
 		$("#addAdressValue").val("");
@@ -52,6 +56,7 @@
 	}
 	
 	
+	// Demande de confirmation de suppression du batiment
 	function confirmer(bat){
 		if (confirm ("Voulez-vous supprimer ?"))
 			window.location="./include/Forms/Bat/remBat.php?idBatiment="+bat ;

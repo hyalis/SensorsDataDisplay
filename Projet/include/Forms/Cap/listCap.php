@@ -1,6 +1,7 @@
 <?php
 	include "./bdd.php";
 	$idPiece = $_GET['idPiece'];
+	
 	// Requête retournant la liste des capteur présent dans la pièce
 	$resultats=$connection->query("	SELECT IDCAPTEUR, NOMCAPTEUR, NOMTYPE 
 									FROM Capteur, TypeCapteur, Localiser

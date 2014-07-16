@@ -1,6 +1,7 @@
 <?php
 	include "./bdd.php";
-	// Permet de lister tout les batiments présent
+	
+	// Permet de lister tout les batiments présent avec leurs informations
 	$resultats=$connection->query("	SELECT IDBATIMENT, batiment.NOM, ADRESSE, CP, VILLE, count(idPiece) as NBPIECE
 														FROM batiment, piece 
 														WHERE Batiment_idBatiment = idBatiment

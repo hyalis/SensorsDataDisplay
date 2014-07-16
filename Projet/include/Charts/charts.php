@@ -162,6 +162,7 @@
 	
 	var tabGraphs = new Array();
 	<!-- Recharge les data du chart en fonction du temps -->
+	
 	function updaValues(){
 		var dateDeb = $("#datetimepickerDeb").val();
 		var dateFin = $("#datetimepickerFin").val();
@@ -278,11 +279,13 @@
 	
 	// Permet de créer l'url de l'onglet Geo avec tous les élément sélectinoner dans notre tree
 	function updaValueGeo(dateDeb,dateFin,groupBy) {
+	
 		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var pieces = new Array();
 		var capteurs = new Array();
 		var libVals = new Array();
+		
 		// On met la date de début et de fin de pour la requete
 		var strPHP = "./include/Charts/OracleReqChartGeo.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 		
@@ -303,10 +306,12 @@
 	
 	// Permet de créer l'url de l'onglet Sensor avec tous les élément sélectinoner dans notre tree
 	function updaValueSen(dateDeb,dateFin,groupBy) {
+	
 		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();
 		var libVals = new Array();
+		
 		// On met la date de début et de fin de pour la requete
 		var strPHP = "./include/Charts/OracleReqChartSen.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
@@ -326,10 +331,12 @@
 	
 	// Permet de créer l'url de l'onglet Experience avec tous les élément sélectinoner dans notre tree
 	function updaValueExp(dateDeb,dateFin,groupBy) {
+	
 		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();
 		var libVals = new Array();
+		
 		// On met la date de début et de fin de pour la requete
 		var strPHP = "./include/Charts/OracleReqChartExp.php?dateDeb="+dateDeb+"&dateFin="+dateFin;
 	
@@ -346,12 +353,14 @@
 		return strPHP;
 	}
 	
-	// Met à jour automatiquement les courbes avec les nouvelles informations
+	// Met à jour automatiquement les courbes avec les nouvelles données
 	function liveData(){
+	
 		// On enregistre tous les éléments qui sont sélectionnés 
 		var idCapteursIdLibVal = $(".chosentree-choices li[id]").map(function() { return this.id.substr(10,this.id.length); }).get();
 		var capteurs = new Array();
 		var libVals = new Array();
+		
 		//on donne une valeur a live pour sont rafraichissement
 		var strPHP = "./include/Charts/live.php?time=5";
 		
@@ -378,6 +387,7 @@
 								
 								} else {
 									//alert(xmlhttp.responseText);
+									// On enleve la dernière donnée on met la nouvelle puis on redessine le tout
 									chart2.dataProvider.shift();
 									chart2.dataProvider.push(JSON.parse(xmlhttp.responseText ));
 									chart2.validateData();
@@ -387,35 +397,35 @@
 						}
 						xmlhttp.open("GET",strPHP,true);
 						xmlhttp.send();
-					},5000);
+					},5000); // On raffraichit toutes les 5 s (5000ms)
 	
 	}
 	
-
+	// Inutiliser
 	<!-- Change la couleur du graph -->
 	function updaColor(color){
 		graph.lineColor = "#"+color;
 		chart.validateNow();
 	}
-
+	// Inutliser
 	function changeBullet(str){
 		graph.bullet = str;
 		chart.validateNow();
 	}
 
-	// On fait appel a showSubmit a chaque action sur notre interface et nous indique si l'on peut afficher les courbes
+	// On fait appel a showSubmit a chaque action sur notre interface et nous indique si l'on assez de données pour afficher des courbes
 	function showSubmit(){
 		if($(	".chosentree-choices li").size() > 1 
 				&& $("#datetimepickerDeb").val() != "" 
 				&& (	($("#datetimepickerFin").val() != "" && $("#datetimepickerDeb").val() != $("#datetimepickerFin").val()) 
 					|| $("#live .active input").val() == 'ON' )
 		){
-			// on a toutes les données nécessaire pour afficher les courbes
+			// on a toutes les données nécessaire pour afficher les courbes et on afficher le submit 
 			document.getElementById('submit').style.display='';
 			// on met à jour nos stat 
 			updaStats();
 		} else {
-			// On ne peut pas afficher les courbes avec les informations que l'on a 
+			// On ne peut pas afficher les courbes avec les informations présentes 
 			document.getElementById('submit').style.display='none';
 		}
 	}
@@ -472,14 +482,18 @@
 		$("#graphiques .nav-tabs li:contains(Line)").attr("class","active");
 		document.getElementById('map-canvas').style.display='none';
 		document.getElementById('graphdiv').style.display='';
+		
 		if(chart2.dataProvider.length > 0){
+			// Des données sont présentes
 			chart2.write('graphdiv');
 			chart2.validateData();
 		} else {
+			// Aucune données détecter
 			document.getElementById('graphdiv').innerHTML='<h2>No data</h2>';
 		}
 	}
 	
+	// Permet l'affichage de la map quand l'on clic sur son onglet
 	function onMap(){
 		//document.getElementById('parameters').style.display='none'; 
 		$("#graphiques .nav-tabs li").removeClass('active');
@@ -488,13 +502,14 @@
 		document.getElementById('graphdiv').style.display='none';
 	}
 	
-	// a supprimer ?
+	// Inutiliser
 	function onBubble(){
 		document.getElementById('parameters').style.display=''; 
 		chart.write('graphdiv');
 	}
 	
-	//DEBUT TREE
+	// DEBUT TREE
+	// Permet d'initialiser le treeSelect a chaque onglet respectif
 	var loadChildrenGeo = function(node, level) {
 		var hasChildren = node.level < 3;
 		node.children.push(<?php include "./include/Charts/loadTreeGeo.php"; ?>);		
@@ -512,7 +527,8 @@
 		node.children.push(<?php include "./include/Charts/loadTreeExper.php"; ?>);		
 		return node;
 	};
-	// a supprimer ?
+	
+	// Inutiliser
 	jQuery(function() {
 		$('div.chosentree').chosentree({
 			width: 200,

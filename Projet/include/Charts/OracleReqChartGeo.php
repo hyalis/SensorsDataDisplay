@@ -11,6 +11,7 @@
 	// echo "<b>Paramètres</b><br><br>Date début : " . $dateDeb . "<br>Date fin : " . $dateFin . "<br>GroupBy : " . $groupBy . "<br>";
 	// echo "<br><br><b>Les paramètres dynamiques</b><br>***********************<br><br>";
 	
+	// On organise dans un tableau tout les couples idPiece , idCapteur et idLibVal pour le traiter par la suite
 	for($i = 2; $i <= $nbArgs - 2; $i = $i + 3){
 		//DEBUG
 		// echo "idPiece" . (($i+1)/3) . " = " . $params[$i] . "<br>";
@@ -111,6 +112,7 @@
 										// ORDER BY DATEMESURE";
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			
+			// on renseigne $data grace au résultat notre requete 
 			while($val = $res->fetch())
 			{
 				$data[$val->DATEMESURE][0] = $val->DATEMESURE;

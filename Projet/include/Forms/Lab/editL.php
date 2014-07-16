@@ -16,6 +16,7 @@
 					alert ("La req n'a pas fonctionne");
 					alert(xmlhttp.responseText);
 				} else {
+					// Mise à jour des informations après la validation de l'édition
 					var infType = xmlhttp.responseText.split('***');
 					$("#inpName").val(infType[0]);
 					$("#inpDesc").val(infType[1]);
